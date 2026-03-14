@@ -57,11 +57,8 @@ var _hovered_tile:   Vector2i   = Vector2i(-1, -1)
 var _hovering_preview:  Node       = null  # live ghost instance shown while hovering
 # Tiles to highlight, set by the active hovering preview
 var _highlighted_tiles: Dictionary[Vector2i, Color] = {}
-<<<<<<< Updated upstream
 var _setting_displayed: bool     = false
-=======
 var _grid_layer: TileMapLayer
->>>>>>> Stashed changes
 
 # ---------------------------------------------------------------------------
 # Node references
