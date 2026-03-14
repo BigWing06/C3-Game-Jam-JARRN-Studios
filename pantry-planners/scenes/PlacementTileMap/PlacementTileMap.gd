@@ -24,10 +24,9 @@ const ENTITY_LABELS := {
 # ---------------------------------------------------------------------------
 @export var scene_dict: Dictionary[String, PackedScene]
 
-## Pre-placed pantry grid positions set per-level in the Inspector.
-@export var initial_pantry_positions: Array[Vector2i] = []
-## Pre-placed house grid positions set per-level in the Inspector.
-@export var initial_house_positions:  Array[Vector2i] = []
+## Initial tile layout for this level. Each entry needs "pos" (Vector2i) and "type" (String).
+## Example: { "pos": Vector2i(3, 2), "type": "pantry" }
+@export var initial_tile_positions: Array[Dictionary] = []
 
 ## How many pantries the player starts with in their inventory.
 @export var starting_pantry_count: int = 3
@@ -65,10 +64,8 @@ func _ready() -> void:
 
 
 func _place_initial_entities() -> void:
-	for pos in initial_pantry_positions:
-		_place_entity(pos, "pantry", false)
-	for pos in initial_house_positions:
-		_place_entity(pos, "house", false)
+	for entry: Dictionary in initial_tile_positions:
+		_place_entity(entry["pos"], entry["type"], false)
 
 # ---------------------------------------------------------------------------
 # Input
