@@ -43,16 +43,13 @@ func effect_houses() -> void:
 	while (food > 0):
 		var greatest_need: int = 0
 		var neediest_house = null
-		print("Looping list")
 		for area in $effect_radius.get_overlapping_areas():
 			var house = area.get_parent()
 			if house.is_in_group("house"):
 				var house_need = house.get_need("null")
-				print(str(greatest_need) + "    " + str(house.get_need("null")))
 				if greatest_need < house_need: #TODO replace null with food type as string
 					greatest_need = house_need
 					neediest_house = house
-		print(greatest_need)
 		if greatest_need == 0:
 			break
 		neediest_house.give_food("null") #TODO replace null with food type as string
