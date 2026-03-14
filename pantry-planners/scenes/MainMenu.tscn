@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://6gts6tptb4yh"]
+
+[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_yqorp"]
+
+[node name="Main Menu" type="Node2D" unique_id=1681375218]
+
+[node name="Background" type="TextureRect" parent="." unique_id=301838996]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1151.0
+offset_bottom = 653.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yqorp")
+
+[node name="Button Manager" type="Control" parent="." unique_id=1757765184]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Start Game" type="Button" parent="Button Manager" unique_id=313280373]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 223.0
+offset_right = 833.0
+offset_bottom = 308.0
+text = "Start Game"
+
+[node name="Options" type="Button" parent="Button Manager" unique_id=1542235269]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 334.0
+offset_right = 838.0
+offset_bottom = 425.0
+text = "Options"
+
+[node name="Credits" type="Button" parent="Button Manager" unique_id=981993069]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 441.0
+offset_right = 833.0
+offset_bottom = 519.0
+text = "Credits"
+
+[node name="Quit" type="Button" parent="Button Manager" unique_id=687733774]
+layout_mode = 0
+offset_left = 309.0
+offset_top = 534.0
+offset_right = 836.0
+offset_bottom = 605.0
+text = "Quit"
