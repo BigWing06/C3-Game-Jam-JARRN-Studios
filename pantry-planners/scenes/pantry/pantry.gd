@@ -85,8 +85,8 @@ func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
 		reachable_tiles[current_pos] = node_here
 
 		# Don't expand through occupied tiles — they are destinations, not corridors
-		if current_pos != self_pos and grid_data.has(current_pos):
-			continue
+		#if current_pos != self_pos and grid_data.has(current_pos):
+		#	continue
 
 		for neighbor: Vector2i in tilemap.get_surrounding_cells(current_pos):
 			if tilemap.is_tile_blocked(neighbor):
@@ -121,6 +121,13 @@ func _get_tile_travel_cost(tilemap: TileMapLayer, pos: Vector2i) -> int:
 			break
 	return 1
 
+func get_reachable_houses(tilemap: TileMapLayer, pos: Vector2i):
+	find_reachable(tilemap, pos)
+	var reachable_houses = []
+	for position_key in reachable_tiles.keys():
+		if reachable_tiles[pos]["type"] == "house":
+			reachable_houses.append(position_key)
+	return reachable_houses
 
 # This function is called by the effect timer and calls the check_food_need()
 # function in all houses that are in it's effect_radius
@@ -158,27 +165,9 @@ func set_placement_mode(mode: String) -> void:
 		"hovering":
 			set_active(false)
 			add_to_group("hovering")
-			$effect_radius.connect("area_entered", _on_house_entered)
-			$effect_radius.connect("area_exited", _on_house_exited)
-			for area in $effect_radius.get_overlapping_areas():
-				_on_house_entered(area)
 		"placed":
 			set_active(true)
 			remove_from_group("hovering")
-			$effect_radius.disconnect("area_entered", _on_house_entered)
-			$effect_radius.disconnect("area_exited", _on_house_exited)
-			for area in $effect_radius.get_overlapping_areas():
-				_on_house_exited(area)
 
 func _on_food_changed() -> void:
 	$food_amount_label.text = str(get_food_amount("Bread"))
-	
-func _on_house_entered(area: Area2D) -> void:
-	var house = area.get_parent()
-	if house.is_in_group("house"):
-		house.set_highlight("hovering")
-
-func _on_house_exited(area: Area2D) -> void:
-	var house = area.get_parent()
-	if house.is_in_group("house"):
-		house.set_highlight("none")

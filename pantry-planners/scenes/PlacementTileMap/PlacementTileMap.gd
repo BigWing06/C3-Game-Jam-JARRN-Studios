@@ -199,13 +199,19 @@ func _refresh_hover_preview() -> void:
 func _update_hover_position():
 	_hovering_preview.position = map_to_local(_hovered_tile)
 	if _hovering_preview.has_method("find_reachable"):
-
-			_hovering_preview.find_reachable(self, _hovered_tile)
-			_highlighted_tiles.clear()
-			for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
-				print(pos)
-				_highlighted_tiles[pos] = Color(1.0, 1.0, 1, 0.35)
-			queue_redraw()
+		_hovering_preview.find_reachable(self, _hovered_tile)
+		_highlighted_tiles.clear()
+		var houses = get_tree().get_nodes_in_group("house")
+		for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
+			_highlighted_tiles[pos] = Color(1.0, 1.0, 1, 0.35)
+			print(pos)
+			if pos in _grid_data.keys():
+				if _grid_data[pos]["type"] == "house":
+					houses.remove(_grid_data[pos]["scene"])
+					_grid_data[pos]["scene"].highlight_mode("hovering")
+		#for node in houses:
+		#	node.set_highlight("none")
+		queue_redraw()
 
 
 # MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
@@ -225,6 +231,8 @@ func _draw_hover() -> void:
 
 func _draw_highlights() -> void:
 	var cs := _cell_size
+	var houses = get_tree().get_nodes_in_group("houses")
+	
 	for tile: Vector2i in _highlighted_tiles:
 		var rect := Rect2(map_to_local(tile) - cs * 0.5, cs)
 		draw_rect(rect, _highlighted_tiles[tile], true)
@@ -286,6 +294,7 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	elif scene_dict.has(entity_type):
 		# Pre-placed: no preview exists, instantiate directly as a placed entity
 		scene_node = scene_dict[entity_type].instantiate()
+			
 		scene_node.position = map_to_local(tile)
 		print(scene_node.position)
 		$Entities.add_child(scene_node)
@@ -315,6 +324,8 @@ func add_to_inventory(entity_type: String, amount: int = 1) -> void:
 func get_grid_data() -> Dictionary:
 	return _grid_data.duplicate()
 
+func get_grid_cell(pos: Vector2i) -> Dictionary:
+	return _grid_data[pos].duplicate()
 
 ## Returns true if the tile is outside bounds or occupied by any entity.
 ## Used by Dijkstra in pantry/house scripts to determine walkable space.
