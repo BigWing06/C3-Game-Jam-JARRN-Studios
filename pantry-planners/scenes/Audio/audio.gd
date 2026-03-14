@@ -3,7 +3,9 @@ extends Node2D
 @onready var music_player = $MusicPlayer
 @onready var sfx_player = $SFXPlayer
 
+var main_music = preload("res://MusicSFX/Game Jam Audio.mp3")
 var button_sound = preload("res://MusicSFX/Button Press- Option 1.mp3")
+var talk_sound = preload("res://MusicSFX/Character Dialogue.mp3")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,6 +38,13 @@ func _on_music_player_finished() -> void:
 	music_player.play()
 	pass # Replace with function body.
 
-# For buttons
+# For Music
+func play_main_music() -> void:
+	play_music(main_music)
+
+# For SFX
 func play_button_sound():
 	play_sfx(button_sound)
+
+func play_talk_sound():
+	play_sfx(talk_sound)

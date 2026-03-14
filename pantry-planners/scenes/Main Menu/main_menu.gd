@@ -5,7 +5,7 @@ var _setting_displayed = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Audio.play_music(preload("res://MusicSFX/Game Jam Audio.mp3"))
+	Audio.play_main_music()
 	pass # Replace with function body.
 
 

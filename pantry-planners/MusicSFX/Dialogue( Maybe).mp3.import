@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://v53s73uky46n"
+path="res://.godot/imported/Dialogue( Maybe).mp3-39f777244302c882fd5234a718ecb89f.mp3str"
+
+[deps]
+
+source_file="res://MusicSFX/Dialogue( Maybe).mp3"
+dest_files=["res://.godot/imported/Dialogue( Maybe).mp3-39f777244302c882fd5234a718ecb89f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

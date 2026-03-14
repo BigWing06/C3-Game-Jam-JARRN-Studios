@@ -27,12 +27,14 @@ func start_cutscene(level: int) -> void:
 	var levels_dict = _load_levels()
 	narrative = levels_dict[level]["level"]["narrative"]
 	dialogue_idx = 0
+	Audio.stop_music()
 	display_dialogue()
 
 func display_dialogue() -> void:
 	if narrative.is_empty():
 		return
 	var dialogue = narrative[dialogue_idx]
+	Audio.play_talk_sound()
 	dialogue_box.text = dialogue["text"]
 	
 
@@ -44,6 +46,7 @@ func progress_dialogue() -> void:
 	dialogue_idx += 1
 	print("Dialogue ", dialogue_idx)
 	if dialogue_idx >= narrative.size():
+		Audio.play_main_music()
 		queue_free()
 		return
 	display_dialogue()
