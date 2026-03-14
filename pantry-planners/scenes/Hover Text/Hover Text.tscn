@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://tqbcstmiobqt"]
+
+[node name="Hover Text" type="Label" unique_id=1193301616]
+z_index = 10
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1731511808]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.39688927, 0.39688927, 0.39688924, 1)
