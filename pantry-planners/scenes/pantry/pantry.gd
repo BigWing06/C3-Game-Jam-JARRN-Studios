@@ -17,6 +17,7 @@ signal food_changed()
 var food_amounts: Dictionary = {}
 
 func _ready():
+	
 	set_active(start_active)
 	set_placement_mode(start_placement_mode)
 	set_food("Bread", 10)
@@ -82,12 +83,14 @@ func set_placement_mode(mode: String) -> void:
 			set_active(false)
 			add_to_group("hovering")
 			$effect_radius.connect("area_entered", _on_house_entered)
+			$effect_radius.connect("area_exited", _on_house_exited)
 			for area in $effect_radius.get_overlapping_areas():
 				_on_house_entered(area)
 		"placed":
 			set_active(true)
 			remove_from_group("hovering")
-			$effect_radius.connect("area_exited", _on_house_exited)
+			$effect_radius.disconnect("area_entered", _on_house_entered)
+			$effect_radius.disconnect("area_exited", _on_house_exited)
 			for area in $effect_radius.get_overlapping_areas():
 				_on_house_exited(area)
 

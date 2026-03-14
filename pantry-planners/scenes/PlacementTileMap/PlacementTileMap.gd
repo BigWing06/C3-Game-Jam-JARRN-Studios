@@ -163,7 +163,7 @@ func _refresh_hover_preview() -> void:
 	# If the item has a real scene, spawn a translucent ghost preview
 	if scene_dict.has(_selected_item):
 		_hovering_preview = scene_dict[_selected_item].instantiate()
-		_hovering_preview.add_to_group("hovering")
+		_hovering_preview.set_placement_mode("hovering")
 		_hovering_preview.modulate = Color(1.0, 1.0, 1.0, 0.5)
 		_hovering_preview.position = grid_to_world_center(_hovered_tile)
 		add_child(_hovering_preview)
@@ -231,8 +231,7 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	var scene_node: Node = null
 	if is_instance_valid(_hovering_preview):
 		# Convert the ghost preview into a permanent placed entity
-		_hovering_preview.remove_from_group("hovering")
-		_hovering_preview.add_to_group("placed")
+		_hovering_preview.set_placement_mode("placed")
 		_hovering_preview.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		_hovering_preview.reparent($Entities)
 		scene_node        = _hovering_preview

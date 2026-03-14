@@ -39,9 +39,12 @@ func set_highlight(mode: String):
 		return
 	match mode:
 		"hovering":
-			modulate = Color(2, 2, 2, 1)
-		"placed":
+			modulate = Color(0.5, 0.5, 0.5, 1)
+		"none":
 			modulate = Color(1, 1, 1, 1)
 
 func _on_food_needed_changed() -> void:
 	$food_amount_label.text = str(get_need("Bread"))
+	
+func set_placement_mode(mode):
+	return
