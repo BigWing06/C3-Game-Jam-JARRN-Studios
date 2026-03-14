@@ -90,13 +90,16 @@ func _input(event: InputEvent) -> void:
 			KEY_P:
 				_toggle_placement_mode()
 			KEY_1:
-				_selected_item = "pantry"
-				_refresh_hover_preview()
-				_update_ui()
+				print(_selected_item)
+				if _selected_item != "pantry":
+					_selected_item = "pantry"
+					_refresh_hover_preview()
+					_update_ui()
 			KEY_2:
-				_selected_item = "house"
-				_refresh_hover_preview()
-				_update_ui()
+				if _selected_item != "house":
+					_selected_item = "house"
+					_refresh_hover_preview()
+					_update_ui()
 
 	if event is InputEventMouseButton and event.pressed and _placement_mode:
 		var tile := local_to_map(to_local(get_global_mouse_position()))
@@ -173,11 +176,13 @@ func _draw_placed_entities() -> void:
 func _refresh_hover_preview() -> void:
 	# No preview needed outside placement mode or off the grid
 	if not _placement_mode:
+		
 		if (is_instance_valid(_hovering_preview)):
 			_hovering_preview.queue_free()
 			_hovering_preview = null
 		queue_redraw()
 		return
+	
 	if is_instance_valid(_hovering_preview):
 		_hovering_preview.queue_free()
 		_hovering_preview = null
@@ -185,7 +190,6 @@ func _refresh_hover_preview() -> void:
 	# If the item has a real scene, spawn a translucent ghost preview
 	if scene_dict.has(_selected_item):
 		_hovering_preview = scene_dict[_selected_item].instantiate()
-		update_hovered_cell.connect(_update_hover_position)
 		_update_hover_position()
 		add_child(_hovering_preview)
 		if _hovering_preview.has_method("find_reachable"):
@@ -228,6 +232,9 @@ func _toggle_placement_mode() -> void:
 	_placement_mode = not _placement_mode
 	if not _placement_mode:
 		_hovered_tile = Vector2i(-1, -1)
+		update_hovered_cell.disconnect(_update_hover_position)
+	else:
+		update_hovered_cell.connect(_update_hover_position)
 	_refresh_hover_preview()
 	_update_ui()
 
@@ -267,7 +274,6 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	var scene_node: Node = null
 	if is_instance_valid(_hovering_preview):
 		# Convert the ghost preview into a permanent placed entity
-		update_hovered_cell.disconnect(_update_hover_position)
 		_hovering_preview.set_placement_mode("placed")
 		_hovering_preview.reparent($Entities)
 		scene_node        = _hovering_preview
