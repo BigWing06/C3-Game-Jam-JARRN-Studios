@@ -35,9 +35,9 @@ const ENTITY_LABELS := {
 ]
 
 ## How many pantries the player starts with in their inventory.
-@export var starting_pantry_count: int = 3
+@export var starting_pantry_count: int = 30
 ## How many houses the player starts with in their inventory (usually 0).
-@export var starting_house_count:  int = 0
+@export var starting_house_count:  int = 30
 
 # ---------------------------------------------------------------------------
 # Signals

@@ -21,7 +21,7 @@ scene_dict = Dictionary[String, PackedScene]({
 "house": ExtResource("3_16bbq"),
 "pantry": ExtResource("2_tmauy")
 })
-starting_house_count = 1
+starting_house_count = 30
 
 [node name="Entities" type="Node2D" parent="." unique_id=1902783642]
 
