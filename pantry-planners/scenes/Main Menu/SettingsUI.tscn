@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://crq77vmxy73pm"]
+
+[ext_resource type="Script" uid="uid://c0npknkt7juo3" path="res://scenes/Main Menu/settings_ui.gd" id="1_78mrw"]
+[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_d0o66"]
+
+[node name="SettingsUi" type="Node2D" unique_id=4768065]
+script = ExtResource("1_78mrw")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1401490520]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1151.0
+offset_bottom = 653.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_d0o66")
+flip_v = true
+
+[node name="Button Manager" type="Control" parent="." unique_id=1370861826]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Navigate Back" type="Button" parent="Button Manager" unique_id=1828272215]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 513.0
+offset_right = 811.0
+offset_bottom = 609.0
+text = "Back"
+
+[node name="Music Slider" type="HSlider" parent="Button Manager" unique_id=1413951940]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 247.0
+offset_right = 1016.0
+offset_bottom = 301.0
+
+[node name="SFX Slider" type="HSlider" parent="Button Manager" unique_id=945495767]
+layout_mode = 0
+offset_left = 383.0
+offset_top = 336.0
+offset_right = 1015.0
+offset_bottom = 390.0
+
+[node name="Settings Label" type="Label" parent="." unique_id=903621282]
+offset_left = 528.0
+offset_top = 134.0
+offset_right = 612.0
+offset_bottom = 157.0
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="Music Label" type="Label" parent="." unique_id=121188917]
+offset_left = 201.0
+offset_top = 268.0
+offset_right = 323.0
+offset_bottom = 291.0
+text = "MUSIC VOLUME"
+horizontal_alignment = 1
+
+[node name="SFX Label" type="Label" parent="." unique_id=1142678902]
+offset_left = 207.0
+offset_top = 347.0
+offset_right = 329.0
+offset_bottom = 370.0
+text = "SFX VOLUME"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Button Manager/Navigate Back" to="." method="_on_navigate_back_pressed"]

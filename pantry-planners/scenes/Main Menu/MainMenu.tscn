@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://6gts6tptb4yh"]
 
-[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_yqorp"]
+[ext_resource type="Script" uid="uid://bg0bon8bubepk" path="res://scenes/Main Menu/main_menu.gd" id="1_lpeov"]
+[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="2_gqcqc"]
 
 [node name="Main Menu" type="Node2D" unique_id=1681375218]
+script = ExtResource("1_lpeov")
 
 [node name="Background" type="TextureRect" parent="." unique_id=301838996]
 anchors_preset = 15
@@ -14,7 +16,7 @@ offset_right = 1151.0
 offset_bottom = 653.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_yqorp")
+texture = ExtResource("2_gqcqc")
 
 [node name="Button Manager" type="Control" parent="." unique_id=1757765184]
 layout_mode = 3
@@ -29,14 +31,15 @@ offset_top = 223.0
 offset_right = 833.0
 offset_bottom = 308.0
 text = "Start Game"
+metadata/_edit_use_anchors_ = true
 
-[node name="Options" type="Button" parent="Button Manager" unique_id=1542235269]
+[node name="Settings" type="Button" parent="Button Manager" unique_id=1542235269]
 layout_mode = 0
 offset_left = 303.0
 offset_top = 334.0
 offset_right = 838.0
 offset_bottom = 425.0
-text = "Options"
+text = "Settings"
 
 [node name="Credits" type="Button" parent="Button Manager" unique_id=981993069]
 layout_mode = 0
@@ -53,3 +56,8 @@ offset_top = 534.0
 offset_right = 836.0
 offset_bottom = 605.0
 text = "Quit"
+
+[connection signal="pressed" from="Button Manager/Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="Button Manager/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Button Manager/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Button Manager/Quit" to="." method="_on_quit_pressed"]

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://cwyd2h688vmeu"]
+
+[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_8nwgk"]
+[ext_resource type="Script" uid="uid://cngghuimnv7lo" path="res://scenes/Main Menu/credits_ui.gd" id="1_vbmkw"]
+
+[node name="CreditsUi" type="Node2D" unique_id=267445240]
+script = ExtResource("1_vbmkw")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1531999599]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1151.0
+offset_bottom = 653.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8nwgk")
+flip_v = true
+
+[node name="Button Manager" type="Control" parent="." unique_id=249040351]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Navigate Back" type="Button" parent="Button Manager" unique_id=1769689050]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 513.0
+offset_right = 811.0
+offset_bottom = 609.0
+text = "Back"
+
+[node name="Label" type="Label" parent="." unique_id=2143339343]
+offset_left = -50.0
+offset_top = 64.0
+offset_right = 1223.0
+offset_bottom = 529.0
+text = "Pantry Planners
+a C3: Game Jam Game
+
+Made by Järrn Studios
+Programming: Joshua Harroff, Nangba Konyak, & Justin Zhao
+Art: Rhiyana Player
+Music: Arianna Rountree
+
+Research from Hanson, K. L., Coupal, S., Grace, E., Jesch, E., Lockhart, S., & Volpe, L. C. (2024). Mutual aid 
+food sharing during the COVID-19 pandemic: Case study of Tompkins County, NY. Public Health Nutrition, 
+27(e215), 1-11. https://doi.org/10.1017/s1368980024001083 
+
+Special Thanks to:
+Dr. Katie Jarriel
+Jadden Picardal, Mint DePrest, Saahil Aneja, Keira Bosland
+and YOU! 
+
+"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Button Manager/Navigate Back" to="." method="_on_navigate_back_pressed"]
