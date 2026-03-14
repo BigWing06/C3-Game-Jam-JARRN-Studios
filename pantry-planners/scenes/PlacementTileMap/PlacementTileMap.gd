@@ -20,7 +20,7 @@ const ENTITY_LABELS := {
 }
 
 # ---------------------------------------------------------------------------
-# Exports — swap in real scenes once teammates' work is ready
+# Exports — swap in real scenes once pantry and house are finished
 # ---------------------------------------------------------------------------
 @export var pantry_scene: PackedScene  # leave empty while using placeholders
 @export var house_scene:  PackedScene  # leave empty while using placeholders
