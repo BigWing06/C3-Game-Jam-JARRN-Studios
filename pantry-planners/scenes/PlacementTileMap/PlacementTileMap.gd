@@ -34,6 +34,12 @@ const ENTITY_LABELS := {
 @export var starting_house_count:  int = 0
 
 # ---------------------------------------------------------------------------
+# Signals
+# ---------------------------------------------------------------------------
+
+signal update_hovered_cell
+
+# ---------------------------------------------------------------------------
 # Runtime state
 # ---------------------------------------------------------------------------
 # grid_pos (Vector2i) -> { "type": String, "player_can_edit": bool, "scene": Node }
@@ -99,7 +105,7 @@ func _process(_delta: float) -> void:
 	var new_tile := _world_to_grid(get_global_mouse_position())
 	if new_tile != _hovered_tile:
 		_hovered_tile = new_tile
-		_refresh_hover_preview()
+		update_hovered_cell.emit()
 
 # ---------------------------------------------------------------------------
 # Drawing — grid + hovering entities, real scenes are handled automatically
@@ -151,24 +157,28 @@ func _draw_placed_entities() -> void:
 # Spawns (or clears) the live hover preview node.
 # Called whenever the hovered tile or selected item changes, and on mode toggle.
 func _refresh_hover_preview() -> void:
+	# No preview needed outside placement mode or off the grid
+	if not _placement_mode:
+		if (is_instance_valid(_hovering_preview)):
+			_hovering_preview.queue_free()
+			_hovering_preview = null
+		queue_redraw()
+		return
 	if is_instance_valid(_hovering_preview):
 		_hovering_preview.queue_free()
 		_hovering_preview = null
-
-	# No preview needed outside placement mode or off the grid
-	if not _placement_mode or not _is_valid_tile(_hovered_tile):
-		queue_redraw()
-		return
-
+		
 	# If the item has a real scene, spawn a translucent ghost preview
 	if scene_dict.has(_selected_item):
 		_hovering_preview = scene_dict[_selected_item].instantiate()
-		_hovering_preview.set_placement_mode("hovering")
-		_hovering_preview.modulate = Color(1.0, 1.0, 1.0, 0.5)
-		_hovering_preview.position = grid_to_world_center(_hovered_tile)
+		update_hovered_cell.connect(_update_hover_position)
+		_update_hover_position()
 		add_child(_hovering_preview)
 
 	queue_redraw()
+
+func _update_hover_position():
+	_hovering_preview.position = grid_to_world_center(get_hovered_tile())
 
 
 # only used when the selected item has no entry in scene_dict.
@@ -231,16 +241,18 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	var scene_node: Node = null
 	if is_instance_valid(_hovering_preview):
 		# Convert the ghost preview into a permanent placed entity
+		update_hovered_cell.disconnect(_update_hover_position)
 		_hovering_preview.set_placement_mode("placed")
-		_hovering_preview.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		_hovering_preview.reparent($Entities)
 		scene_node        = _hovering_preview
 		_hovering_preview = null  # ownership transferred to _grid_data
+		_refresh_hover_preview()
 	elif scene_dict.has(entity_type):
 		# Pre-placed: no preview exists, instantiate directly as a placed entity
 		scene_node = scene_dict[entity_type].instantiate()
-		scene_node.add_to_group("placed")
+		scene_node.set_placement_mode("placed")
 		scene_node.position = grid_to_world_center(tile)
+		print(scene_node.position)
 		$Entities.add_child(scene_node)
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
 
@@ -273,6 +285,9 @@ func get_positions_of_type(entity_type: String) -> Array[Vector2i]:
 		if _grid_data[tile]["type"] == entity_type:
 			result.append(tile)
 	return result
+	
+func get_hovered_tile() -> Vector2:
+	return _hovered_tile
 
 # ---------------------------------------------------------------------------
 # Coordinate helpers

@@ -27,4 +27,5 @@ offset_bottom = 94.0
 theme_override_font_sizes/font_size = 130
 
 [connection signal="food_changed" from="." to="." method="_on_food_changed"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="timeout" from="effect_timer" to="." method="effect_houses"]
