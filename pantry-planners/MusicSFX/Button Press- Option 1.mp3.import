@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cumpibgs01s3g"
+path="res://.godot/imported/Button Press- Option 1.mp3-24f5de94406d1c529aa42eed6ff90d8d.mp3str"
+
+[deps]
+
+source_file="res://MusicSFX/Button Press- Option 1.mp3"
+dest_files=["res://.godot/imported/Button Press- Option 1.mp3-24f5de94406d1c529aa42eed6ff90d8d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

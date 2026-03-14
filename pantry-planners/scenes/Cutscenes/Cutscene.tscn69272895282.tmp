@@ -9,33 +9,32 @@ script = ExtResource("1_nkbmn")
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1025370838]
 offset_left = -91.0
 offset_top = -49.0
-offset_right = 2019.0
-offset_bottom = 1178.0
+offset_right = 1241.0
+offset_bottom = 717.0
 color = Color(0, 0, 0, 0.3647059)
 
-[node name="Character Panel" type="Control" parent="." unique_id=149255162]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 57.0
-offset_top = 740.0
-offset_right = 1529.5603
-offset_bottom = 953.0858
-scale = Vector2(1.256326, 1.256326)
-
-[node name="Character Sprite" type="Sprite2D" parent="Character Panel" unique_id=897694751]
-position = Vector2(1239.0295, -76.363525)
-scale = Vector2(3.6020846, 5.8088846)
+[node name="Player" type="Sprite2D" parent="." unique_id=897694751]
+position = Vector2(941.00006, 397)
+scale = Vector2(2.8828127, 4.3320313)
 texture = ExtResource("1_qgc4t")
 
-[node name="Text Background" type="TextureRect" parent="Character Panel" unique_id=1316333970]
+[node name="Control" type="Control" parent="." unique_id=149255162]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 68.0
+offset_top = 479.0
+offset_right = 1098.0
+offset_bottom = 630.0
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1316333970]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 3.0
-offset_right = 1361.1117
-offset_bottom = 218.09625
+offset_right = 932.0
+offset_bottom = 156.0
 texture = ExtResource("1_qgc4t")
 
-[node name="Nametag" type="Label" parent="Character Panel" unique_id=547545226]
+[node name="Nametag" type="Label" parent="Control" unique_id=547545226]
 layout_mode = 0
 offset_left = 80.0
 offset_top = -54.0
@@ -44,12 +43,12 @@ offset_bottom = 1.0
 theme_override_font_sizes/font_size = 40
 text = "[NAME]"
 
-[node name="DialogueBox" type="Label" parent="Character Panel" unique_id=1575102592]
+[node name="Dialogue Box" type="Label" parent="Control" unique_id=1575102592]
 layout_mode = 0
 offset_left = 84.0
 offset_top = 16.0
-offset_right = 1299.0259
-offset_bottom = 203.76874
+offset_right = 896.0
+offset_bottom = 146.0
 theme_override_font_sizes/font_size = 28
 text = "[TEXT GOES HERE] "
 autowrap_mode = 3

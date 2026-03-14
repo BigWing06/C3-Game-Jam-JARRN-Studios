@@ -7,11 +7,10 @@
 					"text":"Example Text 1"
 				},
 				{
-					"text":"Example Text 2",
-					"choices":[
-						"choice 1",
-						"choice 2"
-					]
+					"text":"Example Text 2"
+				},
+				{
+					"text":"Example Text 3"
 				}
 			]
 		},

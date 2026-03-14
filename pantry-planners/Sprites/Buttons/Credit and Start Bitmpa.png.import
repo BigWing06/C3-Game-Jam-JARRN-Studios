@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dc2234qaehi5w"
+path="res://.godot/imported/Credit and Start Bitmpa.png-a3858f7f6855684a2383cfb645c83577.res"
+
+[deps]
+
+source_file="res://Sprites/Buttons/Credit and Start Bitmpa.png"
+dest_files=["res://.godot/imported/Credit and Start Bitmpa.png-a3858f7f6855684a2383cfb645c83577.res"]
+
+[params]
+
+create_from=1
+threshold=0.04

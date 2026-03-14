@@ -1,43 +1,46 @@
 [gd_scene format=3 uid="uid://cwyd2h688vmeu"]
 
-[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_8nwgk"]
 [ext_resource type="Script" uid="uid://cngghuimnv7lo" path="res://scenes/Main Menu/credits_ui.gd" id="1_vbmkw"]
+[ext_resource type="Texture2D" uid="uid://dd4a2as0eqtad" path="res://Sprites/Pantry Planner Title Card.png" id="2_vbmkw"]
 
-[node name="CreditsUi" type="Node2D" unique_id=267445240]
-script = ExtResource("1_vbmkw")
-
-[node name="Background" type="TextureRect" parent="." unique_id=1531999599]
+[node name="CreditsUi" type="Control" unique_id=519910330]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 1151.0
-offset_bottom = 653.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_8nwgk")
-flip_v = true
+script = ExtResource("1_vbmkw")
 
-[node name="Button Manager" type="Control" parent="." unique_id=249040351]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Navigate Back" type="Button" parent="Button Manager" unique_id=1769689050]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=940037781]
 layout_mode = 0
-offset_left = 358.0
-offset_top = 513.0
-offset_right = 811.0
-offset_bottom = 609.0
-text = "Back"
+offset_left = -105.0
+offset_top = -99.0
+offset_right = 1931.0
+offset_bottom = 1137.0
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=695446914]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vbmkw")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="." unique_id=2143339343]
-offset_left = -50.0
-offset_top = 64.0
-offset_right = 1223.0
-offset_bottom = 529.0
+layout_mode = 0
+offset_left = 72.0
+offset_top = 145.0
+offset_right = 1855.0
+offset_bottom = 1438.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 23
+theme_override_font_sizes/font_size = 27
 text = "Pantry Planners
 a C3: Game Jam Game
 
@@ -58,4 +61,30 @@ and YOU!
 "
 horizontal_alignment = 1
 
+[node name="Button Manager" type="Control" parent="." unique_id=249040351]
+anchors_preset = 0
+offset_left = 640.0
+offset_top = 837.0
+offset_right = 1094.0
+offset_bottom = 1121.0
+
+[node name="Navigate Back" type="Button" parent="Button Manager" unique_id=1769689050]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 62.0
+offset_right = 588.0
+offset_bottom = 218.0
+theme_override_font_sizes/font_size = 100
+text = "Back"
+
+[node name="TEST CUTSCENE" type="Button" parent="Button Manager" unique_id=315492125]
+layout_mode = 0
+offset_left = -276.0
+offset_top = -797.0
+offset_right = 338.0
+offset_bottom = -711.0
+theme_override_font_sizes/font_size = 40
+text = "CUTSCENE TEST"
+
 [connection signal="pressed" from="Button Manager/Navigate Back" to="." method="_on_navigate_back_pressed"]
+[connection signal="pressed" from="Button Manager/TEST CUTSCENE" to="." method="_on_test_cutscene_pressed"]

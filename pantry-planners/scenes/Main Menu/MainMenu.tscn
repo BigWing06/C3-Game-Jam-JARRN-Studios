@@ -2,7 +2,21 @@
 
 [ext_resource type="Script" uid="uid://bg0bon8bubepk" path="res://scenes/Main Menu/main_menu.gd" id="1_lpeov"]
 [ext_resource type="Texture2D" uid="uid://bofrr3otqdjox" path="res://Sprites/Pantry Planner Name Card.png" id="3_0fdjv"]
+[ext_resource type="Texture2D" uid="uid://cuqmnp0stnni5" path="res://Sprites/Buttons/Start button.png" id="3_fmgv4"]
 [ext_resource type="Texture2D" uid="uid://dd4a2as0eqtad" path="res://Sprites/Pantry Planner Title Card.png" id="3_gqcqc"]
+[ext_resource type="Texture2D" uid="uid://ncd5h8o3801" path="res://Sprites/Buttons/Start button pressed.png" id="4_gvtb3"]
+[ext_resource type="Texture2D" uid="uid://uhgu0ausm002" path="res://Sprites/Buttons/Start button hover.png" id="5_gvtb3"]
+[ext_resource type="BitMap" uid="uid://dc2234qaehi5w" path="res://Sprites/Buttons/Credit and Start Bitmpa.png" id="6_c20ik"]
+[ext_resource type="Texture2D" uid="uid://b4ep1mtmisiah" path="res://Sprites/Buttons/Settings button .png" id="6_i06op"]
+[ext_resource type="Texture2D" uid="uid://dudxbv42hu08q" path="res://Sprites/Buttons/Settings button pressed.png" id="7_wvj71"]
+[ext_resource type="Texture2D" uid="uid://bs41a4jq2ygrh" path="res://Sprites/Buttons/Settings button hover.png" id="8_c20ik"]
+[ext_resource type="Texture2D" uid="uid://cx313hcxmx30g" path="res://Sprites/Buttons/Credit button.png" id="9_vd0vl"]
+[ext_resource type="Texture2D" uid="uid://bg6shaumxc5yg" path="res://Sprites/Buttons/Credit button pressed.png" id="10_epywh"]
+[ext_resource type="BitMap" uid="uid://b4ufpqrst3h3y" path="res://Sprites/Buttons/Quit and Settings Bitmap.png" id="10_vd0vl"]
+[ext_resource type="Texture2D" uid="uid://cjk4iy0osmtcb" path="res://Sprites/Buttons/Credit button hover.png" id="11_qjw5h"]
+[ext_resource type="Texture2D" uid="uid://ggonp0hd8c70" path="res://Sprites/Buttons/Quit button.png" id="12_c8nhe"]
+[ext_resource type="Texture2D" uid="uid://m64ydnki6iho" path="res://Sprites/Buttons/Quit button pressed.png" id="13_l6ihb"]
+[ext_resource type="Texture2D" uid="uid://coyua5m2hmy23" path="res://Sprites/Buttons/Quit button hover.png" id="14_amywv"]
 
 [node name="Main Menu" type="Control" unique_id=279408662]
 layout_mode = 3
@@ -38,36 +52,75 @@ offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1755054727]
-layout_mode = 0
-offset_left = 1175.0
-offset_top = 571.0
-offset_right = 1759.0
-offset_bottom = 1163.0
+[node name="VBoxContainer" type="Control" parent="." unique_id=437804610]
+anchors_preset = 0
+offset_left = 1061.0
+offset_top = 68.00001
+offset_right = 3325.0
+offset_bottom = 1768.0
 scale = Vector2(0.8, 0.8)
 
-[node name="Start Game" type="Button" parent="VBoxContainer" unique_id=313280373]
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "Start Game"
+[node name="Start Game" type="TextureButton" parent="VBoxContainer" unique_id=135941429]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0016563602
+anchor_top = 0.02279411
+anchor_right = -0.0016563605
+anchor_bottom = 0.022794118
+offset_right = 563.0
+offset_bottom = 1700.0
+texture_normal = ExtResource("3_fmgv4")
+texture_pressed = ExtResource("4_gvtb3")
+texture_hover = ExtResource("5_gvtb3")
+texture_click_mask = ExtResource("6_c20ik")
 metadata/_edit_use_anchors_ = true
 
-[node name="Settings" type="Button" parent="VBoxContainer" unique_id=1542235269]
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "Settings"
+[node name="Settings" type="TextureButton" parent="VBoxContainer" unique_id=16401518]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.15602912
+anchor_top = 0.15588233
+anchor_right = -0.15602912
+anchor_bottom = 0.15588236
+offset_left = 567.0
+offset_right = 1130.0
+offset_bottom = 1700.0
+texture_normal = ExtResource("6_i06op")
+texture_pressed = ExtResource("7_wvj71")
+texture_hover = ExtResource("8_c20ik")
+texture_click_mask = ExtResource("10_vd0vl")
 metadata/_edit_use_anchors_ = true
 
-[node name="Credits" type="Button" parent="VBoxContainer" unique_id=981993069]
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "Credits"
+[node name="Credits" type="TextureButton" parent="VBoxContainer" unique_id=851956930]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.42745143
+anchor_top = 0.34264702
+anchor_right = -0.42745143
+anchor_bottom = 0.34264705
+offset_left = 1134.0
+offset_right = 1697.0
+offset_bottom = 1700.0
+texture_normal = ExtResource("9_vd0vl")
+texture_pressed = ExtResource("10_epywh")
+texture_hover = ExtResource("11_qjw5h")
+texture_click_mask = ExtResource("6_c20ik")
 metadata/_edit_use_anchors_ = true
 
-[node name="Quit" type="Button" parent="VBoxContainer" unique_id=687733774]
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "Quit"
+[node name="Quit" type="TextureButton" parent="VBoxContainer" unique_id=1515636265]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.7077076
+anchor_top = 0.50735295
+anchor_right = -0.7077076
+anchor_bottom = 0.50735295
+offset_left = 1701.0
+offset_right = 2264.0
+offset_bottom = 1700.0
+texture_normal = ExtResource("12_c8nhe")
+texture_pressed = ExtResource("13_l6ihb")
+texture_hover = ExtResource("14_amywv")
+texture_click_mask = ExtResource("10_vd0vl")
 metadata/_edit_use_anchors_ = true
 
 [node name="PantryPlannerNameCard" type="Sprite2D" parent="." unique_id=662078977]

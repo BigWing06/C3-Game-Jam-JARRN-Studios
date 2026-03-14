@@ -17,20 +17,20 @@ color = Color(0, 0, 0, 0.3647059)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 150.0
-offset_top = 138.0
-offset_right = 1701.0
-offset_bottom = 1291.0
+offset_left = 261.0
+offset_top = 94.0
+offset_right = 1635.0
+offset_bottom = 995.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_d0o66")
 flip_v = true
 
 [node name="Button Manager" type="VBoxContainer" parent="." unique_id=593322189]
-offset_left = 226.0
-offset_top = 81.0
-offset_right = 1592.0
-offset_bottom = 1278.0
+offset_left = 374.0
+offset_top = 177.0
+offset_right = 1525.0
+offset_bottom = 917.0
 alignment = 1
 
 [node name="Settings Label" type="Label" parent="Button Manager" unique_id=903621282]
@@ -42,7 +42,8 @@ horizontal_alignment = 1
 [node name="Master Label" type="Label" parent="Button Manager" unique_id=64458371]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "MUSIC VOLUME"
+text = "MASTER VOLUME"
+horizontal_alignment = 1
 
 [node name="Master Slider" type="HSlider" parent="Button Manager" unique_id=1893733302]
 layout_mode = 2
@@ -60,6 +61,7 @@ text = "Mute"
 
 [node name="Music Label" type="Label" parent="Button Manager" unique_id=121188917]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "MUSIC VOLUME"
 horizontal_alignment = 1
 
@@ -74,10 +76,12 @@ ticks_position = 3
 
 [node name="Music Mute" type="CheckBox" parent="Button Manager" unique_id=1615608315]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Mute"
 
 [node name="SFX Label" type="Label" parent="Button Manager" unique_id=1142678902]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "SFX VOLUME"
 horizontal_alignment = 1
 
@@ -92,10 +96,12 @@ ticks_position = 3
 
 [node name="SFX Mute" type="CheckBox" parent="Button Manager" unique_id=1194205616]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Mute"
 
 [node name="Navigate Back" type="Button" parent="Button Manager" unique_id=1828272215]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Back"
 
 [connection signal="value_changed" from="Button Manager/Master Slider" to="." method="_on_master_slider_value_changed"]

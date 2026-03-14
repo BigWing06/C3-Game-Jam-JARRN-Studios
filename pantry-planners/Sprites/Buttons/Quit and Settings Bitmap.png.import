@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://b4ufpqrst3h3y"
+path="res://.godot/imported/Quit and Settings Bitmap.png-3f0b360e12301be19a37efae6654f7ab.res"
+
+[deps]
+
+source_file="res://Sprites/Buttons/Quit and Settings Bitmap.png"
+dest_files=["res://.godot/imported/Quit and Settings Bitmap.png-3f0b360e12301be19a37efae6654f7ab.res"]
+
+[params]
+
+create_from=1
+threshold=0.08
