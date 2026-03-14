@@ -80,17 +80,16 @@ func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
 		var node_here: Node = null
 		if grid_data.has(current_pos):
 			var scene = grid_data[current_pos].get("scene")
+
 			if is_instance_valid(scene):
 				node_here = scene
 		reachable_tiles[current_pos] = node_here
 
 		# Don't expand through occupied tiles — they are destinations, not corridors
-		#if current_pos != self_pos and grid_data.has(current_pos):
-		#	continue
+		if current_pos != self_pos and grid_data.has(current_pos):
+			continue
 
 		for neighbor: Vector2i in tilemap.get_surrounding_cells(current_pos):
-			if tilemap.is_tile_blocked(neighbor):
-				continue
 
 			var step_cost: int = _get_tile_travel_cost(tilemap, neighbor)
 			var new_cost:  int = current_cost + step_cost

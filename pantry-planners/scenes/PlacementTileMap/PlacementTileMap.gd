@@ -202,6 +202,7 @@ func _update_hover_position():
 		_hovering_preview.find_reachable(self, _hovered_tile)
 		_highlighted_tiles.clear()
 		var houses = get_tree().get_nodes_in_group("house")
+
 		for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
 			_highlighted_tiles[pos] = Color(1.0, 1.0, 1, 0.35)
 			print(pos)
