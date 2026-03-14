@@ -13,6 +13,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lpeov")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=161958383]
+layout_mode = 0
+offset_left = -105.0
+offset_top = -99.0
+offset_right = 1931.0
+offset_bottom = 1137.0
+color = Color(0, 0, 0, 1)
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1957712392]
 layout_mode = 1
 anchors_preset = 15
@@ -21,7 +29,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_gqcqc")
-expand_mode = 3
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Button Manager" type="Control" parent="." unique_id=1757765184]
 anchors_preset = 0
@@ -31,10 +40,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1755054727]
 layout_mode = 0
-offset_left = 1270.0
-offset_top = 502.0
-offset_right = 1850.0
-offset_bottom = 1094.0
+offset_left = 1175.0
+offset_top = 571.0
+offset_right = 1759.0
+offset_bottom = 1163.0
+scale = Vector2(0.8, 0.8)
 
 [node name="Start Game" type="Button" parent="VBoxContainer" unique_id=313280373]
 layout_mode = 2
@@ -61,8 +71,8 @@ text = "Quit"
 metadata/_edit_use_anchors_ = true
 
 [node name="PantryPlannerNameCard" type="Sprite2D" parent="." unique_id=662078977]
-position = Vector2(861.33325, 749.00006)
-scale = Vector2(0.77577925, 0.77577925)
+position = Vector2(745, 396)
+scale = Vector2(0.41966423, 0.44124693)
 texture = ExtResource("3_0fdjv")
 
 [connection signal="pressed" from="VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
