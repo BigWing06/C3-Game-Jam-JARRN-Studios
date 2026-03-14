@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bq5d5g3ssjog1"]
+
+[ext_resource type="Script" uid="uid://sv7cl32dwt05" path="res://scenes/main_scene_temp/main_scene_temp.gd" id="1_7uqv1"]
+
+[node name="MainSceneTemp" type="Node2D" unique_id=1532069950]
+script = ExtResource("1_7uqv1")
+
+[node name="level_timer" type="Timer" parent="." unique_id=139285444]
+one_shot = true
+
+[connection signal="timeout" from="level_timer" to="." method="next_level"]
