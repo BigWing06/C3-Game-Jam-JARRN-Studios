@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://clxwyurpo3hf8"]
+
+[ext_resource type="Script" uid="uid://ji0mf1vjt3kp" path="res://scenes/Cutscenes/cutscene.gd" id="1_nkbmn"]
+[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_qgc4t"]
+
+[node name="Cutscene" type="Node2D" unique_id=1101273556]
+script = ExtResource("1_nkbmn")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1025370838]
+offset_left = -91.0
+offset_top = -49.0
+offset_right = 1241.0
+offset_bottom = 717.0
+color = Color(0, 0, 0, 0.3647059)
+
+[node name="Player" type="Sprite2D" parent="." unique_id=897694751]
+position = Vector2(941.00006, 397)
+scale = Vector2(2.8828127, 4.3320313)
+texture = ExtResource("1_qgc4t")
+
+[node name="Control" type="Control" parent="." unique_id=149255162]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 68.0
+offset_top = 479.0
+offset_right = 1098.0
+offset_bottom = 630.0
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1316333970]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 3.0
+offset_right = 932.0
+offset_bottom = 131.0
+texture = ExtResource("1_qgc4t")

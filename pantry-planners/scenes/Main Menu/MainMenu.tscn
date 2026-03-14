@@ -1,63 +1,71 @@
 [gd_scene format=3 uid="uid://6gts6tptb4yh"]
 
 [ext_resource type="Script" uid="uid://bg0bon8bubepk" path="res://scenes/Main Menu/main_menu.gd" id="1_lpeov"]
-[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="2_gqcqc"]
+[ext_resource type="Texture2D" uid="uid://bofrr3otqdjox" path="res://Sprites/Pantry Planner Name Card.png" id="3_0fdjv"]
+[ext_resource type="Texture2D" uid="uid://dd4a2as0eqtad" path="res://Sprites/Pantry Planner Title Card.png" id="3_gqcqc"]
 
-[node name="Main Menu" type="Node2D" unique_id=1681375218]
-script = ExtResource("1_lpeov")
-
-[node name="Background" type="TextureRect" parent="." unique_id=301838996]
+[node name="Main Menu" type="Control" unique_id=279408662]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 1151.0
-offset_bottom = 653.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_gqcqc")
+script = ExtResource("1_lpeov")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1957712392]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gqcqc")
+expand_mode = 3
 
 [node name="Button Manager" type="Control" parent="." unique_id=1757765184]
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
 
-[node name="Start Game" type="Button" parent="Button Manager" unique_id=313280373]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1755054727]
 layout_mode = 0
-offset_left = 302.0
-offset_top = 223.0
-offset_right = 833.0
-offset_bottom = 308.0
+offset_left = 1270.0
+offset_top = 502.0
+offset_right = 1850.0
+offset_bottom = 1094.0
+
+[node name="Start Game" type="Button" parent="VBoxContainer" unique_id=313280373]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
 text = "Start Game"
 metadata/_edit_use_anchors_ = true
 
-[node name="Settings" type="Button" parent="Button Manager" unique_id=1542235269]
-layout_mode = 0
-offset_left = 303.0
-offset_top = 334.0
-offset_right = 838.0
-offset_bottom = 425.0
+[node name="Settings" type="Button" parent="VBoxContainer" unique_id=1542235269]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
 text = "Settings"
+metadata/_edit_use_anchors_ = true
 
-[node name="Credits" type="Button" parent="Button Manager" unique_id=981993069]
-layout_mode = 0
-offset_left = 306.0
-offset_top = 441.0
-offset_right = 833.0
-offset_bottom = 519.0
+[node name="Credits" type="Button" parent="VBoxContainer" unique_id=981993069]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
 text = "Credits"
+metadata/_edit_use_anchors_ = true
 
-[node name="Quit" type="Button" parent="Button Manager" unique_id=687733774]
-layout_mode = 0
-offset_left = 309.0
-offset_top = 534.0
-offset_right = 836.0
-offset_bottom = 605.0
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=687733774]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
 text = "Quit"
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Button Manager/Start Game" to="." method="_on_start_game_pressed"]
-[connection signal="pressed" from="Button Manager/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Button Manager/Credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="Button Manager/Quit" to="." method="_on_quit_pressed"]
+[node name="PantryPlannerNameCard" type="Sprite2D" parent="." unique_id=662078977]
+position = Vector2(861.33325, 749.00006)
+scale = Vector2(0.77577925, 0.77577925)
+texture = ExtResource("3_0fdjv")
+
+[connection signal="pressed" from="VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

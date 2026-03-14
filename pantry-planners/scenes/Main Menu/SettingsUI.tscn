@@ -6,14 +6,21 @@
 [node name="SettingsUi" type="Node2D" unique_id=4768065]
 script = ExtResource("1_78mrw")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=401144263]
+offset_left = -91.0
+offset_top = -49.0
+offset_right = 2144.0
+offset_bottom = 1834.0
+color = Color(0, 0, 0, 0.3647059)
+
 [node name="Background" type="TextureRect" parent="." unique_id=1401490520]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 150.0
 offset_top = 138.0
-offset_right = 1008.0
-offset_bottom = 533.0
+offset_right = 1701.0
+offset_bottom = 1291.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_d0o66")
@@ -22,19 +29,20 @@ flip_v = true
 [node name="Button Manager" type="VBoxContainer" parent="." unique_id=593322189]
 offset_left = 226.0
 offset_top = 81.0
-offset_right = 953.0
-offset_bottom = 541.0
+offset_right = 1592.0
+offset_bottom = 1278.0
 alignment = 1
 
 [node name="Settings Label" type="Label" parent="Button Manager" unique_id=903621282]
 layout_mode = 2
+theme_override_font_sizes/font_size = 100
 text = "SETTINGS"
 horizontal_alignment = 1
 
 [node name="Master Label" type="Label" parent="Button Manager" unique_id=64458371]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "MUSIC VOLUME"
-horizontal_alignment = 1
 
 [node name="Master Slider" type="HSlider" parent="Button Manager" unique_id=1893733302]
 layout_mode = 2
@@ -47,6 +55,7 @@ ticks_position = 3
 
 [node name="Master Mute" type="CheckBox" parent="Button Manager" unique_id=63076743]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Mute"
 
 [node name="Music Label" type="Label" parent="Button Manager" unique_id=121188917]

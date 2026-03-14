@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var music_player = $MusicPlayer
+@onready var sfx_player = $SFXPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,7 +11,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
+
 
 func play_music(track: AudioStream):
 	if (music_player.stream == track):
@@ -21,3 +22,8 @@ func play_music(track: AudioStream):
 
 func stop_music(track: AudioStream):
 	music_player.stop()
+	
+
+func _on_music_player_finished() -> void:
+	music_player.play()
+	pass # Replace with function body.

@@ -2,10 +2,17 @@
 	{
 		"time":0,
 		"level":{
-			"name":"Blah",
 			"narrative":[
-				"text1",
-				"text2"
+				{
+					"text":"Example Text 1"
+				},
+				{
+					"text":"Example Text 2",
+					"choices":[
+						"choice 1",
+						"choice 2"
+					]
+				}
 			]
 		},
 		"houses":[
@@ -33,10 +40,17 @@
 	{
 		"time":5,
 		"level":{
-			"name":"Blah2",
 			"narrative":[
-				"text1",
-				"text2"
+				{
+					"text":"Example Text 3"
+				},
+				{
+					"text":"Example Text 4",
+					"choices":[
+						"choice 1",
+						"choice 2"
+					]
+				}
 			]
 		},
 		"houses":[

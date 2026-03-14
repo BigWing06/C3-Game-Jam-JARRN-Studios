@@ -1,10 +1,10 @@
-extends Node2D
+extends Control
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Change to new music when ready
-	Audio.play_music(preload("res://MusicSFX/studiokolomna-risk-136788.mp3"))
+	Audio.play_music(preload("res://MusicSFX/Pantry Planner- Music.mp3"))
 	pass # Replace with function body.
 
 

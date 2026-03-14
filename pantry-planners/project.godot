@@ -23,6 +23,13 @@ buses/default_bus_layout="uid://sftvmqprvs86"
 
 Audio="*uid://cnuusadau7t40"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1440
+window/size/mode=3
+window/stretch/mode="canvas_items"
+
 [global_group]
 
 house=""
