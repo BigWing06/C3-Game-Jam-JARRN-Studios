@@ -37,12 +37,13 @@ const ENTITY_LABELS := {
 # ---------------------------------------------------------------------------
 # Runtime state
 # ---------------------------------------------------------------------------
-# grid_pos (Vector2i) -> { "type": String, "player_can_edit": bool }
-var _grid_data:       Dictionary = {}
-var _inventory:       Dictionary = {}
-var _placement_mode:  bool       = false
-var _selected_item:   String     = "pantry"
-var _hovered_tile:    Vector2i   = Vector2i(-1, -1)
+# grid_pos (Vector2i) -> { "type": String, "player_can_edit": bool, "scene": Node }
+var _grid_data:      Dictionary = {}
+var _inventory:      Dictionary = {}
+var _placement_mode: bool       = false
+var _selected_item:  String     = "pantry"
+var _hovered_tile:   Vector2i   = Vector2i(-1, -1)
+var _hover_preview:  Node       = null  # live scene instance shown while hovering
 
 # ---------------------------------------------------------------------------
 # Node references
@@ -79,9 +80,11 @@ func _input(event: InputEvent) -> void:
 				_toggle_placement_mode()
 			KEY_1:
 				_selected_item = "pantry"
+				_refresh_hover_preview()
 				_update_ui()
 			KEY_2:
 				_selected_item = "house"
+				_refresh_hover_preview()
 				_update_ui()
 
 	if event is InputEventMouseButton and event.pressed and _placement_mode:
@@ -99,10 +102,10 @@ func _process(_delta: float) -> void:
 	var new_tile := _world_to_grid(get_global_mouse_position())
 	if new_tile != _hovered_tile:
 		_hovered_tile = new_tile
-		queue_redraw()
+		_refresh_hover_preview()
 
 # ---------------------------------------------------------------------------
-# Drawing — grid + all placeholders rendered here; no external scenes needed
+# Drawing — grid + hovering entities, real scenes are handled automatically
 # ---------------------------------------------------------------------------
 func _draw() -> void:
 	_draw_grid()
@@ -123,28 +126,25 @@ func _draw_placed_entities() -> void:
 	for grid_pos: Vector2i in _grid_data:
 		var data: Dictionary = _grid_data[grid_pos]
 		var entity_type: String = data["type"]
-		var fill_col: Color = ENTITY_COLORS.get(entity_type, Color.GRAY)
 
 		var origin := Vector2(grid_pos) * CELL_SIZE
 		
-		if (entity_type in scene_dict.keys()):
-			if (_grid_data[grid_pos]["scene"] == null):
+		if entity_type in scene_dict:
+			if not is_instance_valid(data["scene"]):
 				var scene = scene_dict[entity_type].instantiate()
 				$Entities.add_child(scene)
 				scene.position = origin + (CELL_SIZE / 2)
 				_grid_data[grid_pos]["scene"] = scene
 		else:
-			
-			var rect   := Rect2(origin + Vector2(4, 4), CELL_SIZE - Vector2(8, 8))
-
-			# Slightly dim pre-placed entities so player-placed ones stand out
+			# TODO: replace with actual house / pantry
+			var fill_col: Color = ENTITY_COLORS.get(entity_type, Color.GRAY)
 			if not data["player_can_edit"]:
 				fill_col = fill_col.darkened(0.25)
 
+			var rect := Rect2(origin + Vector2(4, 4), CELL_SIZE - Vector2(8, 8))
 			draw_rect(rect, fill_col, true)
 			draw_rect(rect, Color.WHITE, false, 1.5)
 
-			# Single-character label centred in the cell
 			var label: String = ENTITY_LABELS.get(entity_type, "?")
 			var font  := ThemeDB.fallback_font
 			var font_size := 20
@@ -153,9 +153,36 @@ func _draw_placed_entities() -> void:
 			draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color.WHITE)
 
 
+# Spawns (or clears) the live hover preview node.
+# Called whenever the hovered tile or selected item changes, and on mode toggle.
+func _refresh_hover_preview() -> void:
+	if is_instance_valid(_hover_preview):
+		_hover_preview.queue_free()
+		_hover_preview = null
+
+	# No preview needed outside placement mode or off the grid
+	if not _placement_mode or not _is_valid_tile(_hovered_tile):
+		queue_redraw()
+		return
+
+	# If the item has a real scene, spawn a translucent ghost preview
+	if scene_dict.has(_selected_item):
+		_hover_preview = scene_dict[_selected_item].instantiate()
+		_hover_preview.add_to_group("hovering")
+		_hover_preview.modulate = Color(1.0, 1.0, 1.0, 0.5)
+		_hover_preview.position = grid_to_world_center(_hovered_tile)
+		add_child(_hover_preview)
+
+	queue_redraw()
+
+
+# only used when the selected item has no entry in scene_dict.
 func _draw_hover() -> void:
 	if not _is_valid_tile(_hovered_tile):
 		return
+	if scene_dict.has(_selected_item):
+		return  # real preview is handled by _refresh_hover_preview, nothing to draw here
+
 	var occupied := _grid_data.has(_hovered_tile)
 	var fill     := Color(0.85, 0.2, 0.2, 0.35) if occupied \
 		else Color(0.2, 0.85, 0.2, 0.35)
@@ -170,7 +197,7 @@ func _toggle_placement_mode() -> void:
 	_placement_mode = not _placement_mode
 	if not _placement_mode:
 		_hovered_tile = Vector2i(-1, -1)
-	queue_redraw()
+	_refresh_hover_preview()
 	_update_ui()
 
 
@@ -194,7 +221,8 @@ func _try_remove(tile: Vector2i) -> void:
 	var data: Dictionary = _grid_data[tile]
 	if not data["player_can_edit"]:
 		return  # pre-placed level entities cannot be removed by the player
-	_grid_data[tile]["scene"].queue_free()
+	if is_instance_valid(data["scene"]):
+		data["scene"].queue_free()
 	_grid_data.erase(tile)
 	_inventory[data["type"]] = _inventory.get(data["type"], 0) + 1
 	queue_redraw()
@@ -205,7 +233,7 @@ func _register_entity(tile: Vector2i, entity_type: String, player_can_edit: bool
 	if not _is_valid_tile(tile) or _grid_data.has(tile):
 		push_error("[PlacementTileMap] Cannot register entity at %s." % str(tile))
 		return
-	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": null }
+	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": _hover_preview } 
 
 # ---------------------------------------------------------------------------
 # Public API — called by level scripts or a future GameManager
