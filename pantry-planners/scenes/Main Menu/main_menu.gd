@@ -1,5 +1,7 @@
 extends Control
 
+# For spaghetti code reasons
+var _setting_displayed = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
