@@ -11,7 +11,20 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_amugp")
 script = ExtResource("2_mm0xd")
 
+[node name="food_timeout" type="Timer" parent="." unique_id=1483777048]
+autostart = true
+
 [node name="pantry_radius" type="Area2D" parent="." unique_id=572462827]
 
 [node name="pantry_radius_shape" type="CollisionShape2D" parent="pantry_radius" unique_id=842205471]
 shape = SubResource("CircleShape2D_44bws")
+
+[node name="food_amount_label" type="Label" parent="." unique_id=1783329795]
+offset_left = -44.0
+offset_top = -84.0
+offset_right = 61.554993
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 130
+
+[connection signal="food_needed_changed" from="." to="." method="_on_food_needed_changed"]
+[connection signal="timeout" from="food_timeout" to="." method="add_food"]
