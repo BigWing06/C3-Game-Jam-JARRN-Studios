@@ -3,8 +3,8 @@ extends TileMapLayer
 # ---------------------------------------------------------------------------
 # Grid configuration
 # ---------------------------------------------------------------------------
-const GRID_WIDTH   := 20
-const GRID_HEIGHT  := 12
+const GRID_WIDTH   := 30
+const GRID_HEIGHT  := 18
 
 # Cell size derived from the attached TileSet; falls back to 64x64 if not set.
 var _cell_size: Vector2:
@@ -43,7 +43,7 @@ const ENTITY_LABELS := {
 # Signals
 # ---------------------------------------------------------------------------
 
-signal update_hovered_cell
+signal hovered_tile_changed
 
 # ---------------------------------------------------------------------------
 # Runtime state
@@ -57,7 +57,11 @@ var _hovered_tile:   Vector2i   = Vector2i(-1, -1)
 var _hovering_preview:  Node       = null  # live ghost instance shown while hovering
 # Tiles to highlight, set by the active hovering preview
 var _highlighted_tiles: Dictionary[Vector2i, Color] = {}
+<<<<<<< Updated upstream
 var _setting_displayed: bool     = false
+=======
+var _grid_layer: TileMapLayer
+>>>>>>> Stashed changes
 
 # ---------------------------------------------------------------------------
 # Node references
@@ -73,9 +77,43 @@ func _ready() -> void:
 		"pantry": starting_pantry_count,
 		"house":  starting_house_count,
 	}
+	_setup_grid_layer()
 	_place_initial_entities()
 	_update_ui()
 	queue_redraw()
+
+
+func _setup_grid_layer() -> void:
+	var tile_size := tile_set.tile_size if tile_set else Vector2i(64, 64)
+	var tile_px   := tile_size.x  # pixel width/height of one tile (assumes square)
+
+	# Draw a single cell texture: transparent interior with a 1px white border on all edges.
+	var cell_image := Image.create(tile_px, tile_px, false, Image.FORMAT_RGBA8)
+	cell_image.fill(Color.TRANSPARENT)
+	for i in range(tile_px):
+		cell_image.set_pixel(i,           0,           Color.WHITE)
+		cell_image.set_pixel(i,           tile_px - 1, Color.WHITE)
+		cell_image.set_pixel(0,           i,           Color.WHITE)
+		cell_image.set_pixel(tile_px - 1, i,           Color.WHITE)
+
+	var atlas := TileSetAtlasSource.new()
+	atlas.texture = ImageTexture.create_from_image(cell_image)
+	atlas.texture_region_size = tile_size
+	atlas.create_tile(Vector2i(0, 0))
+
+	var grid_tile_set := TileSet.new()
+	grid_tile_set.tile_size = tile_size
+	grid_tile_set.add_source(atlas)
+
+	_grid_layer = TileMapLayer.new()
+	_grid_layer.tile_set = grid_tile_set
+	_grid_layer.modulate = Color(0.4, 0.4, 0.4, 0.15)
+	_grid_layer.z_index  = -1
+	add_child(_grid_layer)
+
+	for x in range(GRID_WIDTH):
+		for y in range(GRID_HEIGHT):
+			_grid_layer.set_cell(Vector2i(x, y), 0, Vector2i(0, 0))
 
 
 func _place_initial_entities() -> void:
@@ -91,7 +129,6 @@ func _input(event: InputEvent) -> void:
 			KEY_P:
 				_toggle_placement_mode()
 			KEY_1:
-				print(_selected_item)
 				if _selected_item != "pantry":
 					_selected_item = "pantry"
 					_refresh_hover_preview()
@@ -126,28 +163,16 @@ func _process(_delta: float) -> void:
 	var new_tile := local_to_map(to_local(get_global_mouse_position()))
 	if new_tile != _hovered_tile:
 		_hovered_tile = new_tile
-		update_hovered_cell.emit()
+		hovered_tile_changed.emit()
 
 # ---------------------------------------------------------------------------
 # Drawing — grid + hovering entities, real scenes are handled automatically
 # ---------------------------------------------------------------------------
 func _draw() -> void:
-	_draw_grid()
 	_draw_placed_entities()
 	if _placement_mode:
 		_draw_hover()
 		_draw_highlights()
-
-
-
-func _draw_grid() -> void:
-	var col := Color(0.45, 0.75, 0.45, 0.25) if _placement_mode \
-		else Color(0.4, 0.4, 0.4, 0.15)
-	var cs := _cell_size
-	for x in range(GRID_WIDTH):
-		for y in range(GRID_HEIGHT):
-			var top_left := map_to_local(Vector2i(x, y)) - cs * 0.5
-			draw_rect(Rect2(top_left, cs), col, false, 1.0)
 
 
 func _draw_placed_entities() -> void:
@@ -181,46 +206,42 @@ func _draw_placed_entities() -> void:
 			draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color.WHITE)
 
 
-# Spawns (or clears) the live hover preview node.
-# Called whenever the hovered tile or selected item changes, and on mode toggle.
+# Destroys any existing hover preview and creates a fresh one for the selected item.
+# Called when placement mode toggles or the selected item changes.
 func _refresh_hover_preview() -> void:
-	# No preview needed outside placement mode or off the grid
-	if not _placement_mode:
-		
-		if (is_instance_valid(_hovering_preview)):
-			_hovering_preview.queue_free()
-			_hovering_preview = null
-		queue_redraw()
-		return
-	
 	if is_instance_valid(_hovering_preview):
 		_hovering_preview.queue_free()
 		_hovering_preview = null
-		
-	# If the item has a real scene, spawn a translucent ghost preview
-	if scene_dict.has(_selected_item):
+
+	if _placement_mode and scene_dict.has(_selected_item):
 		_hovering_preview = scene_dict[_selected_item].instantiate()
-		_update_hover_position()
 		add_child(_hovering_preview)
-		
+		_on_hovered_tile_changed()
 
 	queue_redraw()
 
-func _update_hover_position():
+
+# Connected to hovered_tile_changed. Moves the preview to the new tile and,
+# for pantries, recalculates which houses fall inside their delivery radius.
+func _on_hovered_tile_changed() -> void:
 	_hovering_preview.position = map_to_local(_hovered_tile)
-	if _hovering_preview.has_method("find_reachable"):
-		_hovering_preview.find_reachable(self, _hovered_tile)
+	if not _hovering_preview.has_method("find_reachable"):
 		_highlighted_tiles.clear()
-		var houses = get_tree().get_nodes_in_group("house")
-		for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
-			_highlighted_tiles[pos] = Color(1.0, 1.0, 1, 0.35)
-			if pos in _grid_data.keys():
-				if _grid_data[pos]["type"] == "house":
-					houses.erase(_grid_data[pos]["scene"])
-					_grid_data[pos]["scene"].set_highlight("hovering")
-		for node in houses:
-			node.set_highlight("none")
-		queue_redraw()
+		return
+
+	_hovering_preview.find_reachable(self, _hovered_tile)
+	_highlighted_tiles.clear()
+
+	# Highlight every reachable tile; dim houses outside the new radius.
+	var unhighlighted_houses := get_tree().get_nodes_in_group("house")
+	for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
+		_highlighted_tiles[pos] = Color(1.0, 1.0, 1.0, 0.35)
+		if _grid_data.get(pos, {}).get("type") == "house":
+			unhighlighted_houses.erase(_grid_data[pos]["scene"])
+			_grid_data[pos]["scene"].set_highlight("hovering")
+	for house in unhighlighted_houses:
+		house.set_highlight("none")
+	queue_redraw()
 
 
 # MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
@@ -240,8 +261,6 @@ func _draw_hover() -> void:
 
 func _draw_highlights() -> void:
 	var cs := _cell_size
-	var houses = get_tree().get_nodes_in_group("houses")
-	
 	for tile: Vector2i in _highlighted_tiles:
 		var rect := Rect2(map_to_local(tile) - cs * 0.5, cs)
 		draw_rect(rect, _highlighted_tiles[tile], true)
@@ -253,12 +272,13 @@ func _toggle_placement_mode() -> void:
 	_placement_mode = not _placement_mode
 	if not _placement_mode:
 		_hovered_tile = Vector2i(-1, -1)
-		update_hovered_cell.disconnect(_update_hover_position)
-		var houses = get_tree().get_nodes_in_group("house")
-		for node in houses:
-			node.set_highlight("none")
+		hovered_tile_changed.disconnect(_on_hovered_tile_changed)
+		for house in get_tree().get_nodes_in_group("house"):
+			house.set_highlight("none")
+		_grid_layer.modulate = Color(0.4, 0.4, 0.4, 0.15)
 	else:
-		update_hovered_cell.connect(_update_hover_position)
+		hovered_tile_changed.connect(_on_hovered_tile_changed)
+		_grid_layer.modulate = Color(0.45, 0.75, 0.45, 0.25)
 	_refresh_hover_preview()
 	_update_ui()
 
@@ -306,13 +326,12 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	elif scene_dict.has(entity_type):
 		# Pre-placed: no preview exists, instantiate directly as a placed entity
 		scene_node = scene_dict[entity_type].instantiate()
-			
 		scene_node.position = map_to_local(tile)
 		$Entities.add_child(scene_node)
 		if scene_node.has_method("find_reachable"):
 			scene_node.find_reachable(self, tile)
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
-		
+
 
 # ---------------------------------------------------------------------------
 # Public API — called by level scripts or a future GameManager
