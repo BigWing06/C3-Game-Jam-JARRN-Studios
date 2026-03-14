@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b0aaedod58msx"]
+
+[ext_resource type="Texture2D" uid="uid://dijk6k224n2f0" path="res://scenes/pantry/pantry_icon.png" id="1_xtur1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x4wjv"]
+radius = 39.051247
+
+[node name="sprite" type="Sprite2D" unique_id=665316545]
+texture = ExtResource("1_xtur1")
+
+[node name="effect_timer" type="Timer" parent="." unique_id=749848196]
+
+[node name="effect_radius" type="Area2D" parent="." unique_id=2091945170]
+
+[node name="effect_radius_shape" type="CollisionShape2D" parent="effect_radius" unique_id=272087059]
+shape = SubResource("CircleShape2D_x4wjv")
