@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bgjcikn6br0s1"]
+
+[ext_resource type="Texture2D" uid="uid://c5htshh3msys6" path="res://scenes/house/house_icon.png" id="1_amugp"]
+[ext_resource type="Script" uid="uid://d4lh01bqxux5d" path="res://scenes/house/house.gd" id="2_mm0xd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_44bws"]
+radius = 157.27682
+
+[node name="house" type="Sprite2D" unique_id=493522670 groups=["house"]]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_amugp")
+script = ExtResource("2_mm0xd")
+
+[node name="pantry_radius" type="Area2D" parent="." unique_id=572462827]
+
+[node name="pantry_radius_shape" type="CollisionShape2D" parent="pantry_radius" unique_id=842205471]
+shape = SubResource("CircleShape2D_44bws")
