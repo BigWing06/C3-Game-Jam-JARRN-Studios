@@ -1,31 +1,33 @@
 [gd_scene format=3 uid="uid://b0aaedod58msx"]
 
-[ext_resource type="Texture2D" uid="uid://dijk6k224n2f0" path="res://scenes/pantry/pantry_icon.png" id="1_xtur1"]
 [ext_resource type="Script" uid="uid://cvv15tj5n3h4o" path="res://scenes/pantry/pantry.gd" id="2_dijje"]
+[ext_resource type="Texture2D" uid="uid://b6hul53i36jb0" path="res://Sprites/Full_Veggie_Pantry.png" id="2_sdqsc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dijje"]
 radius = 1316.7354
 
-[node name="sprite" type="Sprite2D" unique_id=665316545 groups=["pantry"]]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_xtur1")
+[node name="Node2D" type="Node2D" unique_id=1642997641]
 script = ExtResource("2_dijje")
+
+[node name="food_amount_label" type="Label" parent="." unique_id=1619729255]
+offset_left = -11.0
+offset_top = -21.0
+offset_right = 94.55499
+offset_bottom = 157.0
+theme_override_font_sizes/font_size = 130
 
 [node name="effect_timer" type="Timer" parent="." unique_id=749848196]
 wait_time = 0.5
 
 [node name="effect_radius" type="Area2D" parent="." unique_id=2091945170]
+scale = Vector2(0.25, 0.25)
 
 [node name="effect_radius_shape" type="CollisionShape2D" parent="effect_radius" unique_id=272087059]
 shape = SubResource("CircleShape2D_dijje")
 
-[node name="food_amount_label" type="Label" parent="." unique_id=1619729255]
-offset_left = -44.0
-offset_top = -84.0
-offset_right = 61.554993
-offset_bottom = 94.0
-theme_override_font_sizes/font_size = 130
+[node name="sprite" type="Sprite2D" parent="." unique_id=665316545 groups=["pantry"]]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_sdqsc")
 
-[connection signal="food_changed" from="." to="." method="_on_food_changed"]
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="timeout" from="effect_timer" to="." method="effect_houses"]
+[connection signal="timeout" from="effect_timer" to="sprite" method="effect_houses"]
+[connection signal="tree_exiting" from="sprite" to="sprite" method="_on_tree_exiting"]
