@@ -1,11 +1,14 @@
-extends Node2D
+extends TileMapLayer
 
 # ---------------------------------------------------------------------------
 # Grid configuration
 # ---------------------------------------------------------------------------
-const CELL_SIZE    := Vector2(128, 128)
 const GRID_WIDTH   := 20
 const GRID_HEIGHT  := 12
+
+# Cell size derived from the attached TileSet; falls back to 64x64 if not set.
+var _cell_size: Vector2:
+	get: return Vector2(tile_set.tile_size) if tile_set else Vector2(64.0, 64.0)
 
 # ---------------------------------------------------------------------------
 # Placeholder appearance per entity type
@@ -96,7 +99,7 @@ func _input(event: InputEvent) -> void:
 				_update_ui()
 
 	if event is InputEventMouseButton and event.pressed and _placement_mode:
-		var tile := _world_to_grid(get_global_mouse_position())
+		var tile := local_to_map(to_local(get_global_mouse_position()))
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				_try_place(tile)
@@ -107,7 +110,7 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	if not _placement_mode:
 		return
-	var new_tile := _world_to_grid(get_global_mouse_position())
+	var new_tile := local_to_map(to_local(get_global_mouse_position()))
 	if new_tile != _hovered_tile:
 		_hovered_tile = new_tile
 		update_hovered_cell.emit()
@@ -127,20 +130,24 @@ func _draw() -> void:
 func _draw_grid() -> void:
 	var col := Color(0.45, 0.75, 0.45, 0.25) if _placement_mode \
 		else Color(0.4, 0.4, 0.4, 0.15)
+	var cs := _cell_size
 	for x in range(GRID_WIDTH):
 		for y in range(GRID_HEIGHT):
-			draw_rect(Rect2(Vector2(x, y) * CELL_SIZE, CELL_SIZE), col, false, 1.0)
+			var top_left := map_to_local(Vector2i(x, y)) - cs * 0.5
+			draw_rect(Rect2(top_left, cs), col, false, 1.0)
 
 
 func _draw_placed_entities() -> void:
+	var cs := _cell_size
 	for grid_pos: Vector2i in _grid_data:
 		var data: Dictionary = _grid_data[grid_pos]
 		var entity_type: String = data["type"]
 
-		var origin := Vector2(grid_pos) * CELL_SIZE
-		
+		var center := map_to_local(grid_pos)
+		var origin := center - cs * 0.5
+
 		if is_instance_valid(data["scene"]):
-			continue 
+			continue
 			# no need because scenes will render themselves,
 			# they are placed via _place_initial_entities()
 		else:
@@ -149,7 +156,7 @@ func _draw_placed_entities() -> void:
 			if not data["player_can_edit"]:
 				fill_col = fill_col.darkened(0.25)
 
-			var rect := Rect2(origin + Vector2(4, 4), CELL_SIZE - Vector2(8, 8))
+			var rect := Rect2(origin + Vector2(4, 4), cs - Vector2(8, 8))
 			draw_rect(rect, fill_col, true)
 			draw_rect(rect, Color.WHITE, false, 1.5)
 
@@ -157,7 +164,7 @@ func _draw_placed_entities() -> void:
 			var font  := ThemeDB.fallback_font
 			var font_size := 20
 			var text_size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
-			var text_pos  := origin + CELL_SIZE * 0.5 - text_size * 0.5 + Vector2(0, text_size.y * 0.25)
+			var text_pos  := center - text_size * 0.5 + Vector2(0, text_size.y * 0.25)
 			draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color.WHITE)
 
 
@@ -190,7 +197,7 @@ func _refresh_hover_preview() -> void:
 	queue_redraw()
 
 func _update_hover_position():
-	_hovering_preview.position = grid_to_world_center(get_hovered_tile())
+	_hovering_preview.position = map_to_local(_hovered_tile)
 
 
 # MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
@@ -200,16 +207,18 @@ func _draw_hover() -> void:
 	if scene_dict.has(_selected_item):
 		return  # real preview is handled by _refresh_hover_preview, nothing to draw here
 
+	var cs       := _cell_size
 	var occupied := _grid_data.has(_hovered_tile)
 	var fill     := Color(0.85, 0.2, 0.2, 0.35) if occupied \
 		else Color(0.2, 0.85, 0.2, 0.35)
-	var rect     := Rect2(Vector2(_hovered_tile) * CELL_SIZE, CELL_SIZE)
+	var rect     := Rect2(map_to_local(_hovered_tile) - cs * 0.5, cs)
 	draw_rect(rect, fill, true)
 	draw_rect(rect, Color.WHITE, false, 2.0)
 
 func _draw_highlights() -> void:
+	var cs := _cell_size
 	for tile: Vector2i in _highlighted_tiles:
-		var rect := Rect2(Vector2(tile) * CELL_SIZE, CELL_SIZE)
+		var rect := Rect2(map_to_local(tile) - cs * 0.5, cs)
 		draw_rect(rect, _highlighted_tiles[tile], true)
 
 # ---------------------------------------------------------------------------
@@ -267,11 +276,11 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	elif scene_dict.has(entity_type):
 		# Pre-placed: no preview exists, instantiate directly as a placed entity
 		scene_node = scene_dict[entity_type].instantiate()
-		scene_node.position = grid_to_world_center(tile)
+		scene_node.position = map_to_local(tile)
 		print(scene_node.position)
 		$Entities.add_child(scene_node)
 		if scene_node.has_method("find_reachable"):
-			scene_node.find_reachable(self, scene_node)
+			scene_node.find_reachable(self, tile)
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
 		
 
@@ -297,6 +306,12 @@ func get_grid_data() -> Dictionary:
 	return _grid_data.duplicate()
 
 
+## Returns true if the tile is outside bounds or occupied by any entity.
+## Used by Dijkstra in pantry/house scripts to determine walkable space.
+func is_tile_blocked(tile: Vector2i) -> bool:
+	return not _is_valid_tile(tile) or _grid_data.has(tile)
+
+
 ## Returns all grid positions occupied by a given entity type.
 func get_positions_of_type(entity_type: String) -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
@@ -305,19 +320,8 @@ func get_positions_of_type(entity_type: String) -> Array[Vector2i]:
 			result.append(tile)
 	return result
 	
-func get_hovered_tile() -> Vector2:
+func get_hovered_tile() -> Vector2i:
 	return _hovered_tile
-
-# ---------------------------------------------------------------------------
-# Coordinate helpers
-# ---------------------------------------------------------------------------
-func _world_to_grid(world_pos: Vector2) -> Vector2i:
-	return Vector2i(int(world_pos.x / CELL_SIZE.x), int(world_pos.y / CELL_SIZE.y))
-
-
-func grid_to_world_center(tile: Vector2i) -> Vector2:
-	return Vector2(tile) * CELL_SIZE + CELL_SIZE * 0.5
-
 
 func _is_valid_tile(tile: Vector2i) -> bool:
 	return tile.x >= 0 and tile.x < GRID_WIDTH \

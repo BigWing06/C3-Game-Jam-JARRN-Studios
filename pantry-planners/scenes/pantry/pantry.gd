@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 const PLACEMENT_MODES = ["hovering", "placed"]
 
@@ -10,14 +10,16 @@ const PLACEMENT_MODES = ["hovering", "placed"]
 # it is receiving and handing out food
 var active: bool
 var placement_mode: String
-var hover_text = null
 
 signal active_changed()
 signal food_changed()
 
 var food_amounts: Dictionary = {}
 
-func _enter_tree():
+# updated by find_reachable(), each entry is {Vector2i: Node}
+var reachable_tiles: Array[Dictionary] = []
+
+func _ready():
 	
 	set_active(start_active)
 	set_placement_mode(start_placement_mode)
@@ -28,7 +30,7 @@ func _enter_tree():
 func set_active(new_state: bool):
 	active = new_state
 	active_changed.emit()
-	if (active):
+	if (active) and placement_mode != "hovering":
 		$effect_timer.start()
 	else:
 		$effect_timer.stop()
@@ -46,6 +48,14 @@ func add_food(type: String):
 func take_food(type: String) -> void:
 	set_food(type, get_food_amount(type) - 1)
 	food_changed.emit()
+
+# This function uses Djikstra's reachability algorithm to find reachable Nodes
+func _find_reachable(tilemap: Node, self_pos: Vector2i) -> void:
+	return
+
+
+
+
 
 # This function is called by the effect timer and calls the check_food_need()
 # function in all houses that are in it's effect_radius
@@ -78,16 +88,11 @@ func set_placement_mode(mode: String) -> void:
 	if (mode not in PLACEMENT_MODES):
 		push_warning("Invalid Placement Mode Passed Got ->" + mode)
 		return
-	if mode == placement_mode:
-		return
 	placement_mode = mode
 	match mode:
 		"hovering":
 			set_active(false)
 			add_to_group("hovering")
-			hover_text = preload("res://scenes/Hover Text/Hover Text.tscn").instantiate()
-			get_parent().add_child(hover_text)
-			modulate = Color(1.0, 1.0, 1.0, 0.5)
 			$effect_radius.connect("area_entered", _on_house_entered)
 			$effect_radius.connect("area_exited", _on_house_exited)
 			for area in $effect_radius.get_overlapping_areas():
@@ -95,13 +100,10 @@ func set_placement_mode(mode: String) -> void:
 		"placed":
 			set_active(true)
 			remove_from_group("hovering")
-			modulate = Color(1.0, 1.0, 1.0, 1.0)
 			$effect_radius.disconnect("area_entered", _on_house_entered)
 			$effect_radius.disconnect("area_exited", _on_house_exited)
 			for area in $effect_radius.get_overlapping_areas():
 				_on_house_exited(area)
-			if hover_text != null:
-				hover_text.queue_free()
 
 func _on_food_changed() -> void:
 	$food_amount_label.text = str(get_food_amount("Bread"))
@@ -115,9 +117,3 @@ func _on_house_exited(area: Area2D) -> void:
 	var house = area.get_parent()
 	if house.is_in_group("house"):
 		house.set_highlight("none")
-	
-
-
-func _on_tree_exiting() -> void:
-	if hover_text != null:
-		hover_text.queue_free()
