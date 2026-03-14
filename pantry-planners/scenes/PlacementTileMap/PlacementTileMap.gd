@@ -202,16 +202,14 @@ func _update_hover_position():
 		_hovering_preview.find_reachable(self, _hovered_tile)
 		_highlighted_tiles.clear()
 		var houses = get_tree().get_nodes_in_group("house")
-
 		for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
 			_highlighted_tiles[pos] = Color(1.0, 1.0, 1, 0.35)
-			print(pos)
 			if pos in _grid_data.keys():
 				if _grid_data[pos]["type"] == "house":
-					houses.remove(_grid_data[pos]["scene"])
-					_grid_data[pos]["scene"].highlight_mode("hovering")
-		#for node in houses:
-		#	node.set_highlight("none")
+					houses.erase(_grid_data[pos]["scene"])
+					_grid_data[pos]["scene"].set_highlight("hovering")
+		for node in houses:
+			node.set_highlight("none")
 		queue_redraw()
 
 
@@ -246,6 +244,9 @@ func _toggle_placement_mode() -> void:
 	if not _placement_mode:
 		_hovered_tile = Vector2i(-1, -1)
 		update_hovered_cell.disconnect(_update_hover_position)
+		var houses = get_tree().get_nodes_in_group("house")
+		for node in houses:
+			node.set_highlight("none")
 	else:
 		update_hovered_cell.connect(_update_hover_position)
 	_refresh_hover_preview()
@@ -297,7 +298,6 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 		scene_node = scene_dict[entity_type].instantiate()
 			
 		scene_node.position = map_to_local(tile)
-		print(scene_node.position)
 		$Entities.add_child(scene_node)
 		if scene_node.has_method("find_reachable"):
 			scene_node.find_reachable(self, tile)
