@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bdiegmcla7iau"]
+
+[ext_resource type="Script" uid="uid://cs11nci738oci" path="res://scenes/PlacementTileMap/PlacementTileMap.gd" id="1_pltmap"]
+
+[node name="PlacementTileMap" type="Node2D" unique_id=1747058122]
+script = ExtResource("1_pltmap")
+
+[node name="Entities" type="Node2D" parent="." unique_id=1902783642]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1642320339]
+
+[node name="ModeLabel" type="Label" parent="UI" unique_id=807655686]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 620.0
+offset_bottom = 58.0
+text = "Press [P] to enter Placement Mode"
+autowrap_mode = 3
+
+[node name="InventoryDisplay" type="Panel" parent="UI" unique_id=1034166211]
+offset_left = 10.0
+offset_top = 68.0
+offset_right = 190.0
+offset_bottom = 160.0
+
+[node name="InventoryLabel" type="Label" parent="UI/InventoryDisplay" unique_id=1321796589]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 176.0
+offset_bottom = 146.0
+text = "-- Inventory --"
