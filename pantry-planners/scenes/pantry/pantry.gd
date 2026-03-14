@@ -2,7 +2,7 @@ extends Sprite2D
 
 # This varible controls if the food pantry is active meaning
 # it is receiving and handing out food
-@export var active: bool = false 
+@export var active: bool = true 
 # Signal that is emmited when the active state changes
 signal active_changed()
 signal food_changed()

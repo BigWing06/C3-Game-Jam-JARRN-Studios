@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cvv15tj5n3h4o" path="res://scenes/pantry/pantry.gd" id="2_dijje"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x4wjv"]
-radius = 523.42145
+radius = 1593.4767
 
 [node name="sprite" type="Sprite2D" unique_id=665316545 groups=["pantry"]]
 scale = Vector2(0.25, 0.25)

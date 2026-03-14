@@ -22,8 +22,7 @@ const ENTITY_LABELS := {
 # ---------------------------------------------------------------------------
 # Exports — swap in real scenes once pantry and house are finished
 # ---------------------------------------------------------------------------
-@export var pantry_scene: PackedScene  # leave empty while using placeholders
-@export var house_scene:  PackedScene  # leave empty while using placeholders
+@export var scene_dict: Dictionary[String, PackedScene]
 
 ## Pre-placed pantry grid positions set per-level in the Inspector.
 @export var initial_pantry_positions: Array[Vector2i] = []
@@ -127,22 +126,31 @@ func _draw_placed_entities() -> void:
 		var fill_col: Color = ENTITY_COLORS.get(entity_type, Color.GRAY)
 
 		var origin := Vector2(grid_pos) * CELL_SIZE
-		var rect   := Rect2(origin + Vector2(4, 4), CELL_SIZE - Vector2(8, 8))
+		
+		if (entity_type in scene_dict.keys()):
+			if (_grid_data[grid_pos]["scene"] == null):
+				var scene = scene_dict[entity_type].instantiate()
+				$Entities.add_child(scene)
+				scene.position = origin + (CELL_SIZE / 2)
+				_grid_data[grid_pos]["scene"] = scene
+		else:
+			
+			var rect   := Rect2(origin + Vector2(4, 4), CELL_SIZE - Vector2(8, 8))
 
-		# Slightly dim pre-placed entities so player-placed ones stand out
-		if not data["player_can_edit"]:
-			fill_col = fill_col.darkened(0.25)
+			# Slightly dim pre-placed entities so player-placed ones stand out
+			if not data["player_can_edit"]:
+				fill_col = fill_col.darkened(0.25)
 
-		draw_rect(rect, fill_col, true)
-		draw_rect(rect, Color.WHITE, false, 1.5)
+			draw_rect(rect, fill_col, true)
+			draw_rect(rect, Color.WHITE, false, 1.5)
 
-		# Single-character label centred in the cell
-		var label: String = ENTITY_LABELS.get(entity_type, "?")
-		var font  := ThemeDB.fallback_font
-		var font_size := 20
-		var text_size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
-		var text_pos  := origin + CELL_SIZE * 0.5 - text_size * 0.5 + Vector2(0, text_size.y * 0.25)
-		draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color.WHITE)
+			# Single-character label centred in the cell
+			var label: String = ENTITY_LABELS.get(entity_type, "?")
+			var font  := ThemeDB.fallback_font
+			var font_size := 20
+			var text_size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
+			var text_pos  := origin + CELL_SIZE * 0.5 - text_size * 0.5 + Vector2(0, text_size.y * 0.25)
+			draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color.WHITE)
 
 
 func _draw_hover() -> void:
@@ -186,6 +194,7 @@ func _try_remove(tile: Vector2i) -> void:
 	var data: Dictionary = _grid_data[tile]
 	if not data["player_can_edit"]:
 		return  # pre-placed level entities cannot be removed by the player
+	_grid_data[tile]["scene"].queue_free()
 	_grid_data.erase(tile)
 	_inventory[data["type"]] = _inventory.get(data["type"], 0) + 1
 	queue_redraw()
@@ -196,7 +205,7 @@ func _register_entity(tile: Vector2i, entity_type: String, player_can_edit: bool
 	if not _is_valid_tile(tile) or _grid_data.has(tile):
 		push_error("[PlacementTileMap] Cannot register entity at %s." % str(tile))
 		return
-	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit }
+	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": null }
 
 # ---------------------------------------------------------------------------
 # Public API — called by level scripts or a future GameManager

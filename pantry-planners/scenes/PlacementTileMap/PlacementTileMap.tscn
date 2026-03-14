@@ -1,9 +1,16 @@
 [gd_scene format=3 uid="uid://bdiegmcla7iau"]
 
 [ext_resource type="Script" uid="uid://cs11nci738oci" path="res://scenes/PlacementTileMap/PlacementTileMap.gd" id="1_pltmap"]
+[ext_resource type="PackedScene" uid="uid://b0aaedod58msx" path="res://scenes/pantry/pantry.tscn" id="2_tmauy"]
+[ext_resource type="PackedScene" uid="uid://bgjcikn6br0s1" path="res://scenes/house/house.tscn" id="3_16bbq"]
 
 [node name="PlacementTileMap" type="Node2D" unique_id=1747058122]
 script = ExtResource("1_pltmap")
+scene_dict = Dictionary[String, PackedScene]({
+"house": ExtResource("3_16bbq"),
+"pantry": ExtResource("2_tmauy")
+})
+starting_house_count = 1
 
 [node name="Entities" type="Node2D" parent="." unique_id=1902783642]
 
