@@ -34,7 +34,6 @@ func add_food():
 	food_needed_changed.emit()
 	
 func set_highlight(mode: String):
-	print(mode)
 	if (mode not in HIGHLIGHT_MODES):
 		push_warning("Invalid Highlight Mode Passed Got ->" + mode)
 		return

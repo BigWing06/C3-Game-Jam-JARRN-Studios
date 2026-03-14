@@ -95,7 +95,6 @@ func _on_food_changed() -> void:
 	$food_amount_label.text = str(get_food_amount("Bread"))
 	
 func _on_house_entered(area: Area2D) -> void:
-	print("test")
 	var house = area.get_parent()
 	if house.is_in_group("house"):
 		house.set_highlight("hovering")
