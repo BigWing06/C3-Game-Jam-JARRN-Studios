@@ -317,7 +317,7 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	var scene_node: Node = null
 	if is_instance_valid(_hovering_preview):
 		# Convert the ghost preview into a permanent placed entity
-		_hovering_preview.set_placement_mode("placed")
+		
 		_hovering_preview.reparent($Entities)
 		scene_node        = _hovering_preview
 		_hovering_preview = null  # ownership transferred to _grid_data
@@ -329,8 +329,13 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 		$Entities.add_child(scene_node)
 		if scene_node.has_method("find_reachable"):
 			scene_node.find_reachable(self, tile)
+	scene_node.set_placement_mode("placed")
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
-
+	for position_key in _grid_data.keys():
+		if _grid_data[position_key]["scene"] in get_tree().get_nodes_in_group("pantry"):
+			_grid_data[position_key]["scene"].find_reachable(self, position_key)
+	
+		
 
 # ---------------------------------------------------------------------------
 # Public API — called by level scripts or a future GameManager

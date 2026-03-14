@@ -20,6 +20,7 @@ var food_amounts: Dictionary = {}
 
 # Updated by find_reachable() Vector2i : Node
 var reachable_tiles: Dictionary = {}
+var reachable_houses: Dictionary = {}
 
 func _ready():
 	
@@ -32,7 +33,7 @@ func _ready():
 func set_active(new_state: bool):
 	active = new_state
 	active_changed.emit()
-	if (active) and placement_mode != "hovering":
+	if active:
 		$effect_timer.start()
 	else:
 		$effect_timer.stop()
@@ -57,8 +58,6 @@ func take_food(type: String) -> void:
 # value on the TileSet (e.g. roads = 0, forests = 2). Occupied tiles that are
 # valid destinations (e.g. houses) are recorded but not expanded through.
 func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
-	if tilemap.is_tile_blocked(self_pos):
-		return
 	reachable_tiles.clear()
 
 	var grid_data: Dictionary = tilemap.get_grid_data()
@@ -105,7 +104,11 @@ func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
 						break
 				if not inserted:
 					queue.append([new_cost, neighbor])
-
+	reachable_houses = {}
+	for position_key in reachable_tiles.keys():
+		if position_key in grid_data.keys():
+			if grid_data[position_key]["type"] == "house":
+				reachable_houses[position_key] = reachable_tiles[position_key]
 
 # Returns the travel cost of stepping onto `pos` by reading the custom
 # data layer named "travel_cost". Currently not used yet but might be in the future.
@@ -120,14 +123,6 @@ func _get_tile_travel_cost(tilemap: TileMapLayer, pos: Vector2i) -> int:
 			break
 	return 1
 
-func get_reachable_houses(tilemap: TileMapLayer, pos: Vector2i):
-	find_reachable(tilemap, pos)
-	var reachable_houses = []
-	for position_key in reachable_tiles.keys():
-		if reachable_tiles[pos]["type"] == "house":
-			reachable_houses.append(position_key)
-	return reachable_houses
-
 # This function is called by the effect timer and calls the check_food_need()
 # function in all houses that are in it's effect_radius
 func effect_houses() -> void:
@@ -135,13 +130,12 @@ func effect_houses() -> void:
 		while (food_amounts[type] > 0):
 			var greatest_need: int = 0
 			var neediest_house = null
-			for area in $effect_radius.get_overlapping_areas():
-				var house = area.get_parent()
-				if house.is_in_group("house"):
-					var house_need = house.get_need(type)
-					if greatest_need < house_need: #TODO replace null with food type as string
-						greatest_need = house_need
-						neediest_house = house
+			for key in reachable_houses.keys():
+				var house = reachable_houses[key]
+				var house_need = house.get_need(type)
+				if greatest_need < house_need: #TODO replace null with food type as string
+					greatest_need = house_need
+					neediest_house = house
 			if greatest_need == 0:
 				break
 			neediest_house.give_food(type) #TODO replace null with food type as string
