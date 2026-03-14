@@ -85,7 +85,7 @@ func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
 				node_here = scene
 		reachable_tiles[current_pos] = node_here
 
-		# Don't expand through occupied tiles — they are destinations, not corridors
+		# Don't expand neighbors of occupied tiles, but do not return before registering them
 		if current_pos != self_pos and grid_data.has(current_pos):
 			continue
 
