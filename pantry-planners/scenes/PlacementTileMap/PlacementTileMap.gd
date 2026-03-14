@@ -199,10 +199,14 @@ func _refresh_hover_preview() -> void:
 func _update_hover_position():
 	_hovering_preview.position = map_to_local(_hovered_tile)
 	if _hovering_preview.has_method("find_reachable"):
+
 			_hovering_preview.find_reachable(self, _hovered_tile)
 			_highlighted_tiles.clear()
 			for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
-				_highlighted_tiles[pos] = Color(0.2, 1.0, 0.2, 0.35)
+				print(pos)
+				_highlighted_tiles[pos] = Color(1.0, 1.0, 1, 0.35)
+			queue_redraw()
+
 
 # MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
 func _draw_hover() -> void:
