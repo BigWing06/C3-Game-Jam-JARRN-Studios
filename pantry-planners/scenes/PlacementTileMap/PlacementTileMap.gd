@@ -26,7 +26,10 @@ const ENTITY_LABELS := {
 
 ## Initial tile layout for this level. Each entry needs "pos" (Vector2i) and "type" (String).
 ## Example: { "pos": Vector2i(3, 2), "type": "pantry" }
-@export var initial_tile_positions: Array[Dictionary] = []
+@export var initial_tile_positions: Array[Dictionary] = [
+{"pos": Vector2i(3, 3), "type": "house"},
+{"pos": Vector2i(5, 3), "type": "pantry"},
+]
 
 ## How many pantries the player starts with in their inventory.
 @export var starting_pantry_count: int = 3
@@ -42,13 +45,15 @@ signal update_hovered_cell
 # ---------------------------------------------------------------------------
 # Runtime state
 # ---------------------------------------------------------------------------
-# grid_pos (Vector2i) -> { "type": String, "player_can_edit": bool, "scene": Node }
+# grid_data (Vector2i) -> { "type": String, "player_can_edit": bool, "scene": Node }
 var _grid_data:      Dictionary = {}
 var _inventory:      Dictionary = {}
 var _placement_mode: bool       = false
 var _selected_item:  String     = "pantry"
 var _hovered_tile:   Vector2i   = Vector2i(-1, -1)
 var _hovering_preview:  Node       = null  # live ghost instance shown while hovering
+# Tiles to highlight, set by the active hovering preview
+var _highlighted_tiles: Dictionary[Vector2i, Color] = {}
 
 # ---------------------------------------------------------------------------
 # Node references
@@ -115,6 +120,8 @@ func _draw() -> void:
 	_draw_placed_entities()
 	if _placement_mode:
 		_draw_hover()
+		_draw_highlights()
+
 
 
 func _draw_grid() -> void:
@@ -174,6 +181,11 @@ func _refresh_hover_preview() -> void:
 		update_hovered_cell.connect(_update_hover_position)
 		_update_hover_position()
 		add_child(_hovering_preview)
+		if _hovering_preview.has_method("find_reachable"):
+			_hovering_preview.find_reachable(self, _hovered_tile)
+			_highlighted_tiles.clear()
+			for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
+				_highlighted_tiles[pos] = Color(0.2, 1.0, 0.2, 0.35)
 
 	queue_redraw()
 
@@ -181,7 +193,7 @@ func _update_hover_position():
 	_hovering_preview.position = grid_to_world_center(get_hovered_tile())
 
 
-# only used when the selected item has no entry in scene_dict.
+# MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
 func _draw_hover() -> void:
 	if not _is_valid_tile(_hovered_tile):
 		return
@@ -194,6 +206,11 @@ func _draw_hover() -> void:
 	var rect     := Rect2(Vector2(_hovered_tile) * CELL_SIZE, CELL_SIZE)
 	draw_rect(rect, fill, true)
 	draw_rect(rect, Color.WHITE, false, 2.0)
+
+func _draw_highlights() -> void:
+	for tile: Vector2i in _highlighted_tiles:
+		var rect := Rect2(Vector2(tile) * CELL_SIZE, CELL_SIZE)
+		draw_rect(rect, _highlighted_tiles[tile], true)
 
 # ---------------------------------------------------------------------------
 # Placement logic
@@ -250,11 +267,13 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	elif scene_dict.has(entity_type):
 		# Pre-placed: no preview exists, instantiate directly as a placed entity
 		scene_node = scene_dict[entity_type].instantiate()
-		scene_node.set_placement_mode("placed")
 		scene_node.position = grid_to_world_center(tile)
 		print(scene_node.position)
 		$Entities.add_child(scene_node)
+		if scene_node.has_method("find_reachable"):
+			scene_node.find_reachable(self, scene_node)
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
+		
 
 # ---------------------------------------------------------------------------
 # Public API — called by level scripts or a future GameManager
