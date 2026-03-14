@@ -3,6 +3,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Change to new music when ready
+	Audio.play_music(preload("res://MusicSFX/studiokolomna-risk-136788.mp3"))
 	pass # Replace with function body.
 
 
@@ -12,18 +14,18 @@ func _process(delta: float) -> void:
 
 # BUTTONS FOR MENU
 func _on_start_game_pressed() -> void:
-	# TODO: Fill in game scene
-	# get_tree().change_scene_to_file()
-	pass
+	# TODO: Change to official game later
+	get_tree().change_scene_to_file("res://scenes/PlacementTileMap/PlacementTileMap.tscn")
 
 
 func _on_settings_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/Main Menu/SettingsUI.tscn")
+	var settings_scene = preload("res://scenes/Main Menu/SettingsUI.tscn")
+	var settings = settings_scene.instantiate()
+	add_child(settings)
 
 
 func _on_credits_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/Main Menu/CreditsUI.tscn")
-	pass
 
 
 func _on_quit_pressed() -> void:
