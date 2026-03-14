@@ -57,6 +57,7 @@ var _hovered_tile:   Vector2i   = Vector2i(-1, -1)
 var _hovering_preview:  Node       = null  # live ghost instance shown while hovering
 # Tiles to highlight, set by the active hovering preview
 var _highlighted_tiles: Dictionary[Vector2i, Color] = {}
+var _setting_displayed: bool     = false
 
 # ---------------------------------------------------------------------------
 # Node references
@@ -100,6 +101,15 @@ func _input(event: InputEvent) -> void:
 					_selected_item = "house"
 					_refresh_hover_preview()
 					_update_ui()
+			KEY_ESCAPE:
+				# Support for ESCAPE Settings Menu
+				print("ESCAPE!")
+				if _setting_displayed == false:
+					_setting_displayed = true
+					var settings_scene = preload("res://scenes/Main Menu/SettingsUI.tscn")
+					var settings = settings_scene.instantiate()
+					add_child(settings)
+					Audio.play_button_sound()
 
 	if event is InputEventMouseButton and event.pressed and _placement_mode:
 		var tile := local_to_map(to_local(get_global_mouse_position()))

@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 # Buttons and Sliders ---------------
 
 func _on_navigate_back_pressed() -> void:
+	get_parent()._setting_displayed = false
 	queue_free()
 	
 
