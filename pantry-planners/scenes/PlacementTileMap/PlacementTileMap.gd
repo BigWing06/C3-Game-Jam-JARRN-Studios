@@ -157,6 +157,8 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	if not _placement_mode:
 		return
+	if _setting_displayed:
+		return
 	var new_tile := local_to_map(to_local(get_global_mouse_position()))
 	if new_tile != _hovered_tile:
 		_hovered_tile = new_tile
