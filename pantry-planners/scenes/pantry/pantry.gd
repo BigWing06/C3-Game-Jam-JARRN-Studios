@@ -16,8 +16,10 @@ signal food_changed()
 
 var food_amounts: Dictionary = {}
 
-# updated by find_reachable(), each entry is {Vector2i: Node}
-var reachable_tiles: Array[Dictionary] = []
+@export var max_range: int = 5
+
+# Updated by find_reachable() Vector2i : Node
+var reachable_tiles: Dictionary = {}
 
 func _ready():
 	
@@ -49,12 +51,75 @@ func take_food(type: String) -> void:
 	set_food(type, get_food_amount(type) - 1)
 	food_changed.emit()
 
-# This function uses Djikstra's reachability algorithm to find reachable Nodes
-func _find_reachable(tilemap: Node, self_pos: Vector2i) -> void:
-	return
+# Dijkstra reachability search. Fills reachable_tiles with every tile within
+# max_range travel cost, mapping Vector2i -> the Node placed there (or null).
+# Occupied tiles block passage unless they carry a "travel_cost" custom-data
+# value on the TileSet (e.g. roads = 0, forests = 2). Occupied tiles that are
+# valid destinations (e.g. houses) are recorded but not expanded through.
+func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
+	if tilemap.is_tile_blocked(self_pos):
+		return
+	reachable_tiles.clear()
+
+	var grid_data: Dictionary = tilemap.get_grid_data()
+	# dist[pos] = minimum travel cost to reach pos
+	var dist: Dictionary = { self_pos: 0 }
+	# Simple sorted-on-insert min-priority queue: entries are [cost, Vector2i]
+	var queue: Array = [[0, self_pos]]
+
+	while queue.size() > 0:
+		var entry: Array  = queue.pop_front()
+		var current_cost: int     = entry[0]
+		var current_pos:  Vector2i = entry[1]
+
+		# Skip stale queue entries
+		if current_cost > dist.get(current_pos, INF):
+			continue
+
+		# Record tile and any Node living on it
+		var node_here: Node = null
+		if grid_data.has(current_pos):
+			var scene = grid_data[current_pos].get("scene")
+			if is_instance_valid(scene):
+				node_here = scene
+		reachable_tiles[current_pos] = node_here
+
+		# Don't expand through occupied tiles — they are destinations, not corridors
+		if current_pos != self_pos and grid_data.has(current_pos):
+			continue
+
+		for neighbor: Vector2i in tilemap.get_surrounding_cells(current_pos):
+			if tilemap.is_tile_blocked(neighbor):
+				continue
+
+			var step_cost: int = _get_tile_travel_cost(tilemap, neighbor)
+			var new_cost:  int = current_cost + step_cost
+
+			if new_cost <= max_range and new_cost < dist.get(neighbor, INF):
+				dist[neighbor] = new_cost
+				# Sorted insertion to keep the queue ordered by cost
+				var inserted := false
+				for i in queue.size():
+					if queue[i][0] > new_cost:
+						queue.insert(i, [new_cost, neighbor])
+						inserted = true
+						break
+				if not inserted:
+					queue.append([new_cost, neighbor])
 
 
-
+# Returns the travel cost of stepping onto `pos` by reading the custom
+# data layer named "travel_cost". Currently not used yet but might be in the future.
+func _get_tile_travel_cost(tilemap: TileMapLayer, pos: Vector2i) -> int:
+	if tilemap.tile_set == null:
+		return 1
+	for i in tilemap.tile_set.get_custom_data_layers_count():
+		if tilemap.tile_set.get_custom_data_layer_name(i) == "travel_cost":
+			var tile_data := tilemap.get_cell_tile_data(pos)
+			if tile_data:
+				return int(tile_data.get_custom_data_by_layer_id(i))
+			break
+	return 1
 
 
 # This function is called by the effect timer and calls the check_food_need()
