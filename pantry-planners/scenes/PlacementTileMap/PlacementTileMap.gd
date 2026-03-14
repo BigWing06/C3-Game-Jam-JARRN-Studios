@@ -129,7 +129,7 @@ func _draw_placed_entities() -> void:
 
 		var origin := Vector2(grid_pos) * CELL_SIZE
 		
-		if entity_type in scene_dict:
+		if is_instance_valid(data["scene"]):
 			continue 
 			# no need because scenes will render themselves,
 			# they are placed via _place_initial_entities()
