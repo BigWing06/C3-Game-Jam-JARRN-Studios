@@ -4,7 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://b0aaedod58msx" path="res://scenes/pantry/pantry.tscn" id="2_tmauy"]
 [ext_resource type="PackedScene" uid="uid://bgjcikn6br0s1" path="res://scenes/house/house.tscn" id="3_16bbq"]
 
-[node name="PlacementTileMap" type="Node2D" unique_id=1747058122]
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yy1r0"]
+scenes/1/scene = ExtResource("2_tmauy")
+scenes/2/scene = ExtResource("3_16bbq")
+
+[sub_resource type="TileSet" id="TileSet_10f1e"]
+tile_size = Vector2i(64, 64)
+custom_data_layer_0/name = "type"
+custom_data_layer_0/type = 4
+sources/1 = SubResource("TileSetScenesCollectionSource_yy1r0")
+
+[node name="PlacementTileMap" type="TileMapLayer" unique_id=896804651]
+tile_set = SubResource("TileSet_10f1e")
 script = ExtResource("1_pltmap")
 scene_dict = Dictionary[String, PackedScene]({
 "house": ExtResource("3_16bbq"),
