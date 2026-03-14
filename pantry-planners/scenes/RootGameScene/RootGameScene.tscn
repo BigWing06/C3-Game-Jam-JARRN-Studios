@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bq5d5g3ssjog1"]
+
+[ext_resource type="Script" uid="uid://sv7cl32dwt05" path="res://scenes/RootGameScene/RootGameScene.gd" id="1_0c03w"]
+[ext_resource type="PackedScene" uid="uid://bdiegmcla7iau" path="res://scenes/PlacementTileMap/PlacementTileMap.tscn" id="2_1ll7s"]
+
+[node name="RootGameScene" type="Node2D" unique_id=744204471]
+script = ExtResource("1_0c03w")
+
+[node name="level_timer" type="Timer" parent="." unique_id=1048225820]
+one_shot = true
+
+[node name="PlacementTileMap" parent="." unique_id=1747058122 instance=ExtResource("2_1ll7s")]
+
+[connection signal="timeout" from="level_timer" to="." method="next_level"]

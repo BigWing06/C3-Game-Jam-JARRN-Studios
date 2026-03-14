@@ -24,7 +24,8 @@ func next_level():
 			print("Creating " + house["type"] + " @ " + str(house["location"]))
 	if "pantries" in level_data.keys():
 		for type in level_data["pantries"]:
-			print(str(level_data["pantries"][type]) + " more of " + type)		
+			$PlacementTileMap.add_to_inventory(type, level_data["pantries"][type])
+			print(str(level_data["pantries"][type]) + " more of " + type)
 	level_index += 1
 	if (level_index < len(levels)):
 		$level_timer.wait_time = levels[level_index]["time"]
