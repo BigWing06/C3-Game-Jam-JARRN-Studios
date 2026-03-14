@@ -1,16 +1,24 @@
 extends Sprite2D
 
+const PLACEMENT_MODES = ["hovering", "placed"]
+
+@export var start_active: bool = false 
+@export var start_placement_mode: String = "hovering"
+# Signal that is emmited when the active state changes
+
 # This varible controls if the food pantry is active meaning
 # it is receiving and handing out food
-@export var active: bool = true 
-# Signal that is emmited when the active state changes
+var active: bool
+var placement_mode: String
+
 signal active_changed()
 signal food_changed()
 
 var food_amounts: Dictionary = {}
 
 func _ready():
-	set_active(active)
+	set_active(start_active)
+	set_placement_mode(start_placement_mode)
 	set_food("Bread", 10)
 
 # Used to set state of the active variable. Handles resetting, 
@@ -64,5 +72,35 @@ func get_food_amount(type: String) -> int:
 		push_warning("Type " + type + " is not in food_amounts dict returning 0. This might cause unexpected behavior")
 		return 0
 
+func set_placement_mode(mode: String) -> void:
+	if (mode not in PLACEMENT_MODES):
+		push_warning("Invalid Placement Mode Passed Got ->" + mode)
+		return
+	placement_mode = mode
+	match mode:
+		"hovering":
+			set_active(false)
+			add_to_group("hovering")
+			$effect_radius.connect("area_entered", _on_house_entered)
+			for area in $effect_radius.get_overlapping_areas():
+				_on_house_entered(area)
+		"placed":
+			set_active(true)
+			remove_from_group("hovering")
+			$effect_radius.connect("area_exited", _on_house_exited)
+			for area in $effect_radius.get_overlapping_areas():
+				_on_house_exited(area)
+
 func _on_food_changed() -> void:
 	$food_amount_label.text = str(get_food_amount("Bread"))
+	
+func _on_house_entered(area: Area2D) -> void:
+	print("test")
+	var house = area.get_parent()
+	if house.is_in_group("house"):
+		house.set_highlight("hovering")
+
+func _on_house_exited(area: Area2D) -> void:
+	var house = area.get_parent()
+	if house.is_in_group("house"):
+		house.set_highlight("none")
