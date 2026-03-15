@@ -52,10 +52,14 @@ func load_level():
 func finish_load(level_data):
 	placement_tilemap = PLACEMENT_TILEMAP_SCENE.instantiate()
 	add_child(placement_tilemap)
-	if "houses" in level_data.keys() and false:
+	if "houses" in level_data.keys():
 		for house in level_data["houses"]:
-			#placement_tilemap.preplace_tile([house["location"]] = SCENE_DICT[house["type"]]["type"]
-			print("Creating " + house["type"] + " @ " + str(house["location"]))
+			placement_tilemap.place_house_at(Vector2i(house["location"][0], house["location"][1]), 
+				{
+					"type": house["type"],
+					"needs": house["needs"],
+					"isactive": (house["isactive"] == "true")
+				})
 	if "pantries" in level_data.keys():
 		for type in level_data["pantries"]:
 			placement_tilemap.add_to_inventory(type, level_data["pantries"][type])

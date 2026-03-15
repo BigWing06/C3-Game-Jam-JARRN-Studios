@@ -28,10 +28,16 @@
 		},
 		"houses":[
 			{
-				"type":"normal",
-				"isActive":"false",
-				"needs":[],
+				"type":"high_need",
+				"isactive":"false",
+				"needs":["veg"],
 				"location":[1,1]
+			},
+			{
+				"type":"high_need",
+				"isactive":"false",
+				"needs":["veg"],
+				"location":[5,5]
 			}
 		],
 		"pantries":{
