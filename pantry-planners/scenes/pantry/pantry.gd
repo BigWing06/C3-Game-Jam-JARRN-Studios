@@ -18,6 +18,7 @@ signal food_changed
 
 # food_type -> amount currently stocked. Houses pull from this via take_food().
 var food_amounts: Dictionary = {}
+var food_calls: Dictionary = {}
 
 @export var max_range: int = 5
 
@@ -35,19 +36,46 @@ func _ready():
 func set_active(new_state: bool) -> void:
 	active = new_state
 	active_changed.emit()
+	if active:
+		$add_food_timer.start()
+	else:
+		$add_food_timer.stop()
+
+func check_food(type) -> bool:
+	if type in food_amounts.keys():
+		var called_amount = 0
+		if type in food_calls.keys():
+			called_amount = food_calls[type]
+		print("AMOUNT")
+		print(food_amounts[type])
+		print("CALLED AMOUNT")
+		print(called_amount)
+		if food_amounts[type] - called_amount > 0:
+			if type in food_calls.keys():
+				food_calls[type] += 1
+			else:
+				food_calls[type] = 0
+			print("TRUE")
+			return true
+	return false
+	
 
 func set_food(type: String, amount: int):
 	food_amounts[type] = amount
 	food_changed.emit()
 
 # This function adds one food of a specific type to the pantry
-func add_food(type: String):
-	set_food(type, get_food_amount(type) + 1)
+func add_food():
+	set_food("Bread", get_food_amount("Bread") + 1)
 	
 # This function is called by houses in radius when
 # they want to take food from the pantry
 func take_food(type: String) -> void:
 	set_food(type, get_food_amount(type) - 1)
+	if (type in food_calls.keys()):
+		food_calls[type] -= 1
+		if food_calls[type] < 0:
+			food_calls[type] = 0
 	food_changed.emit()
 
 # Dijkstra reachability search. Fills reachable_tiles with every tile within
@@ -107,6 +135,8 @@ func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
 		if position_key in grid_data.keys():
 			if grid_data[position_key]["type"] == "house":
 				reachable_houses[position_key] = reachable_tiles[position_key]
+	for house in reachable_houses:
+		grid_data[house]["scene"].add_pantry(self)
 
 # Returns the travel cost of stepping onto `pos` by reading the custom
 # data layer named "travel_cost". Currently not used yet but might be in the future.
@@ -120,24 +150,6 @@ func _get_tile_travel_cost(tilemap: TileMapLayer, pos: Vector2i) -> int:
 				return int(tile_data.get_custom_data_by_layer_id(i))
 			break
 	return 1
-
-# This function is called by the effect timer and calls the check_food_need()
-# function in all houses that are in it's effect_radius
-func effect_houses() -> void:
-	for type in food_amounts.keys():
-		while (food_amounts[type] > 0):
-			var greatest_need: int = 0
-			var neediest_house = null
-			for key in reachable_houses.keys():
-				var house = reachable_houses[key]
-				var house_need = house.get_need(type)
-				if greatest_need < house_need: #TODO replace null with food type as string
-					greatest_need = house_need
-					neediest_house = house
-			if greatest_need == 0:
-				break
-			neediest_house.give_food(type) #TODO replace null with food type as string
-			take_food(type)
 
 # This function is called to get the amount of a specific food type
 func get_food_amount(type: String) -> int:

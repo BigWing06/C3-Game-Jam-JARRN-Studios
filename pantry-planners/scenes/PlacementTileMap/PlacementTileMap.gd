@@ -51,6 +51,7 @@ const PLACEABLE_ENTITIES = [
 # ---------------------------------------------------------------------------
 
 signal hovered_tile_changed
+signal entity_built
 
 # ---------------------------------------------------------------------------
 # Runtime state
@@ -336,6 +337,8 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	scene_node.set_placement_mode("placed")
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
 	for position_key in _grid_data.keys():
+		if _grid_data[position_key]["scene"] in get_tree().get_nodes_in_group("house"):
+			_grid_data[position_key]["scene"].reset_house()
 		if _grid_data[position_key]["scene"] in get_tree().get_nodes_in_group("pantry"):
 			_grid_data[position_key]["scene"].find_reachable(self, position_key)
 	

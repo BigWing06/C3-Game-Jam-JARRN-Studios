@@ -26,9 +26,10 @@ offset_right = 94.55499
 offset_bottom = 157.0
 theme_override_font_sizes/font_size = 130
 
-[node name="effect_timer" type="Timer" parent="." unique_id=749848196]
-wait_time = 0.5
+[node name="add_food_timer" type="Timer" parent="." unique_id=675883274]
+wait_time = 5.0
+autostart = true
 
 [connection signal="food_changed" from="." to="." method="_on_food_changed"]
 [connection signal="tree_exiting" from="sprite" to="sprite" method="_on_tree_exiting"]
-[connection signal="timeout" from="effect_timer" to="." method="effect_houses"]
+[connection signal="timeout" from="add_food_timer" to="." method="add_food"]

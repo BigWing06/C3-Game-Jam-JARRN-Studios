@@ -20,6 +20,48 @@ const TRAVEL_SPEED := 0.5  # seconds per tile (one way); round trip = 2x
 
 # Emitted when health reaches 0. Connect to the loss screen trigger.
 signal died
+signal food_needed_changed
+var pantries = []
+var closest_pantry
+var closest_pantry_dist = 1000000
+var food_needed: Dictionary = {}
+
+@export var house_effect_timer_len: int = 3
+
+func reset_house():
+	pantries = []
+	print("clear")
+
+func add_pantry(pantry):
+	print("pantry added")
+	print(pantry)
+	pantries.append(pantry)
+
+func take_food():
+	var greatest_need = -1
+	var greatest_need_type = ""
+	for type in food_needed.keys():
+		if food_needed[type] > greatest_need:
+			greatest_need = food_needed[type]
+			greatest_need_type = type
+	if greatest_need == -1:
+		print("No Food of greatest need")
+		return
+	calculate_closest_pantry(greatest_need_type)
+	
+	if (closest_pantry != null):
+		closest_pantry.take_food(greatest_need_type)
+		set_food_need(greatest_need_type, get_need(greatest_need_type) - 1)
+		print("tesafiuwroiwajiewaipt")
+	else:
+		print("No FOod avaliable")
+
+# This function is called by the food pantries on all houses
+# in its radius to see if they need to take food
+func get_need(type: String):
+	if type in food_needed.keys():
+		return food_needed[type]
+	return 0
 
 var house_type:  String        = "inactive"
 var needs:       Array[String] = []  # food types this house requests
@@ -146,3 +188,18 @@ func set_highlight(mode: String) -> void:
 # Required by PlacementTileMap when converting a hover preview into a placed entity.
 func set_placement_mode(_mode: String) -> void:
 	pass
+func _on_food_needed_changed() -> void:
+	$food_amount_label.text = str(get_need("Bread"))
+	
+func set_placement_mode(mode):
+	return
+	
+func calculate_closest_pantry(type):
+	closest_pantry = null
+	closest_pantry_dist = 100000000000
+	print(pantries)
+	for pantry in pantries:
+		#print("fsajofisjd    " + str(closest_pantry_dist > position.distance_to(pantry.position)))
+		if (closest_pantry_dist > position.distance_to(pantry.position) and pantry.check_food(type)):
+			closest_pantry = pantry
+			closest_pantry_dist = position.distance_to(pantry.position)
