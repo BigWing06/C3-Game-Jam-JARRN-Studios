@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6hul53i36jb0"
-path="res://.godot/imported/Full_Veggie_Pantry.png-83d19d7a51fdaa9a966ea8db360ada26.ctex"
+uid="uid://b62jb8uc0ewbe"
+path="res://.godot/imported/Small pantry empty.png-93fd223b59b9abb766579ef7e3ccaa09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Full_Veggie_Pantry.png"
-dest_files=["res://.godot/imported/Full_Veggie_Pantry.png-83d19d7a51fdaa9a966ea8db360ada26.ctex"]
+source_file="res://Sprites/Pantries/Small pantry empty.png"
+dest_files=["res://.godot/imported/Small pantry empty.png-93fd223b59b9abb766579ef7e3ccaa09.ctex"]
 
 [params]
 

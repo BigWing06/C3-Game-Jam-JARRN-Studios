@@ -19,4 +19,4 @@ func _on_test_cutscene_pressed() -> void:
 	var cutscene_scene = preload("res://scenes/Cutscenes/Cutscene.tscn")
 	var cutscene = cutscene_scene.instantiate()
 	add_child(cutscene)
-	cutscene.start_cutscene(0)
+	cutscene.start_cutscene(2)

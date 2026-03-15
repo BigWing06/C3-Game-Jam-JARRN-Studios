@@ -26,25 +26,26 @@
 		"houses":[
 			{
 				"type":"normal",
-				"location":[1 , 1]
+				"location":[1,1]
 			}
 		],
 		"pantries":{
 			"pantry":1
 		}
 	},
+
 	{
 		"time":2,
 		"houses":[
 			{
 				"type":"normal",
-				"location":[2 , 2]
 			}
 		],
 		"pantries":{
 			"pantry":1
 		}
 	},
+
 	{
 		"time":5,
 		"level":{
@@ -53,18 +54,138 @@
 					"text":"Example Text 3"
 				},
 				{
-					"text":"Example Text 4",
+					"text":"Example Text 4"
 				}
 			]
 		},
 		"houses":[
 			{
 				"type":"normal",
-				"location":[1 , 1]
+				"location":[1,1]
 			}
 		],
 		"pantries":{
 			"pantry":1
+		}
+	},
+
+	{
+		"time":10,
+		"houses":[
+			{
+				"type":"",
+				"location":[0,0]
+			}
+		],
+		"pantries":{
+			"pantry":0
+		}
+	},
+
+	{
+		"time":15,
+		"level":{
+			"narrative":[
+				{
+					"text":""
+				}
+			]
+		}
+	},
+
+	{
+		"time":20,
+		"houses":[
+			{
+				"type":"",
+				"location":[0,0]
+			}
+		],
+		"pantries":{
+			"pantry":0
+		}
+	},
+
+	{
+		"time":25,
+		"level":{
+			"narrative":[
+				{
+					"text":""
+				}
+			]
+		}
+	},
+
+	{
+		"time":30,
+		"houses":[
+			{
+				"type":"",
+				"location":[0,0]
+			}
+		],
+		"pantries":{
+			"pantry":0
+		}
+	},
+
+	{
+		"time":35,
+		"level":{
+			"narrative":[
+				{
+					"text":""
+				}
+			]
+		}
+	},
+
+	{
+		"time":40,
+		"houses":[
+			{
+				"type":"",
+				"location":[0,0]
+			}
+		],
+		"pantries":{
+			"pantry":0
+		}
+	},
+
+	{
+		"time":45,
+		"level":{
+			"narrative":[
+				{
+					"text":""
+				}
+			]
+		}
+	},
+
+	{
+		"time":50,
+		"houses":[
+			{
+				"type":"",
+				"location":[0,0]
+			}
+		],
+		"pantries":{
+			"pantry":0
+		}
+	},
+
+	{
+		"time":55,
+		"level":{
+			"narrative":[
+				{
+					"text":""
+				}
+			]
 		}
 	}
 ]
