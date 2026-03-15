@@ -11,6 +11,8 @@ const FOOD_TYPES = [
 ]
 
 var inventory = {FOOD_TYPES[0]: 20, FOOD_TYPES[1]: 20, FOOD_TYPES[2]: 20}
+const WAREHOUSE_TEXTURE := preload("res://Sprites/Pantries/Warehouse.png")
+
 
 func _ready():
 	get_parent().get_parent().get_node("WarehouseDisplay").setup(self)
