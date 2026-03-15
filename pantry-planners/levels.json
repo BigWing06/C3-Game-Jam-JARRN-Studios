@@ -1,6 +1,6 @@
 [
 	{
-		"time":1,
+		"time":10,
 		"level":{
 			"narrative":[
 				{
@@ -56,7 +56,7 @@
 		}
 	},
 	{
-		"time":1,
+		"time":10,
 		"level":{
 			"narrative":[
 				{
@@ -182,7 +182,7 @@
 		}
 	},
 {
-		"time":1,
+		"time":20,
 		"level":{
 			"narrative":[
 				{
@@ -205,6 +205,11 @@
 			{
 				"type":"normal",
 				"needs":["veg"],
+				"location":[9, 6]
+			},
+			{
+				"type":"normal",
+				"needs":["veg"],
 				"location":[9, 9]
 			},
 			{
@@ -216,6 +221,11 @@
 				"type":"normal",
 				"needs":["meat"],
 				"location":[19, 9]
+			},
+			{
+				"type":"normal",
+				"needs":["meat"],
+				"location":[19, 10]
 			},
 			{
 				"type":"normal",
@@ -243,7 +253,7 @@
 		}
 	},
 	{
-		"time":1,
+		"time":30,
 		"level":{
 			"narrative":[
 				{
@@ -351,7 +361,7 @@
 	},
 
 	{
-		"time":1,
+		"time":45,
 		"level":{
 			"narrative":[
 				{
@@ -442,12 +452,12 @@
 			}
 		],
 		"pantries":{
-			"pantry":2,
-			"small_pantry":3
+			"pantry":1,
+			"small_pantry":4
 		}
 	},
 	{
-		"time":1,
+		"time":45,
 		"level":{
 			"narrative":[
 				{
