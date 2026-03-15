@@ -66,6 +66,9 @@ func set_food(type: String, amount: int):
 	
 # This function is called by houses in radius when
 # they want to take food from the pantry
+func add_food(type: String) -> void:
+	set_food(type, get_food_amount(type) + 1)
+
 func take_food(type: String) -> void:
 	set_food(type, get_food_amount(type) - 1)
 	if (type in food_calls.keys()):

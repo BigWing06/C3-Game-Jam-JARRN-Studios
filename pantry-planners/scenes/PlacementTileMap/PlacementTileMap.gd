@@ -14,8 +14,9 @@ var _cell_size: Vector2:
 # Placeholder appearance per entity type
 # ---------------------------------------------------------------------------
 const ENTITY_COLORS := {
-	"pantry": Color(1.0, 0.65, 0.0, 0.85),   # orange
-	"house":  Color(0.3, 0.6,  1.0, 0.85),   # blue
+	"pantry": Color(1.0, 0.65, 0.0, 0.85),
+	"house":  Color(0.3, 0.6,  1.0, 0.85),
+	"donor":  Color(0.9, 0.75, 0.3, 0.85),
 }
 const ENTITY_LABELS := {
 	"pantry": "P",
@@ -23,9 +24,10 @@ const ENTITY_LABELS := {
 }
 
 const PLACEABLE_ENTITIES = [
-	{"key":"pantry", "name": "Pantry"},
-	{"key":"house", "name": "House"},
-	{"key":"small_pantry", "name": "Small Pantry"}
+	{"key":"pantry",       "name": "Pantry"},
+	{"key":"house",        "name": "House"},
+	{"key":"small_pantry", "name": "Small Pantry"},
+	{"key":"donor",        "name": "Donor"},
 ]
 
 # ---------------------------------------------------------------------------
@@ -45,6 +47,7 @@ const PLACEABLE_ENTITIES = [
 ## How many houses the player starts with in their inventory (usually 0).
 @export var starting_house_count:  int = 30
 @export var starting_small_pantry_count: int = 30
+@export var starting_donor_count: int = 3  # given per donor food type
 
 # ---------------------------------------------------------------------------
 # Signals
@@ -84,10 +87,13 @@ var _pantry_info_label:     Label          = null
 # ---------------------------------------------------------------------------
 func _ready() -> void:
 	_inventory = {
-		"pantry": starting_pantry_count,
-		"house":  starting_house_count,
-		"small_pantry" : starting_small_pantry_count
+		"pantry":      starting_pantry_count,
+		"house":       starting_house_count,
+		"small_pantry":starting_small_pantry_count,
+		"donor": starting_donor_count,
 	}
+	# Donor reuses the house scene; alias at runtime to avoid tscn edits
+	scene_dict["donor"] = scene_dict["house"]
 	_setup_grid_layer()
 	_place_initial_entities()
 	_create_pantry_info_panel()
@@ -355,8 +361,10 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 			scene_node.find_reachable(self, tile)
 	scene_node.set_placement_mode("placed")
 	if entity_type == "house":
-		scene_node.setup({"type":"normal"}, self, tile)
+		scene_node.setup({"type": "normal"}, self, tile)
 		scene_node.died.connect(func(): get_tree().change_scene_to_file("res://scenes/Main Menu/GameOver.tscn"))
+	elif entity_type == "donor":
+		scene_node.setup({"type": "donator", "donates": ["bread"]}, self, tile)
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
 	for position_key in _grid_data.keys():
 		if _grid_data[position_key]["scene"] in get_tree().get_nodes_in_group("pantry"):
