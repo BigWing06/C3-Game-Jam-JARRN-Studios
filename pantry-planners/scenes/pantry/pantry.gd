@@ -47,6 +47,7 @@ func set_active(new_state: bool) -> void:
 	active_changed.emit()
 	if active:
 		$spoilage_timer.wait_time = spoliage_timer
+		$spoilage_timer.start()
 
 func check_food(type) -> bool:
 	if type in food_amounts.keys():
@@ -185,6 +186,8 @@ func get_spoilage():
 	return false
 
 func _on_food_changed() -> void:
+	if not active:
+		return
 	var text := ""
 	for food_type in ["bread", "veg", "meat"]:
 		text += "%s:%d " % [food_type[0].to_upper(), get_food_amount(food_type)]
