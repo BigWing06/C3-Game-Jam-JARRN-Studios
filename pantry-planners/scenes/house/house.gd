@@ -136,7 +136,7 @@ func _update_texture() -> void:
 		else "veg"  if needs.size() == 1 and needs[0] == "veg" \
 		else "meat" if needs.size() == 1 and needs[0] == "meat" \
 		else "default"
-	texture = variants.get(key, variants["default"])
+	$house.texture = variants.get(key, variants["default"])
 
 
 func activate() -> void:
