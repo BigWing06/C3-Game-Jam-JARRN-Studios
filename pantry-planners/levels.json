@@ -39,6 +39,7 @@
 		"houses":[
 			{
 				"type":"normal",
+				"location":[2,2]
 			}
 		],
 		"pantries":{

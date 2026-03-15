@@ -15,20 +15,24 @@ func _process(delta: float) -> void:
 
 # BUTTONS FOR MENU
 func _on_start_game_pressed() -> void:
-	# TODO: Change to official game later
-	get_tree().change_scene_to_file("res://scenes/RootGameScene/RootGameScene.tscn")
 	Audio.play_button_sound()
+	await ScreenTransition.fade_out()
+	get_tree().change_scene_to_file("res://scenes/RootGameScene/RootGameScene.tscn")
+	await ScreenTransition.fade_in()
+	
 
 func _on_settings_pressed() -> void:
+	Audio.play_button_sound()
 	var settings_scene = preload("res://scenes/Main Menu/SettingsUI.tscn")
 	var settings = settings_scene.instantiate()
 	add_child(settings)
-	Audio.play_button_sound()
 
 
 func _on_credits_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/Main Menu/CreditsUI.tscn")
 	Audio.play_button_sound()
+	await ScreenTransition.fade_out()
+	get_tree().change_scene_to_file("res://scenes/Main Menu/CreditsUI.tscn")
+	await ScreenTransition.fade_in()
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
