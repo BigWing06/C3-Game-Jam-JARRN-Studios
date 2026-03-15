@@ -7,7 +7,7 @@ const FOOD_TYPES = ["bread", "veg", "meat"]
 const RESTOCK_PRIORITY := {"bread": 18, "veg": 15, "meat": 10}
 const RESTOCK_BASE     := {"bread":  4, "veg":  3, "meat":  2}
 
-var inventory = {"bread": 18, "veg": 15, "meat": 10}
+var inventory = {"bread": 0, "veg": 0, "meat": 0}
 
 const WAREHOUSE_TEXTURE := preload("res://Sprites/Pantries/Warehouse.png")
 

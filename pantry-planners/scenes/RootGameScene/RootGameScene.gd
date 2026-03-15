@@ -54,12 +54,15 @@ func finish_load(level_data):
 	add_child(placement_tilemap)
 	if "houses" in level_data.keys():
 		for house in level_data["houses"]:
-			placement_tilemap.place_house_at(Vector2i(house["location"][0], house["location"][1]), 
-				{
-					"type": house["type"],
-					"needs": house["needs"],
-					"isactive": (house["isactive"] == "true")
-				})
+			var config := {
+				"type": house.get("type", "normal"),
+				"inactive": house.get("inactive", false),
+				"player_can_edit": false,
+			}
+			if "needs" in house:
+				config["needs"] = house["needs"]
+			placement_tilemap.place_house_at(
+				Vector2i(house["location"][0], house["location"][1]), config)
 	if "pantries" in level_data.keys():
 		for type in level_data["pantries"]:
 			placement_tilemap.add_to_inventory(type, level_data["pantries"][type])

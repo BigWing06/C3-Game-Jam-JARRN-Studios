@@ -1,6 +1,6 @@
 [
 	{
-		"time":0,
+		"time":15,
 		"level":{
 			"narrative":[
 				{
@@ -22,22 +22,33 @@
 					"text":"First, let us tackle the basics of Accessibility. Accessibility refers to the capability to acquire food from these pantries, in our case, strategizing where to locate them in proximity to those in need."
 				},
 				{
-					"text":"There is one house on screen. Place the pantry near the house to supply food to the house."
+					"text":"There are a few houses on screen. Place the pantry covering the houses to supply food to them."
 				}
 			]
 		},
 		"houses":[
 			{
-				"type":"high_need",
-				"isactive":"false",
-				"needs":["veg"],
-				"location":[1,1]
+				"type":"normal",
+				"location":[12, 6]
 			},
 			{
-				"type":"high_need",
-				"isactive":"false",
-				"needs":["veg"],
-				"location":[5,5]
+				"type":"normal",
+				"location":[16, 10]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[5, 3]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[22, 13]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[8, 13]
 			}
 		],
 		"pantries":{
@@ -45,7 +56,7 @@
 		}
 	},
 	{
-		"time":5,
+		"time":60,
 		"level":{
 			"narrative":[
 				{
@@ -65,15 +76,117 @@
 		"houses":[
 			{
 				"type":"normal",
-				"location":[1,1]
+				"location":[10, 8]
+			},
+			{
+				"type":"normal",
+				"location":[11, 8]
+			},
+			{
+				"type":"normal",
+				"location":[10, 7]
+			},
+			{
+				"type":"normal",
+				"location":[18, 8]
+			},
+			{
+				"type":"normal",
+				"location":[19, 8]
+			},
+			{
+				"type":"normal",
+				"location":[18, 7]
+			},
+			{
+				"type":"normal",
+				"location":[11, 4]
+			},
+			{
+				"type":"normal",
+				"location":[12, 4]
+			},
+			{
+				"type":"normal",
+				"location":[11, 5]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[5, 5]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[5, 6]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[6, 5]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[7, 6]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[22, 5]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[22, 6]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[23, 6]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[8, 3]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[15, 3]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[20, 4]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[6, 12]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[20, 11]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[13, 5]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[9, 10]
 			}
 		],
 		"pantries":{
-			"pantry":1
+			"pantry":2
 		}
 	},
 {
-		"time":5,
+		"time":75,
 		"level":{
 			"narrative":[
 				{
@@ -90,15 +203,51 @@
 		"houses":[
 			{
 				"type":"normal",
-				"location":[1,1]
+				"needs":["veg"],
+				"location":[9, 7]
+			},
+			{
+				"type":"normal",
+				"needs":["veg"],
+				"location":[9, 9]
+			},
+			{
+				"type":"normal",
+				"needs":["meat"],
+				"location":[19, 7]
+			},
+			{
+				"type":"normal",
+				"needs":["meat"],
+				"location":[19, 9]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[5, 5]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[23, 5]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[5, 12]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[23, 12]
 			}
 		],
 		"pantries":{
-			"pantry":1
+			"pantry":2
 		}
 	},
 	{
-		"time":5,
+		"time":90,
 		"level":{
 			"narrative":[
 				{
@@ -111,17 +260,30 @@
 		},
 		"houses":[
 			{
-				"type":"normal",
-				"location":[1,1]
+				"type":"low_need",
+				"location":[3, 4]
+			},
+			{
+				"type":"low_need",
+				"location":[25, 4]
+			},
+			{
+				"type":"low_need",
+				"location":[3, 13]
+			},
+			{
+				"type":"low_need",
+				"location":[25, 13]
 			}
 		],
 		"pantries":{
-			"pantry":0
+			"pantry":1,
+			"small_pantry":2
 		}
 	},
 
 	{
-		"time":35,
+		"time":90,
 		"level":{
 			"narrative":[
 				{
@@ -140,24 +302,72 @@
 					"text":"But I know you can do it, so hop to it, I wish you luck!"
 				}
 			]
-		}
-	},
-
-	{
-		"time":40,
+		},
 		"houses":[
 			{
-				"type":"",
-				"location":[0,0]
+				"type":"high_need",
+				"location":[10, 5]
+			},
+			{
+				"type":"high_need",
+				"location":[18, 5]
+			},
+			{
+				"type":"high_need",
+				"location":[10, 11]
+			},
+			{
+				"type":"high_need",
+				"location":[18, 11]
 			}
 		],
 		"pantries":{
-			"pantry":0
+			"pantry":2,
+			"donor":1
 		}
 	},
 
 	{
-		"time":45,
+		"time":120,
+		"houses":[
+			{
+				"type":"normal",
+				"location":[8, 6]
+			},
+			{
+				"type":"normal",
+				"needs":["veg"],
+				"location":[20, 6]
+			},
+			{
+				"type":"high_need",
+				"needs":["meat"],
+				"location":[8, 10]
+			},
+			{
+				"type":"low_need",
+				"location":[20, 10]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[4, 3]
+			},
+			{
+				"type":"normal",
+				"inactive":true,
+				"location":[24, 14]
+			}
+		],
+		"pantries":{
+			"pantry":2,
+			"small_pantry":1,
+			"donor":1
+		}
+	},
+
+	{
+		"time":22,
 		"level":{
 			"narrative":[
 				{
@@ -168,5 +378,5 @@
 				}
 			]
 		}
-	},
+	}
 ]

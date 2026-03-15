@@ -1,14 +1,14 @@
 extends Node2D
 
 const DEFAULT_DELAYS := {
-	"low_need":  10.0,
-	"normal":     5.0,
-	"high_need":  2.5,
-	"donator":    8.0,
+	"low_need":  7.0,
+	"normal":     3.0,
+	"high_need":  1.5,
+	"donator":    4.0,
 }
 
 const FOOD_TYPES  = ["bread", "veg", "meat"]
-const MAX_HEALTH := 10
+const MAX_HEALTH := 5
 const ANGER_MESSAGES = ["Could Obtain Food"]
 
 const HOUSE_TEXTURES := {

@@ -27,7 +27,7 @@ func cycle_requested_foods() -> void:
 
 @export var start_active: bool = false 
 @export var start_placement_mode: String = "hovering"
-@export var max_supply: int = 30
+@export var max_supply: int = 20
 @export var max_health: int = 20
 # Signal that is emmited when the active state changes
 
@@ -54,7 +54,7 @@ func _ready():
 	set_active(start_active)
 	set_placement_mode(start_placement_mode)
 	for food_type in ["bread", "veg", "meat"]:
-		set_food(food_type, 10)
+		set_food(food_type, 5)
 
 func set_active(new_state: bool) -> void:
 	active = new_state
