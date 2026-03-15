@@ -1,6 +1,6 @@
 extends Node2D
 
-const PLACEMENT_MODES = ["hovering", "placed"]
+const PLACEMENT_MODES := ["hovering", "placed"]
 
 @export var start_active: bool = false 
 @export var start_placement_mode: String = "hovering"
@@ -13,9 +13,10 @@ const PLACEMENT_MODES = ["hovering", "placed"]
 var active: bool
 var placement_mode: String
 
-signal active_changed()
-signal food_changed()
+signal active_changed
+signal food_changed
 
+# food_type -> amount currently stocked. Houses pull from this via take_food().
 var food_amounts: Dictionary = {}
 
 @export var max_range: int = 5
@@ -28,7 +29,8 @@ func _ready():
 	
 	set_active(start_active)
 	set_placement_mode(start_placement_mode)
-	set_food("Bread", 10)
+	for food_type in ["bread", "veg", "meat"]:
+		set_food(food_type, 10)
 
 # Used to set state of the active variable. Handles resetting, 
 # starting, and stopping the effect_timer
@@ -165,4 +167,7 @@ func set_placement_mode(mode: String) -> void:
 			remove_from_group("hovering")
 
 func _on_food_changed() -> void:
-	$food_amount_label.text = str(get_food_amount("Bread"))
+	var text := ""
+	for food_type in ["bread", "veg", "meat"]:
+		text += "%s:%d " % [food_type[0].to_upper(), get_food_amount(food_type)]
+	$food_amount_label.text = text.strip_edges()
