@@ -196,15 +196,6 @@ func _draw() -> void:
 		_draw_highlights()
 
 
-# MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
-func _draw_hover() -> void:
-	if not _is_valid_tile(_hovered_tile):
-		return
-	if scene_dict.has(_selected_item):
-		return  # real preview is handled by _refresh_hover_preview, nothing to draw here
-	# just give an error of location
-	push_error("[PlacementTileMap] No scene available for selected item: '%s' at %s." % [_selected_item, str(_hovered_tile)])
-    
 func _draw_highlights() -> void:
 	var cs := _cell_size
 	for tile: Vector2i in _highlighted_tiles:
