@@ -5,7 +5,7 @@
 [node name="Warehouse" type="Sprite2D" unique_id=1824644180]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_k31kg")
-MAX_FOOD_DELIVERY = 5
+MAX_FOOD_DELIVERY = 2
 priority_food_amount = 10
 food_amount = 5
 

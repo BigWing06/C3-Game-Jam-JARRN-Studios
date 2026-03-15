@@ -9,13 +9,7 @@ const DEFAULT_DELAYS := {
 
 const FOOD_TYPES  = ["bread", "veg", "meat"]
 const MAX_HEALTH := 10
-
-const HOUSE_TEXTURES := {
-	"low_need":  preload("res://Sprites/Houses/Low need blue.PNG"),
-	"normal":    preload("res://Sprites/Houses/Medium needs green.png"),
-	"high_need": preload("res://Sprites/Houses/High_ needs red.png"),
-	"donator":   preload("res://Sprites/Houses/Donor.png"),
-}
+const ANGER_MESSAGES = ["Could Obtain Food"]
 
 signal died
 
@@ -109,9 +103,6 @@ func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> voi
 	donates    = config.get("donates", [])
 	delay      = config.get("delay",   DEFAULT_DELAYS.get(house_type, 5.0))
 
-	if HOUSE_TEXTURES.has(house_type):
-		texture = HOUSE_TEXTURES[house_type]
-
 	var starting: Array = config.get("starting_food", [2, 2, 2])
 	for i in FOOD_TYPES.size():
 		food_stock[FOOD_TYPES[i]] = starting[i] if i < starting.size() else 2
@@ -145,23 +136,29 @@ func _take_food() -> void:
 	var got_food     := false
 
 	if house_type == "donator":
-		if donates.size() > 0:
-			for food_type in donates:
-				pantry.add_food(food_type, 1)
-			got_food = true
+		for food_type in donates:
+			pantry.add_food(food_type)
+		got_food = true
 	else:
 		for food_type in needs:
 			if pantry.get_food_amount(food_type) > 0:
 				pantry.take_food(food_type)
 				food_stock[food_type] = food_stock.get(food_type, 0) + 1
 				got_food = true
+				
 				break
 
 	if got_food:
 		_time_until_dispatch = delay
 		_request_bar.value   = 1.0
+		var spoilage_ui = preload("res://scenes/TextDisplay/TextDisplayy.tscn").instantiate()
+		add_child(spoilage_ui)
+		spoilage_ui.setup("Recieved Food", Color("#0000FF"), Vector2(30, -40))
 	else:
 		_take_damage()
+		var spoilage_ui = preload("res://scenes/TextDisplay/TextDisplayy.tscn").instantiate()
+		add_child(spoilage_ui)
+		spoilage_ui.setup(ANGER_MESSAGES[randi_range(0, (len(ANGER_MESSAGES) - 1))], Color("#FF0000"), Vector2(30, -40))
 
 
 func _take_damage() -> void:

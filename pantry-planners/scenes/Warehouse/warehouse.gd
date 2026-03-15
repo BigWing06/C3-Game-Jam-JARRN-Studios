@@ -29,13 +29,19 @@ func set_food_value(type, amount):
 		push_warning(str(type) + " is not a valid food type!")
 	inventory[type] = amount
 	get_parent().get_parent().get_parent().get_node("WarehouseDisplay/display_container/" + type + "_display").update_text(amount)
-	
+
 	
 func add_food_amount(amount: Array):
+	var total = 0
 	if len(amount) != 3:
 		push_warning("Invalid food array")
 	for i in range(len(FOOD_TYPES)):
 		set_food_value(FOOD_TYPES[i], inventory[FOOD_TYPES[i]] + amount[i])
+		total += inventory[FOOD_TYPES[i]]
+	var spoilage_ui = preload("res://scenes/TextDisplay/TextDisplayy.tscn").instantiate()
+	add_child(spoilage_ui)
+	spoilage_ui.setup("Recieved Food +"+str(total), Color("#0000FF"), Vector2(30, -40))
+	
 
 func push_shipment():
 	var pantries = get_tree().get_nodes_in_group("pantry")
