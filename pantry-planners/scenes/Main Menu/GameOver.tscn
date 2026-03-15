@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cgus1k16fcoxx" path="res://scenes/Main Menu/game_over.gd" id="1_pngwi"]
 [ext_resource type="Texture2D" uid="uid://ctt2qhjqw61n5" path="res://Sprites/GameOver/Game Over Background.PNG" id="2_y2ufh"]
-[ext_resource type="Texture2D" uid="uid://c4afrjyx2ngke" path="res://Sprites/GameOver/Try again button.PNG" id="3_frnvm"]
-[ext_resource type="Texture2D" uid="uid://ci3oxt076t3bp" path="res://Sprites/GameOver/Try again button pressed.PNG" id="4_q7rb2"]
-[ext_resource type="Texture2D" uid="uid://c4bfbqhwwpf8g" path="res://Sprites/GameOver/Try again button hover.PNG" id="5_14150"]
-[ext_resource type="BitMap" uid="uid://bu6ecrsyt4hat" path="res://Sprites/GameOver/Try again button Bitmap.PNG" id="6_t4gw1"]
+[ext_resource type="Texture2D" uid="uid://dji4xxj8rjcbq" path="res://Sprites/Cutscene/Hips_serious_closed.PNG" id="7_ho235"]
 [ext_resource type="Texture2D" uid="uid://c5bk4h1umdl5o" path="res://Sprites/GameOver/Menu button .PNG" id="7_s3y1a"]
 [ext_resource type="Texture2D" uid="uid://dvxx1y77px4s1" path="res://Sprites/GameOver/Menu button pressed.PNG" id="8_cfec8"]
 [ext_resource type="Texture2D" uid="uid://k3knt54dtm62" path="res://Sprites/GameOver/Menu button hover.PNG" id="9_3ssd8"]
@@ -35,27 +32,20 @@ position = Vector2(427.33325, 659.5)
 scale = Vector2(0.86630696, 0.866307)
 texture = ExtResource("2_y2ufh")
 
-[node name="TryAgain Button" type="TextureButton" parent="Control" unique_id=346045258]
-layout_mode = 0
-offset_left = -490.0
-offset_top = 656.0
-offset_right = 454.0
-offset_bottom = 995.0
-texture_normal = ExtResource("3_frnvm")
-texture_pressed = ExtResource("4_q7rb2")
-texture_hover = ExtResource("5_14150")
-texture_click_mask = ExtResource("6_t4gw1")
-
 [node name="Quit Button" type="TextureButton" parent="Control" unique_id=193340279]
 layout_mode = 0
-offset_left = 390.0
-offset_top = 670.0
-offset_right = 1334.0
-offset_bottom = 1009.0
+offset_left = -311.0
+offset_top = 615.0
+offset_right = 633.0
+offset_bottom = 954.0
 texture_normal = ExtResource("7_s3y1a")
 texture_pressed = ExtResource("8_cfec8")
 texture_hover = ExtResource("9_3ssd8")
 texture_click_mask = ExtResource("10_co3da")
 
-[connection signal="pressed" from="Control/TryAgain Button" to="." method="_on_try_again_button_pressed"]
+[node name="HipsSeriousClosed" type="Sprite2D" parent="." unique_id=594400906]
+position = Vector2(1391.0001, 955)
+scale = Vector2(0.5286292, 0.5286292)
+texture = ExtResource("7_ho235")
+
 [connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]
