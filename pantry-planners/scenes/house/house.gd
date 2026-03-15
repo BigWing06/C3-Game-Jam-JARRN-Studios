@@ -2,7 +2,7 @@ extends Node2D
 
 const DEFAULT_DELAYS := {
 	"low_need":  7.0,
-	"normal":     3.0,
+	"normal":     5.0,
 	"high_need":  1.5,
 	"donator":    4.0,
 }

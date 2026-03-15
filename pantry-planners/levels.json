@@ -1,6 +1,6 @@
 [
 	{
-		"time":15,
+		"time":1,
 		"level":{
 			"narrative":[
 				{
@@ -56,7 +56,7 @@
 		}
 	},
 	{
-		"time":60,
+		"time":10,
 		"level":{
 			"narrative":[
 				{
@@ -101,10 +101,6 @@
 			{
 				"type":"normal",
 				"location":[11, 4]
-			},
-			{
-				"type":"normal",
-				"location":[12, 4]
 			},
 			{
 				"type":"normal",
@@ -182,11 +178,11 @@
 			}
 		],
 		"pantries":{
-			"pantry":2
+			"pantry":3
 		}
 	},
 {
-		"time":75,
+		"time":30,
 		"level":{
 			"narrative":[
 				{
@@ -247,7 +243,7 @@
 		}
 	},
 	{
-		"time":90,
+		"time":30,
 		"level":{
 			"narrative":[
 				{
@@ -265,7 +261,31 @@
 			},
 			{
 				"type":"low_need",
+				"location":[4, 4]
+			},
+			{
+				"type":"low_need",
+				"location":[3, 5]
+			},
+			{
+				"type":"low_need",
+				"location":[24, 4]
+			},
+			{
+				"type":"low_need",
 				"location":[25, 4]
+			},
+			{
+				"type":"low_need",
+				"location":[24, 5]
+			},
+			{
+				"type":"low_need",
+				"location":[3, 12]
+			},
+			{
+				"type":"low_need",
+				"location":[4, 12]
 			},
 			{
 				"type":"low_need",
@@ -273,17 +293,65 @@
 			},
 			{
 				"type":"low_need",
-				"location":[25, 13]
+				"location":[24, 12]
+			},
+			{
+				"type":"low_need",
+				"location":[25, 12]
+			},
+			{
+				"type":"low_need",
+				"location":[24, 13]
+			},
+			{
+				"type":"low_need",
+				"location":[8, 10]
+			},
+			{
+				"type":"low_need",
+				"location":[9, 10]
+			},
+			{
+				"type":"low_need",
+				"location":[8, 11]
+			},
+			{
+				"type":"low_need",
+				"location":[19, 10]
+			},
+			{
+				"type":"low_need",
+				"location":[20, 10]
+			},
+			{
+				"type":"low_need",
+				"location":[19, 11]
+			},
+			{
+				"type":"low_need",
+				"location":[5, 7]
+			},
+			{
+				"type":"low_need",
+				"location":[22, 7]
+			},
+			{
+				"type":"low_need",
+				"location":[7, 14]
+			},
+			{
+				"type":"low_need",
+				"location":[20, 14]
 			}
 		],
 		"pantries":{
 			"pantry":1,
-			"small_pantry":2
+			"small_pantry":4
 		}
 	},
 
 	{
-		"time":90,
+		"time":30,
 		"level":{
 			"narrative":[
 				{
@@ -328,7 +396,7 @@
 	},
 
 	{
-		"time":120,
+		"time":30,
 		"houses":[
 			{
 				"type":"normal",
