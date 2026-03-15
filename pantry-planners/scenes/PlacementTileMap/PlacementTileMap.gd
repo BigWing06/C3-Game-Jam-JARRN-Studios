@@ -10,28 +10,14 @@ const GRID_HEIGHT  := 18
 var _cell_size: Vector2:
 	get: return Vector2(tile_set.tile_size) if tile_set else Vector2(64.0, 64.0)
 
-# ---------------------------------------------------------------------------
-# Placeholder appearance per entity type
-# ---------------------------------------------------------------------------
-const ENTITY_COLORS := {
-	"pantry": Color(1.0, 0.65, 0.0, 0.85),
-	"house":  Color(0.3, 0.6,  1.0, 0.85),
-	"donor":  Color(0.9, 0.75, 0.3, 0.85),
-}
-const ENTITY_LABELS := {
-	"pantry": "P",
-	"house":  "H",
-}
-
 const PLACEABLE_ENTITIES = [
 	{"key":"pantry",       "name": "Pantry"},
 	{"key":"house",        "name": "House"},
 	{"key":"small_pantry", "name": "Small Pantry"},
 	{"key":"donor",        "name": "Donor"},
-	{"key":"pantry", "name": "Pantry"},
-	{"key":"house", "name": "House"},
-	{"key":"small_pantry", "name": "Small Pantry"},
-	{"key":"warehouse", "name": "Warehouse"}
+	{"key":"warehouse",    "name": "Warehouse"},
+	{"key":"house_veg",    "name": "Veg House"},
+	{"key":"house_meat",   "name": "Meat House"},
 ]
 
 # ---------------------------------------------------------------------------
@@ -95,10 +81,14 @@ func _ready() -> void:
 		"house":       starting_house_count,
 		"small_pantry":starting_small_pantry_count,
 		"donor": starting_donor_count,
-		"warehouse" : 1
+		"warehouse" :  1,
+		"house_veg":   99,
+		"house_meat":  99,
 	}
 	# Donor reuses the house scene; alias at runtime to avoid tscn edits
 	scene_dict["donor"] = scene_dict["house"]
+	scene_dict["house_veg"]  = scene_dict["house"]
+	scene_dict["house_meat"] = scene_dict["house"]
 	_setup_grid_layer()
 	_place_initial_entities()
 	_create_pantry_info_panel()
@@ -202,41 +192,24 @@ func _process(_delta: float) -> void:
 # Drawing — grid + hovering entities, real scenes are handled automatically
 # ---------------------------------------------------------------------------
 func _draw() -> void:
-	_draw_placed_entities()
 	if _placement_mode:
-		_draw_hover()
 		_draw_highlights()
 
 
-func _draw_placed_entities() -> void:
+# MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
+func _draw_hover() -> void:
+	if not _is_valid_tile(_hovered_tile):
+		return
+	if scene_dict.has(_selected_item):
+		return  # real preview is handled by _refresh_hover_preview, nothing to draw here
+	# just give an error of location
+	push_error("[PlacementTileMap] No scene available for selected item: '%s' at %s." % [_selected_item, str(_hovered_tile)])
+    
+func _draw_highlights() -> void:
 	var cs := _cell_size
-	for grid_pos: Vector2i in _grid_data:
-		var data: Dictionary = _grid_data[grid_pos]
-		var entity_type: String = data["type"]
-
-		var center := map_to_local(grid_pos)
-		var origin := center - cs * 0.5
-
-		if is_instance_valid(data["scene"]):
-			continue
-			# no need because scenes will render themselves,
-			# they are placed via _place_initial_entities()
-		else:
-			# fallback placeholder
-			var fill_col: Color = ENTITY_COLORS.get(entity_type, Color.GRAY)
-			if not data["player_can_edit"]:
-				fill_col = fill_col.darkened(0.25)
-
-			var rect := Rect2(origin + Vector2(4, 4), cs - Vector2(8, 8))
-			draw_rect(rect, fill_col, true)
-			draw_rect(rect, Color.WHITE, false, 1.5)
-
-			var label: String = ENTITY_LABELS.get(entity_type, "?")
-			var font  := ThemeDB.fallback_font
-			var font_size := 20
-			var text_size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
-			var text_pos  := center - text_size * 0.5 + Vector2(0, text_size.y * 0.25)
-			draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color.WHITE)
+	for tile: Vector2i in _highlighted_tiles:
+		var rect := Rect2(map_to_local(tile) - cs * 0.5, cs)
+		draw_rect(rect, _highlighted_tiles[tile], true)
 
 
 # Destroys any existing hover preview and creates a fresh one for the selected item.
@@ -367,8 +340,9 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 		if scene_node.has_method("find_reachable"):
 			scene_node.find_reachable(self, tile)
 	scene_node.set_placement_mode("placed")
-	if entity_type == "house":
-		scene_node.setup({"type": "normal"}, self, tile)
+	if entity_type in ["house", "house_veg", "house_meat"]:
+		var needs: Array = {"house_veg": ["veg"], "house_meat": ["meat"]}.get(entity_type, [])
+		scene_node.setup({"type": "normal", "needs": needs} if needs else {"type": "normal"}, self, tile)
 		scene_node.died.connect(_on_game_over)
 	elif entity_type == "donor":
 		scene_node.setup({"type": "donator", "donates": ["bread"]}, self, tile)
