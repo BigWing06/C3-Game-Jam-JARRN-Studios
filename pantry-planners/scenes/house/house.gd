@@ -50,7 +50,7 @@ func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> voi
 	donates    = config.get("donates",  [])
 	delay      = config.get("delay",    DEFAULT_DELAYS.get(house_type, 5.0))
 
-	# starting_food is [bread_amt, vegetables_amt, meat_amt] — matches FoodTypes.ALL order.
+	# starting_food is [bread_amt, veg_amt, meat_amt] — matches FOOD_TYPES 
 	var starting: Array = config.get("starting_food", [2, 2, 2])
 	for i in FOOD_TYPES.size():
 		food_stock[FOOD_TYPES[i]] = starting[i] if i < starting.size() else 2
