@@ -389,14 +389,17 @@ func _is_valid_tile(tile: Vector2i) -> bool:
 	return tile.x >= 0 and tile.x < GRID_WIDTH \
 		and tile.y >= 0 and tile.y < GRID_HEIGHT
 
-func get_nearest_pantry(pos):
-	var pantries = get_tree().get_nodes_in_group("pantry")
-	var nearest
-	var nearest_dist = 100000000000000
-	for pantry in pantries:
-		if (nearest_dist > pos.distance_to(pantry.position)):
-			nearest = pantry
-			nearest_dist = pos.distance_to(pantry.position)
+## Returns the pantry node closest to the given grid tile, or null if none exist.
+## Converts the grid position to world space before comparing so distances are correct.
+func get_nearest_pantry(grid_pos: Vector2i) -> Node:
+	var world_pos  := map_to_local(grid_pos)
+	var nearest: Node = null
+	var nearest_dist  := INF
+	for pantry in get_tree().get_nodes_in_group("pantry"):
+		var dist := world_pos.distance_to(pantry.global_position)
+		if dist < nearest_dist:
+			nearest      = pantry
+			nearest_dist = dist
 	return nearest
 		
 	
