@@ -2,6 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://dj4m4od1wikq4" path="res://Sprites/Inventory/clipboard.png" id="1_3a88d"]
 [ext_resource type="PackedScene" uid="uid://da61r7vjioki0" path="res://scenes/Warehouse Display/DisplayScene.tscn" id="1_n5l8d"]
+[ext_resource type="Texture2D" uid="uid://blncuqxb2qqe8" path="res://Sprites/Inventory/Protien button.PNG" id="3_ua037"]
+[ext_resource type="Texture2D" uid="uid://ca55oektacpce" path="res://Sprites/Inventory/Pressed button.PNG" id="4_a2d4k"]
+[ext_resource type="Texture2D" uid="uid://cf6raelhsatq2" path="res://Sprites/Inventory/Protein button hover.PNG" id="5_wk24j"]
+[ext_resource type="Texture2D" uid="uid://cf0f0okfnejkp" path="res://Sprites/Inventory/No click button.PNG" id="6_cl675"]
+[ext_resource type="Texture2D" uid="uid://bl0wsyhhmlxps" path="res://Sprites/Inventory/Greens button .PNG" id="7_h4o57"]
+[ext_resource type="Texture2D" uid="uid://dao2yull8rw6r" path="res://Sprites/Inventory/Greens button hover.PNG" id="8_f6vdq"]
+[ext_resource type="Texture2D" uid="uid://d1maa0fatu0sl" path="res://Sprites/Inventory/Carbohydrates button.PNG" id="9_oppi2"]
+[ext_resource type="Texture2D" uid="uid://bsmxcm3trmi6i" path="res://Sprites/Inventory/Carbohydrates button hover.PNG" id="10_sfx2b"]
 
 [sub_resource type="GDScript" id="GDScript_n5l8d"]
 script/source = "extends TextureRect
@@ -75,33 +83,56 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 26
 text = "Warehouse Totals"
 
-[node name="display_container" type="VBoxContainer" parent="." unique_id=215129843]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -26.0
-offset_top = -256.0
-offset_right = 125.0
-offset_bottom = -26.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 55
-alignment = 1
-
-[node name="meat_display" parent="display_container" unique_id=994055231 instance=ExtResource("1_n5l8d")]
-layout_mode = 2
-type = "Meat"
-
-[node name="veg_display" parent="display_container" unique_id=272081282 instance=ExtResource("1_n5l8d")]
-layout_mode = 2
-type = "Vegetables"
-
-[node name="bread_display" parent="display_container" unique_id=876617865 instance=ExtResource("1_n5l8d")]
-layout_mode = 2
+[node name="bread_display" parent="." unique_id=876617865 instance=ExtResource("1_n5l8d")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 128.0
+offset_top = 126.0
+offset_right = 345.0
+offset_bottom = 248.0
+grow_horizontal = 1
+grow_vertical = 1
 type = "Bread"
+normal_texture = ExtResource("9_oppi2")
+pressed_texture = ExtResource("4_a2d4k")
+hover_texture = ExtResource("10_sfx2b")
+disabled_texture = ExtResource("6_cl675")
+
+[node name="meat_display" parent="." unique_id=994055231 instance=ExtResource("1_n5l8d")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 128.0
+offset_top = 226.0
+offset_right = 345.0
+offset_bottom = 348.0
+grow_horizontal = 1
+grow_vertical = 1
+type = "Meat"
+normal_texture = ExtResource("3_ua037")
+pressed_texture = ExtResource("4_a2d4k")
+hover_texture = ExtResource("5_wk24j")
+disabled_texture = ExtResource("6_cl675")
+
+[node name="veg_display" parent="." unique_id=272081282 instance=ExtResource("1_n5l8d")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 128.0
+offset_top = 315.0
+offset_right = 345.0
+offset_bottom = 437.0
+grow_horizontal = 1
+grow_vertical = 1
+type = "Vegetables"
+normal_texture = ExtResource("7_h4o57")
+pressed_texture = ExtResource("4_a2d4k")
+hover_texture = ExtResource("8_f6vdq")
+disabled_texture = ExtResource("6_cl675")
 
 [node name="warehouse_cooldown" type="Timer" parent="." unique_id=2098085988]
 wait_time = 3.0

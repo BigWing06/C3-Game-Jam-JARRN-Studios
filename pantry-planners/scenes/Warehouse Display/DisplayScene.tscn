@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://da61r7vjioki0"]
 
 [ext_resource type="Script" uid="uid://ckuf6qane2ssh" path="res://scenes/Warehouse Display/display_scene.gd" id="1_qce3p"]
+[ext_resource type="Texture2D" uid="uid://ca55oektacpce" path="res://Sprites/Inventory/Pressed button.PNG" id="2_31ted"]
+[ext_resource type="Texture2D" uid="uid://cf0f0okfnejkp" path="res://Sprites/Inventory/No click button.PNG" id="3_2r5vb"]
 
 [node name="DisplayScene" type="HBoxContainer" unique_id=1324935214]
 anchors_preset = 15
@@ -17,8 +19,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 35
 text = "sg"
 
-[node name="Button" type="Button" parent="." unique_id=589637531]
+[node name="Button" type="TextureButton" parent="." unique_id=607890238]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 disabled = true
-text = "X"
+texture_pressed = ExtResource("2_31ted")
+texture_disabled = ExtResource("3_2r5vb")
+stretch_mode = 5
