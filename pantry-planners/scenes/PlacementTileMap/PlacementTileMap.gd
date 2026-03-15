@@ -369,7 +369,7 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 	scene_node.set_placement_mode("placed")
 	if entity_type == "house":
 		if player_can_edit:
-			scene_node.setup({"type": "normal", "inactive": true}, self, tile)
+			scene_node.setup({"type": "normal", "inactive": false}, self, tile)
 		else:
 			scene_node.setup({"type": "normal"}, self, tile)
 			scene_node.died.connect(_on_game_over)
@@ -439,6 +439,8 @@ func get_nearest_pantry(grid_pos: Vector2i) -> Node:
 	var nearest: Node = null
 	var nearest_dist  := INF
 	for pantry in get_tree().get_nodes_in_group("pantry"):
+		if not pantry.reachable_houses.has(grid_pos):
+			continue
 		var dist := world_pos.distance_to(pantry.global_position)
 		if dist < nearest_dist:
 			nearest      = pantry
