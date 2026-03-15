@@ -34,7 +34,7 @@ var _health_tween:        Tween = null
 
 
 # Called by PlacementTileMap after the house is placed.
-# config mirrors the house entry in levels.json; empty dict = inactive.
+# config mirrors the house entry in levels.json, if empty dict = inactive.
 func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> void:
 	_tilemap  = tilemap
 	_grid_pos = grid_pos
@@ -83,6 +83,7 @@ func _start_demand_cycle() -> void:
 func _take_food() -> void:
 	var result = _tilemap.get_nearest_pantry(_grid_pos)
 	if result == null:
+		print("taking damage")
 		_take_damage()
 		return
 
@@ -102,9 +103,9 @@ func _take_food() -> void:
 				break
 
 	if got_food:
-		# Reset countdown bar — house is satisfied, next request in `delay` seconds
+		# request is satisfied. Resets delay for next request.
 		_time_until_dispatch = delay
-		_request_progress    = 1.0
+		_request_progress = 1.0
 		queue_redraw()
 	else:
 		_take_damage()
@@ -157,7 +158,7 @@ func _draw() -> void:
 	draw_rect(Rect2(-bar_w / 2.0, req_y, bar_w, bar_h),                        Color(0.1, 0.1, 0.1, 0.65))
 	draw_rect(Rect2(-bar_w / 2.0, req_y, bar_w * _request_progress, bar_h),    Color(0.95, 0.78, 0.1, 0.9))
 
-	# Health bar — appears above the request bar, fades out when not damaged
+	# Health bar, fades out when not damaged
 	if _health_bar_alpha > 0.01:
 		var hp_y   := req_y - bar_h - 8.0
 		var hp_pct := float(health) / float(MAX_HEALTH)
