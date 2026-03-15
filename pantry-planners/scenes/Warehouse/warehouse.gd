@@ -42,9 +42,10 @@ func push_shipment():
 		var given_food_amount = (inventory[FOOD_TYPES[i]] - inventory[FOOD_TYPES[i]] % len(pantries)) / len(pantries)
 		if (given_food_amount > MAX_FOOD_DELIVERY):
 			given_food_amount = MAX_FOOD_DELIVERY
-		for pantry in pantries:
-			set_food_value(FOOD_TYPES[i], inventory[FOOD_TYPES[i]] - given_food_amount)
-			pantry.set_food(FOOD_TYPES[i], pantry.get_food_amount(FOOD_TYPES[i]) + given_food_amount)
+		if given_food_amount != 0:
+			for pantry in pantries:
+				set_food_value(FOOD_TYPES[i], inventory[FOOD_TYPES[i]] - given_food_amount)
+				pantry.add_food(FOOD_TYPES[i], given_food_amount)
 
 func on_timeout():
 	push_shipment()

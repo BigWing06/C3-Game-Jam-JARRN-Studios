@@ -73,8 +73,11 @@ func set_food(type: String, amount: int):
 	
 # This function is called by houses in radius when
 # they want to take food from the pantry
-func add_food(type: String) -> void:
-	set_food(type, get_food_amount(type) + 1)
+func add_food(type: String, amount) -> void:
+	set_food(type, get_food_amount(type) + amount)
+	var spoilage_ui = preload("res://scenes/TextDisplay/TextDisplayy.tscn").instantiate()
+	add_child(spoilage_ui)
+	spoilage_ui.setup("Recieved Food +"+str(amount), Color("#0000FF"), Vector2(30, -40))
 
 func take_food(type: String) -> void:
 	set_food(type, get_food_amount(type) - 1)
@@ -201,3 +204,6 @@ func _on_spoilage_timer_timeout() -> void:
 	for type in FOOD_TYPES:
 		if spoliage_thereshhold < get_food_amount(type):
 			set_food(type, get_food_amount(type) - 1)
+			var spoilage_ui = preload("res://scenes/TextDisplay/TextDisplayy.tscn").instantiate()
+			add_child(spoilage_ui)
+			spoilage_ui.setup("Spoliage -1", Color("#FF0000"), Vector2(30, -40))
