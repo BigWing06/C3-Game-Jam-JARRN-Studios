@@ -12,12 +12,7 @@ var _cell_size: Vector2:
 
 const PLACEABLE_ENTITIES = [
 	{"key":"pantry",       "name": "Pantry"},
-	{"key":"house",        "name": "House"},
 	{"key":"small_pantry", "name": "Small Pantry"},
-	{"key":"donor",        "name": "Donor"},
-	{"key":"warehouse",    "name": "Warehouse"},
-	{"key":"house_veg",    "name": "Veg House"},
-	{"key":"house_meat",   "name": "Meat House"},
 ]
 
 # ---------------------------------------------------------------------------
@@ -28,12 +23,9 @@ const PLACEABLE_ENTITIES = [
 ## Grid position where the warehouse is placed at startup.
 @export var warehouse_tile: Vector2i = Vector2i(14, 8)
 
-## How many pantries the player starts with in their inventory.
-@export var starting_pantry_count: int = 30
-## How many houses the player starts with in their inventory (usually 0).
-@export var starting_house_count:  int = 30
-@export var starting_small_pantry_count: int = 30
-@export var starting_donor_count: int = 3  # given per donor food type
+## Starting inventory counts — set to 0. levels.json adds to these via add_to_inventory().
+@export var starting_pantry_count:       int = 0
+@export var starting_small_pantry_count: int = 0
 
 # ---------------------------------------------------------------------------
 # Signals
@@ -73,18 +65,10 @@ var _pantry_info_label:     Label          = null
 # ---------------------------------------------------------------------------
 func _ready() -> void:
 	_inventory = {
-		"pantry":      starting_pantry_count,
-		"house":       starting_house_count,
-		"small_pantry":starting_small_pantry_count,
-		"donor": starting_donor_count,
-		"warehouse" :  1,
-		"house_veg":   99,
-		"house_meat":  99,
+		"pantry":       starting_pantry_count,
+		"small_pantry": starting_small_pantry_count,
 	}
-	# Donor reuses the house scene; alias at runtime to avoid tscn edits
 	scene_dict["donor"] = scene_dict["house"]
-	scene_dict["house_veg"]  = scene_dict["house"]
-	scene_dict["house_meat"] = scene_dict["house"]
 	_setup_grid_layer()
 	call_deferred("_place_entity", warehouse_tile, "warehouse", false)
 	_create_pantry_info_panel()
