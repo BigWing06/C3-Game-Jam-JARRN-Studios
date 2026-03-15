@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b0aaedod58msx" path="res://scenes/pantry/pantry.tscn" id="2_tmauy"]
 [ext_resource type="PackedScene" uid="uid://bgjcikn6br0s1" path="res://scenes/house/house.tscn" id="3_16bbq"]
 [ext_resource type="PackedScene" uid="uid://ddshpy40dmwld" path="res://scenes/pantry/small_pantry.tscn" id="4_16bbq"]
+[ext_resource type="PackedScene" uid="uid://cs0t5hn33hbp5" path="res://scenes/Warehouse/Warehouse.tscn" id="5_omt6r"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yy1r0"]
 scenes/1/scene = ExtResource("2_tmauy")
@@ -21,7 +22,8 @@ script = ExtResource("1_pltmap")
 scene_dict = Dictionary[String, PackedScene]({
 "house": ExtResource("3_16bbq"),
 "pantry": ExtResource("2_tmauy"),
-"small_pantry": ExtResource("4_16bbq")
+"small_pantry": ExtResource("4_16bbq"),
+"warehouse": ExtResource("5_omt6r")
 })
 
 [node name="Entities" type="Node2D" parent="." unique_id=1902783642]

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cs0t5hn33hbp5"]
+
+[ext_resource type="Script" uid="uid://bl5e12o2l87xs" path="res://scenes/Warehouse/warehouse.gd" id="1_k31kg"]
+
+[node name="Warehouse" type="Node2D" unique_id=1824644180]
+script = ExtResource("1_k31kg")
+MAX_FOOD_DELIVERY = 5
+priority_food_amount = 10
+food_amount = 5
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1722929337]
+offset_left = -27.0
+offset_top = -26.0
+offset_right = 27.0
+offset_bottom = 29.0
+
+[node name="restock_timer" type="Timer" parent="." unique_id=1247484087]
+wait_time = 2.0
+
+[node name="restockbar" type="ProgressBar" parent="." unique_id=238937250]
+offset_left = -22.0
+offset_top = -23.0
+offset_right = 72.0
+offset_bottom = 4.0
+scale = Vector2(0.48, 0.48)
+show_percentage = false
+
+[connection signal="timeout" from="restock_timer" to="." method="on_timeout"]

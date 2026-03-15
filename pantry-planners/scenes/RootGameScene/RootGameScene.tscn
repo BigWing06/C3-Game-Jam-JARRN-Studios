@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://sv7cl32dwt05" path="res://scenes/RootGameScene/RootGameScene.gd" id="1_0c03w"]
 [ext_resource type="PackedScene" uid="uid://bdiegmcla7iau" path="res://scenes/PlacementTileMap/PlacementTileMap.tscn" id="2_1ll7s"]
 [ext_resource type="Texture2D" uid="uid://blhawwy8tudov" path="res://Sprites/Tileset Grass.png" id="2_xn1l6"]
+[ext_resource type="PackedScene" uid="uid://dwqvhu7doaa2u" path="res://scenes/Warehouse Display/WarehouseDisplay.tscn" id="4_ncyrs"]
 
 [node name="RootGameScene" type="Node2D" unique_id=744204471]
 script = ExtResource("1_0c03w")
@@ -37,5 +38,11 @@ stretch_mode = 1
 one_shot = true
 
 [node name="PlacementTileMap" parent="." unique_id=1747058122 instance=ExtResource("2_1ll7s")]
+
+[node name="WarehouseDisplay" parent="." unique_id=1222724416 instance=ExtResource("4_ncyrs")]
+offset_left = 1541.0
+offset_top = 594.0
+offset_right = 1869.0
+offset_bottom = 1035.04
 
 [connection signal="timeout" from="level_timer" to="." method="next_level"]
