@@ -1,7 +1,12 @@
 [gd_scene format=3 uid="uid://ddshpy40dmwld"]
 
 [ext_resource type="PackedScene" uid="uid://b0aaedod58msx" path="res://scenes/pantry/pantry.tscn" id="1_u644x"]
+[ext_resource type="Texture2D" uid="uid://cycdljm8w6xrr" path="res://Sprites/Pantries/Small pantry full.png" id="2_ccl12"]
 
 [node name="Node2D" unique_id=1642997641 instance=ExtResource("1_u644x")]
-max_supply = 10
+max_supply = 5
 max_health = 10
+max_range = 3
+
+[node name="sprite" parent="." index="1" unique_id=665316545]
+texture = ExtResource("2_ccl12")
