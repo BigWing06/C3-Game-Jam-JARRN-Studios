@@ -35,5 +35,6 @@ func _on_credits_pressed() -> void:
 	await ScreenTransition.fade_in()
 
 func _on_quit_pressed() -> void:
+	await ScreenTransition.fade_out()
 	get_tree().quit()
 	Audio.play_button_sound()

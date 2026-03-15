@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://6eds84gts5ki"]
+
+[ext_resource type="Script" uid="uid://dnl116fkf8dv4" path="res://scenes/Main Menu/success.gd" id="1_ijrcg"]
+
+[node name="Success" type="Node2D" unique_id=421265028]
+script = ExtResource("1_ijrcg")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2043385953]
+offset_left = -91.0
+offset_top = -49.0
+offset_right = 2144.0
+offset_bottom = 1834.0
+color = Color(0, 0, 0, 0.3647059)
+
+[node name="Control" type="Control" parent="." unique_id=705129562]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 536.0
+offset_top = 49.0
+offset_right = 576.0
+offset_bottom = 89.0
+
+[node name="Success Label" type="Label" parent="Control" unique_id=241314116]
+layout_mode = 0
+offset_left = -490.0
+offset_top = 70.0
+offset_right = 1313.0
+offset_bottom = 891.0
+theme_override_font_sizes/font_size = 300
+text = "SUCCESS!"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Control" unique_id=46779592]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 444.0
+offset_right = 791.0
+offset_bottom = 513.0
+theme_override_font_sizes/font_size = 50
+text = "Thanks for all your help, move on?"
+
+[node name="Next Button" type="Button" parent="Control" unique_id=533860026]
+layout_mode = 0
+offset_left = -281.0
+offset_top = 555.0
+offset_right = 340.0
+offset_bottom = 768.0
+theme_override_font_sizes/font_size = 150
+text = "NEXT"
+
+[node name="Quit Button" type="Button" parent="Control" unique_id=85749749]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 556.0
+offset_right = 1044.0
+offset_bottom = 769.0
+theme_override_font_sizes/font_size = 150
+text = "MENU"
+
+[connection signal="pressed" from="Control/Next Button" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]

@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,16 +11,16 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_navigate_back_pressed() -> void:
+func _on_quit_button_pressed() -> void:
 	await ScreenTransition.fade_out()
+	queue_free()
 	get_tree().change_scene_to_file("res://scenes/Main Menu/MainMenu.tscn")
 	await ScreenTransition.fade_in()
 	Audio.play_button_sound()
 
-func _on_test_cutscene_pressed() -> void:
+
+func _on_next_button_pressed() -> void:
+	# TODO: Reset to start of next level
 	await ScreenTransition.fade_out()
+	Audio.play_button_sound()
 	await ScreenTransition.fade_in()
-	var cutscene_scene = preload("res://scenes/Cutscenes/Cutscene.tscn")
-	var cutscene = cutscene_scene.instantiate()
-	add_child(cutscene)
-	cutscene.start_cutscene(2)
