@@ -29,6 +29,7 @@ scene_dict = Dictionary[String, PackedScene]({
 })
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=778446731]
+z_index = -5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
