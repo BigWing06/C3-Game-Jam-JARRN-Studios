@@ -28,28 +28,22 @@
 		},
 		"houses":[
 			{
-				"type":"normal",
+				"type":"high_need",
+				"isactive":"false",
+				"needs":["veg"],
 				"location":[1,1]
-			}
-		],
-		"pantries":{
-			"pantry":1
-		}
-	},
-
-	{
-		"time":20,
-		"houses":[
+			},
 			{
-				"type":"normal",
-				"location":[2,2]
+				"type":"high_need",
+				"isactive":"false",
+				"needs":["veg"],
+				"location":[5,5]
 			}
 		],
 		"pantries":{
 			"pantry":1
 		}
 	},
-
 	{
 		"time":5,
 		"level":{
@@ -78,22 +72,8 @@
 			"pantry":1
 		}
 	},
-
-	{
-		"time":10,
-		"houses":[
-			{
-				"type":"",
-				"location":[0,0]
-			}
-		],
-		"pantries":{
-			"pantry":0
-		}
-	},
-
-	{
-		"time":15,
+{
+		"time":5,
 		"level":{
 			"narrative":[
 				{
@@ -106,24 +86,19 @@
 					"text":"Use this in cooperation with ordering specific restocks from the Warehouse Inventory, to meet our community’s nutritional needs."
 				}
 			]
-		}
-	},
-
-	{
-		"time":20,
+		},
 		"houses":[
 			{
-				"type":"",
-				"location":[0,0]
+				"type":"normal",
+				"location":[1,1]
 			}
 		],
 		"pantries":{
-			"pantry":0
+			"pantry":1
 		}
 	},
-
 	{
-		"time":25,
+		"time":5,
 		"level":{
 			"narrative":[
 				{
@@ -133,15 +108,11 @@
 					"text":"These Low Need households are colored in Blue, while Expected Need are in Green! Though we have more of these smaller pantries than our standard size, they do serve a smaller area, so be careful with placement."
 				}
 			]
-		}
-	},
-
-	{
-		"time":30,
+		},
 		"houses":[
 			{
-				"type":"",
-				"location":[0,0]
+				"type":"normal",
+				"location":[1,1]
 			}
 		],
 		"pantries":{

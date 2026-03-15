@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://6eds84gts5ki"]
+[gd_scene format=3 uid="uid://bjn2vmjbbxbqt"]
 
 [ext_resource type="Script" uid="uid://dnl116fkf8dv4" path="res://scenes/Main Menu/success.gd" id="1_ijrcg"]
 [ext_resource type="Texture2D" uid="uid://6apvabmcvlrr" path="res://Sprites/GameOver/Success background.PNG" id="2_055wg"]

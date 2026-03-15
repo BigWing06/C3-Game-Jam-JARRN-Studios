@@ -5,6 +5,8 @@ extends Node2D
 var narrative = []
 var dialogue_idx = 0
 
+signal finish_level_load
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -23,9 +25,9 @@ func _load_levels() -> Array:
 	return data
 
 
-func start_cutscene(level: int) -> void:
-	var levels_dict = _load_levels()
-	narrative = levels_dict[level]["level"]["narrative"]
+func start_cutscene(level) -> void:
+	#var levels_dict = _load_levels()
+	narrative = level["narrative"]
 	dialogue_idx = 0
 	Audio.stop_music()
 	display_dialogue()
@@ -48,6 +50,7 @@ func progress_dialogue() -> void:
 	if dialogue_idx >= narrative.size():
 		Audio.play_main_music()
 		queue_free()
+		finish_level_load.emit()
 		return
 	display_dialogue()
 
