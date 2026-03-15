@@ -16,3 +16,4 @@ func _on_next_button_pressed() -> void:
 	# TODO: Reset to start of next level
 	Audio.play_button_sound()
 	next_pressed.emit()
+	queue_free()

@@ -29,6 +29,8 @@
 		"houses":[
 			{
 				"type":"normal",
+				"isActive":"false",
+				"needs":[],
 				"location":[1,1]
 			}
 		],
@@ -36,20 +38,6 @@
 			"pantry":1
 		}
 	},
-
-	{
-		"time":20,
-		"houses":[
-			{
-				"type":"normal",
-				"location":[2,2]
-			}
-		],
-		"pantries":{
-			"pantry":1
-		}
-	},
-
 	{
 		"time":5,
 		"level":{
@@ -78,22 +66,8 @@
 			"pantry":1
 		}
 	},
-
-	{
-		"time":10,
-		"houses":[
-			{
-				"type":"",
-				"location":[0,0]
-			}
-		],
-		"pantries":{
-			"pantry":0
-		}
-	},
-
-	{
-		"time":15,
+{
+		"time":5,
 		"level":{
 			"narrative":[
 				{
@@ -106,102 +80,37 @@
 					"text":"Use this in cooperation with ordering specific restocks from the Warehouse Inventory, to meet our community’s nutritional needs."
 				}
 			]
-		}
-	},
-
-	{
-		"time":20,
+		},
 		"houses":[
 			{
-				"type":"",
-				"location":[0,0]
+				"type":"normal",
+				"location":[1,1]
 			}
 		],
 		"pantries":{
-			"pantry":0
+			"pantry":1
 		}
 	},
-
 	{
-		"time":25,
+		"time":5,
 		"level":{
 			"narrative":[
 				{
-					"text":""
+					"text":"Example Text 3"
+				},
+				{
+					"text":"Example Text 4"
 				}
 			]
-		}
-	},
-
-	{
-		"time":30,
+		},
 		"houses":[
 			{
-				"type":"",
-				"location":[0,0]
+				"type":"normal",
+				"location":[1,1]
 			}
 		],
 		"pantries":{
-			"pantry":0
-		}
-	},
-
-	{
-		"time":35,
-		"level":{
-			"narrative":[
-				{
-					"text":""
-				}
-			]
-		}
-	},
-
-	{
-		"time":40,
-		"houses":[
-			{
-				"type":"",
-				"location":[0,0]
-			}
-		],
-		"pantries":{
-			"pantry":0
-		}
-	},
-
-	{
-		"time":45,
-		"level":{
-			"narrative":[
-				{
-					"text":""
-				}
-			]
-		}
-	},
-
-	{
-		"time":50,
-		"houses":[
-			{
-				"type":"",
-				"location":[0,0]
-			}
-		],
-		"pantries":{
-			"pantry":0
-		}
-	},
-
-	{
-		"time":55,
-		"level":{
-			"narrative":[
-				{
-					"text":""
-				}
-			]
+			"pantry":1
 		}
 	}
 ]

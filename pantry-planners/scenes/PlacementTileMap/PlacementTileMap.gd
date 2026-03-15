@@ -409,8 +409,6 @@ func get_nearest_pantry(grid_pos: Vector2i) -> Node:
 			nearest      = pantry
 			nearest_dist = dist
 	return nearest
-		
-	
 
 # ---------------------------------------------------------------------------
 # Pantry info panel — shown when clicking a pantry outside placement mode

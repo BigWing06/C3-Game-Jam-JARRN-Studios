@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://cs11nci738oci" path="res://scenes/PlacementTileMap/PlacementTileMap.gd" id="1_pltmap"]
 [ext_resource type="PackedScene" uid="uid://b0aaedod58msx" path="res://scenes/pantry/pantry.tscn" id="2_tmauy"]
 [ext_resource type="PackedScene" uid="uid://bgjcikn6br0s1" path="res://scenes/house/house.tscn" id="3_16bbq"]
-[ext_resource type="PackedScene" path="res://scenes/pantry/small_pantry.tscn" id="4_16bbq"]
+[ext_resource type="PackedScene" uid="uid://ddshpy40dmwld" path="res://scenes/pantry/small_pantry.tscn" id="4_16bbq"]
 [ext_resource type="PackedScene" uid="uid://cs0t5hn33hbp5" path="res://scenes/Warehouse/Warehouse.tscn" id="5_omt6r"]
+[ext_resource type="PackedScene" uid="uid://dwqvhu7doaa2u" path="res://scenes/Warehouse Display/WarehouseDisplay.tscn" id="6_yy1r0"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yy1r0"]
 scenes/1/scene = ExtResource("2_tmauy")
@@ -58,3 +59,9 @@ offset_right = 10.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="WarehouseDisplay" parent="." unique_id=1222724416 instance=ExtResource("6_yy1r0")]
+offset_left = 1541.0
+offset_top = 594.0
+offset_right = 1869.0
+offset_bottom = 1035.04
