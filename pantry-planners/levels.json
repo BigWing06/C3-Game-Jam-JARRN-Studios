@@ -7,19 +7,22 @@
 					"text":"Hello, everyone! It’s great to finally meet! My name is Dr H. I'm the supervisor for the mutual aid network here in Tompkins County, New York!"
 				},
 				{
-					"text":"The Covid-19 pandemic led to increased levels of food insecurity across the world, and government and charitable organizations did not always respond quickly enough to the needs of the community."
+					"text":"The Covid-19 pandemic led to increased levels of food insecurity across the world, and both governments and charitable organizations weren’t always able to respond quickly enough for the needs of the community."
 				},
 				{
 					"text":"That’s why we decided to help each other!"
 				},
 				{
-					"text":"Mutual Aid (MA) is when neighbors work together to meet survival needs-mobilised residents to share food, often through outdoor food cabinets and refrigerators."
+					"text":"Mutual Aid (MA) is when neighbors work together to meet survival needs-mobilised residents to share food, often through outdoor food cabinets and refrigerators. Most importantly are the three A’s: Accessibility, Availability, and Acceptibility."
 				},
 				{
-					"text":"Your job as a volunteer is to collect food donations, inspect for food quality, and help improve food insecurity in our neighborhood by planning where we station pantries!"
+					"text":"Your job as a volunteer is to balance these three by managing pantry location (accessibility), watching inventory levels (availability), and tracking balanced nutrition (acceptability)!"
 				},
 				{
-					"text":"First, let us tackle the basics. There is one house on screen. Place the pantry near the house to supply food to the house."
+					"text":"First, let us tackle the basics of Accessibility. Accessibility refers to the capability to acquire food from these pantries, in our case, strategizing where to locate them in proximity to those in need."
+				},
+				{
+					"text":"There is one house on screen. Place the pantry near the house to supply food to the house."
 				}
 			]
 		},
@@ -52,10 +55,16 @@
 		"level":{
 			"narrative":[
 				{
-					"text":"Example Text 3"
+					"text":"Great! Now that you have the basics of Accessibility, let’s look at Availability! From here on, you will be in charge of more pantries capable of providing food to more homes."
 				},
 				{
-					"text":"Example Text 4"
+					"text":"First, notice you have a warehouse inventory! This tells you how much of each food type you have across all pantries and allows you to restock them."
+				},
+				{
+					"text":"The Warehouse will slowly supply food to each of the pantries over time. By hovering over a pantry, you can click to cycle what they request from the Warehouse Inventory when orders are placed!"
+				},
+				{
+					"text":"Try and place the pantries in a place you deem appropriate to help feed those in need!"
 				}
 			]
 		},
@@ -88,7 +97,13 @@
 		"level":{
 			"narrative":[
 				{
-					"text":""
+					"text":"Awesome work out there meeting the challenges of Accessibility and Availability, Volunteer! Last, but certainly not least of the 3 A’s is Acceptability. As you probably noticed, all food is divided into three types: Carbs, Proteins, and Greens."
+				},
+				{
+					"text":"Some homes have specific dietary restrictions, and we must work to help meet their nutritional needs! Houses that are Vegetarian are Purple, and those who need Protein are Orange."
+				},
+				{
+					"text":"Use this in cooperation with ordering specific restocks from the Warehouse Inventory, to meet our community’s nutritional needs."
 				}
 			]
 		}

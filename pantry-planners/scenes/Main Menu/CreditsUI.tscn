@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cwyd2h688vmeu"]
 
 [ext_resource type="Script" uid="uid://cngghuimnv7lo" path="res://scenes/Main Menu/credits_ui.gd" id="1_vbmkw"]
-[ext_resource type="Texture2D" uid="uid://dd4a2as0eqtad" path="res://Sprites/Pantry Planner Title Card.png" id="2_vbmkw"]
+[ext_resource type="Texture2D" uid="uid://didxmgk123vxt" path="res://Sprites/Credits Background.png" id="2_5s1my"]
 [ext_resource type="Texture2D" uid="uid://bpsvr06hb0yto" path="res://Sprites/Buttons/Back button.png" id="3_5s1my"]
 [ext_resource type="Texture2D" uid="uid://dlpo75k5kjumy" path="res://Sprites/Buttons/Back button pressed.png" id="4_vs2q0"]
 [ext_resource type="Texture2D" uid="uid://cdvw5khfn06am" path="res://Sprites/Buttons/Back button hover .png" id="5_tqoh3"]
@@ -31,7 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_vbmkw")
+texture = ExtResource("2_5s1my")
 expand_mode = 1
 stretch_mode = 5
 
