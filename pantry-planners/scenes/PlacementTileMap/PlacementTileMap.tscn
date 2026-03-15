@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bgjcikn6br0s1" path="res://scenes/house/house.tscn" id="3_16bbq"]
 [ext_resource type="PackedScene" uid="uid://ddshpy40dmwld" path="res://scenes/pantry/small_pantry.tscn" id="4_16bbq"]
 [ext_resource type="PackedScene" uid="uid://cs0t5hn33hbp5" path="res://scenes/Warehouse/Warehouse.tscn" id="5_omt6r"]
+[ext_resource type="Texture2D" uid="uid://bkjhwbmb1lw4r" path="res://Sprites/Tiles3.PNG" id="6_10f1e"]
 [ext_resource type="PackedScene" uid="uid://dwqvhu7doaa2u" path="res://scenes/Warehouse Display/WarehouseDisplay.tscn" id="6_yy1r0"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yy1r0"]
@@ -26,6 +27,16 @@ scene_dict = Dictionary[String, PackedScene]({
 "small_pantry": ExtResource("4_16bbq"),
 "warehouse": ExtResource("5_omt6r")
 })
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=778446731]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_10f1e")
 
 [node name="Entities" type="Node2D" parent="." unique_id=1902783642]
 

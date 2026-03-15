@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://da61r7vjioki0"]
 
-[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_chvel"]
 [ext_resource type="Script" uid="uid://ckuf6qane2ssh" path="res://scenes/Warehouse Display/display_scene.gd" id="1_qce3p"]
 
 [node name="DisplayScene" type="HBoxContainer" unique_id=1324935214]
@@ -9,16 +8,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 65
 script = ExtResource("1_qce3p")
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1251323617]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("1_chvel")
-expand_mode = 2
 
 [node name="Label" type="Label" parent="." unique_id=1199034979]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 35
 text = "sg"
 

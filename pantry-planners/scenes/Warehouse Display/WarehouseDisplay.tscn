@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://dwqvhu7doaa2u"]
 
+[ext_resource type="Texture2D" uid="uid://dj4m4od1wikq4" path="res://Sprites/Inventory/clipboard.png" id="1_3a88d"]
 [ext_resource type="PackedScene" uid="uid://da61r7vjioki0" path="res://scenes/Warehouse Display/DisplayScene.tscn" id="1_n5l8d"]
 
 [sub_resource type="GDScript" id="GDScript_n5l8d"]
-script/source = "extends ColorRect
+script/source = "extends TextureRect
 
 @onready var buttons = [$display_container/meat_display,
 $display_container/veg_display,
@@ -40,22 +41,24 @@ func _on_warehouse_cooldown_timeout() -> void:
 	
 "
 
-[node name="WarehouseDisplay" type="ColorRect" unique_id=1222724416]
+[node name="WarehouseDisplay" type="TextureRect" unique_id=1693324130]
 anchors_preset = -1
 anchor_right = 0.127
 anchor_bottom = 0.312
-offset_right = -0.8400116
-offset_bottom = 0.039978027
-color = Color(0.7162962, 0.7162962, 0.7162962, 1)
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 37.15999
+offset_bottom = 29.039978
+texture = ExtResource("1_3a88d")
 script = SubResource("GDScript_n5l8d")
 
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=739484293]
-modulate = Color(1.92523e-06, 0, 0.6274635, 1)
+modulate = Color(0.23108432, 0.032344494, 0, 1)
 layout_mode = 0
-offset_left = 27.0
-offset_top = 62.0
-offset_right = 214.0
-offset_bottom = 89.0
+offset_left = 54.0
+offset_top = -44.0
+offset_right = 241.0
+offset_bottom = -17.0
 value = 100.0
 show_percentage = false
 
@@ -79,11 +82,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -37.0
-offset_top = -230.0
-offset_right = 37.0
+offset_left = -26.0
+offset_top = -256.0
+offset_right = 125.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 55
 alignment = 1
 
 [node name="meat_display" parent="display_container" unique_id=994055231 instance=ExtResource("1_n5l8d")]
