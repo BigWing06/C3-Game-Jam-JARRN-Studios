@@ -84,14 +84,4 @@ texture_pressed = ExtResource("4_vs2q0")
 texture_hover = ExtResource("5_tqoh3")
 texture_click_mask = ExtResource("6_kmj31")
 
-[node name="TEST CUTSCENE" type="Button" parent="Button Manager" unique_id=315492125]
-layout_mode = 0
-offset_left = -276.0
-offset_top = -797.0
-offset_right = 338.0
-offset_bottom = -711.0
-theme_override_font_sizes/font_size = 40
-text = "CUTSCENE TEST"
-
 [connection signal="pressed" from="Button Manager/Navigate Back" to="." method="_on_navigate_back_pressed"]
-[connection signal="pressed" from="Button Manager/TEST CUTSCENE" to="." method="_on_test_cutscene_pressed"]

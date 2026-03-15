@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://clxwyurpo3hf8"]
 
 [ext_resource type="Script" uid="uid://ji0mf1vjt3kp" path="res://scenes/Cutscenes/cutscene.gd" id="1_nkbmn"]
-[ext_resource type="Texture2D" uid="uid://byn0cmmajh8kg" path="res://icon.svg" id="1_qgc4t"]
+[ext_resource type="Texture2D" uid="uid://2dwoywcrpgnm" path="res://Sprites/Cutscene/Background.PNG" id="2_05ayu"]
+[ext_resource type="Texture2D" uid="uid://ccmr64fc5hb2r" path="res://Sprites/Cutscene/Hips_smug_open.PNG" id="3_c6bfq"]
 [ext_resource type="Texture2D" uid="uid://cnpk4ksw7lplj" path="res://Sprites/Desk.png" id="3_qt38w"]
 
 [node name="Cutscene" type="Node2D" unique_id=1101273556]
@@ -13,6 +14,21 @@ offset_top = -49.0
 offset_right = 2019.0
 offset_bottom = 1178.0
 
+[node name="Background" type="Sprite2D" parent="." unique_id=819464364]
+position = Vector2(1246.522, 512.5)
+scale = Vector2(1.1179405, 0.6408873)
+texture = ExtResource("2_05ayu")
+
+[node name="HipsSmugOpen" type="Sprite2D" parent="." unique_id=1995132569]
+position = Vector2(1475, 587)
+scale = Vector2(0.7173129, 0.7173129)
+texture = ExtResource("3_c6bfq")
+
+[node name="Desk" type="Sprite2D" parent="." unique_id=577790700]
+position = Vector2(956.99994, 371.99997)
+scale = Vector2(0.8717026, 0.8717026)
+texture = ExtResource("3_qt38w")
+
 [node name="Character Panel" type="Control" parent="." unique_id=149255162]
 layout_mode = 3
 anchors_preset = 0
@@ -22,22 +38,12 @@ offset_right = 1529.5603
 offset_bottom = 953.0858
 scale = Vector2(1.256326, 1.256326)
 
-[node name="Character Sprite" type="Sprite2D" parent="Character Panel" unique_id=897694751]
-position = Vector2(1239.0295, -76.363525)
-scale = Vector2(3.6020846, 5.8088846)
-texture = ExtResource("1_qgc4t")
-
 [node name="DialogueBox" type="Label" parent="Character Panel" unique_id=1575102592]
 layout_mode = 0
-offset_left = 84.0
-offset_top = 16.0
-offset_right = 1299.0259
-offset_bottom = 203.76874
-theme_override_font_sizes/font_size = 28
+offset_left = 84.373
+offset_top = -475.99106
+offset_right = 891.48834
+offset_bottom = -142.47894
+theme_override_font_sizes/font_size = 35
 text = "[TEXT GOES HERE] "
 autowrap_mode = 3
-
-[node name="Desk" type="Sprite2D" parent="." unique_id=577790700]
-position = Vector2(956.99994, 371.99997)
-scale = Vector2(0.8717026, 0.8717026)
-texture = ExtResource("3_qt38w")
