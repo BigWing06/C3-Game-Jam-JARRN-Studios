@@ -117,10 +117,9 @@ func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> voi
 	_grid_pos = grid_pos
 	inactive   = config.get("inactive", false)
 	house_type = config.get("type", "normal")
-	house_type = config["type"]
-    needs      = config.get("needs",   FOOD_TYPES.duplicate())
-    donates    = config.get("donates", [])
-    delay      = config.get("delay",   DEFAULT_DELAYS.get(house_type, 5.0))
+	needs      = config.get("needs",   FOOD_TYPES.duplicate())
+	donates    = config.get("donates", [])
+	delay      = config.get("delay",   DEFAULT_DELAYS.get(house_type, 5.0))
 	var starting: Array = config.get("starting_food", [2, 2, 2])
 	for i in FOOD_TYPES.size():
 		food_stock[FOOD_TYPES[i]] = starting[i] if i < starting.size() else 2
@@ -130,15 +129,6 @@ func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> voi
 	_request_bar.show()
 	_health_bar.show()
 	_start_demand_cycle()
-
-	house_type = config["type"]
-	needs      = config.get("needs",   FOOD_TYPES.duplicate())
-	donates    = config.get("donates", [])
-	delay      = config.get("delay",   DEFAULT_DELAYS.get(house_type, 5.0))
-
-	var starting: Array = config.get("starting_food", [2, 2, 2])
-	for i in FOOD_TYPES.size():
-		food_stock[FOOD_TYPES[i]] = starting[i] if i < starting.size() else 2
 
 func _update_texture() -> void:
 	var variants: Dictionary = HOUSE_TEXTURES.get(house_type, HOUSE_TEXTURES["normal"])

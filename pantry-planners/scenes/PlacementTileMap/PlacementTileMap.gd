@@ -368,11 +368,8 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 			scene_node.find_reachable(self, tile)
 	scene_node.set_placement_mode("placed")
 	if entity_type == "house":
-		if player_can_edit:
-			scene_node.setup({"type": "normal", "inactive": false}, self, tile)
-		else:
-			scene_node.setup({"type": "normal"}, self, tile)
-			scene_node.died.connect(_on_game_over)
+		scene_node.setup({"type": "normal"}, self, tile)
+		scene_node.died.connect(_on_game_over)
 	elif entity_type == "donor":
 		scene_node.setup({"type": "donator", "donates": ["bread"]}, self, tile)
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
