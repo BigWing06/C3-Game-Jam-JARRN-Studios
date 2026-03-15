@@ -32,15 +32,9 @@ func _ready():
 	for food_type in ["bread", "veg", "meat"]:
 		set_food(food_type, 10)
 
-# Used to set state of the active variable. Handles resetting, 
-# starting, and stopping the effect_timer
-func set_active(new_state: bool):
+func set_active(new_state: bool) -> void:
 	active = new_state
 	active_changed.emit()
-	if active:
-		$effect_timer.start()
-	else:
-		$effect_timer.stop()
 
 func set_food(type: String, amount: int):
 	food_amounts[type] = amount
