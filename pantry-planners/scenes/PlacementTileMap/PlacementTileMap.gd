@@ -25,12 +25,8 @@ const PLACEABLE_ENTITIES = [
 # ---------------------------------------------------------------------------
 @export var scene_dict: Dictionary[String, PackedScene]
 
-## Initial tile layout for this level. Each entry needs "pos" (Vector2i) and "type" (String).
-## Example: { "pos": Vector2i(3, 2), "type": "pantry" }
-@export var initial_tile_positions: Array[Dictionary] = [
-{"pos": Vector2i(3, 3), "type": "house"},
-{"pos": Vector2i(5, 3), "type": "pantry"},
-]
+## Grid position where the warehouse is placed at startup.
+@export var warehouse_tile: Vector2i = Vector2i(14, 8)
 
 ## How many pantries the player starts with in their inventory.
 @export var starting_pantry_count: int = 30
@@ -90,7 +86,7 @@ func _ready() -> void:
 	scene_dict["house_veg"]  = scene_dict["house"]
 	scene_dict["house_meat"] = scene_dict["house"]
 	_setup_grid_layer()
-	_place_initial_entities()
+	call_deferred("_place_entity", warehouse_tile, "warehouse", false)
 	_create_pantry_info_panel()
 	_update_ui()
 	queue_redraw()
@@ -128,10 +124,6 @@ func _setup_grid_layer() -> void:
 		for y in range(GRID_HEIGHT):
 			_grid_layer.set_cell(Vector2i(x, y), 0, Vector2i(0, 0))
 
-
-func _place_initial_entities() -> void:
-	for entry: Dictionary in initial_tile_positions:
-		_place_entity(entry["pos"], entry["type"], false)
 
 # ---------------------------------------------------------------------------
 # Input
@@ -341,6 +333,31 @@ func _on_game_over() -> void:
 ## Use this in a level's _ready() to set up fixed layout elements.
 func place_entity_at(tile: Vector2i, entity_type: String) -> void:
 	_place_entity(tile, entity_type, false)
+	queue_redraw()
+
+
+func place_house_at(tile: Vector2i, config: Dictionary = {}) -> void:
+	if not _is_valid_tile(tile) or _grid_data.has(tile):
+		push_error("[PlacementTileMap] Cannot place house at %s." % str(tile))
+		return
+	if not scene_dict.has("house") or scene_dict["house"] == null:
+		push_error("[PlacementTileMap] 'house' PackedScene not assigned in scene_dict inspector export.")
+		return
+	var scene_node: Node = scene_dict["house"].instantiate()
+	if scene_node == null:
+		push_error("[PlacementTileMap] house PackedScene instantiation returned null.")
+		return
+	scene_node.position = map_to_local(tile)
+	$Entities.add_child(scene_node)
+	scene_node.set_placement_mode("placed")
+	scene_node.setup(config, self, tile)
+	if not config.get("inactive", false):
+		scene_node.died.connect(_on_game_over)
+	var player_can_edit: bool = config.get("player_can_edit", false)
+	_grid_data[tile] = {"type": "house", "player_can_edit": player_can_edit, "scene": scene_node}
+	for pos in _grid_data.keys():
+		if _grid_data[pos]["scene"] in get_tree().get_nodes_in_group("pantry"):
+			_grid_data[pos]["scene"].find_reachable(self, pos)
 	queue_redraw()
 
 

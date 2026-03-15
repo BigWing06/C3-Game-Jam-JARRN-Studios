@@ -11,22 +11,23 @@ var inventory = {"bread": 18, "veg": 15, "meat": 10}
 
 const WAREHOUSE_TEXTURE := preload("res://Sprites/Pantries/Warehouse.png")
 
-
 func _ready():
 	texture = WAREHOUSE_TEXTURE
-	get_parent().get_parent().get_node("WarehouseDisplay").setup(self)
-	for type in FOOD_TYPES:
-		get_parent().get_parent().get_node("WarehouseDisplay/display_container/" + type + "_display").update_text(inventory[type])
 
 func set_placement_mode(mode):
 	if mode == "placed":
 		$restock_timer.start()
-	
+		var display := get_tree().get_root().find_child("WarehouseDisplay", true, false)
+		display.setup(self)
+		for type in FOOD_TYPES:
+			display.get_node("display_container/" + type + "_display").update_text(inventory[type])
+
 func set_food_value(type, amount):
 	if type not in FOOD_TYPES:
 		push_warning(str(type) + " is not a valid food type!")
 	inventory[type] = amount
-	get_parent().get_parent().get_parent().get_node("WarehouseDisplay/display_container/" + type + "_display").update_text(amount)
+	get_tree().get_root().find_child("WarehouseDisplay", true, false) \
+		.get_node("display_container/" + type + "_display").update_text(amount)
 
 	
 func add_food_amount(amount: Array):
