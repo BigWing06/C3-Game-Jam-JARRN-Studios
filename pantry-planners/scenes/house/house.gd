@@ -11,9 +11,32 @@ const FOOD_TYPES  = ["bread", "veg", "meat"]
 const MAX_HEALTH := 10
 const ANGER_MESSAGES = ["Could Obtain Food"]
 
+const HOUSE_TEXTURES := {
+	"low_need":  {
+		"default":  preload("res://Sprites/Houses/Low need blue.PNG"),
+		"veg":      preload("res://Sprites/Houses/Low need purple.PNG"),
+		"meat":     preload("res://Sprites/Houses/Low need orange.PNG"),
+		"inactive": preload("res://Sprites/Houses/Low need grey.PNG"),
+	},
+	"normal": {
+		"default":  preload("res://Sprites/Houses/Medium needs green.png"),
+		"veg":      preload("res://Sprites/Houses/Medium needs purple.png"),
+		"meat":     preload("res://Sprites/Houses/Medium needs orange.png"),
+		"inactive": preload("res://Sprites/Houses/Medium need grey.PNG"),
+	},
+	"high_need": {
+		"default":  preload("res://Sprites/Houses/High_ needs red.png"),
+		"veg":      preload("res://Sprites/Houses/High_needs purple.png"),
+		"meat":     preload("res://Sprites/Houses/High_needs orange.png"),
+		"inactive": preload("res://Sprites/Houses/High_need grey.PNG"),
+	},
+	"donator": {"default": preload("res://Sprites/Houses/Donor.png")},
+}
+
 signal died
 
-var house_type: String     = "inactive"
+var inactive:   bool       = false
+var house_type: String     = "normal"
 var needs:      Array      = []
 var donates:    Array      = []
 var food_stock: Dictionary = {}
@@ -92,11 +115,21 @@ func _make_bar(width: float, height: float, fill_color: Color, bg_color: Color) 
 func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> void:
 	_tilemap  = tilemap
 	_grid_pos = grid_pos
-
-	if not config.has("type"):
-		house_type = "inactive"
-		modulate   = Color(0.5, 0.5, 0.5)
+	inactive   = config.get("inactive", false)
+	house_type = config.get("type", "normal")
+	house_type = config["type"]
+    needs      = config.get("needs",   FOOD_TYPES.duplicate())
+    donates    = config.get("donates", [])
+    delay      = config.get("delay",   DEFAULT_DELAYS.get(house_type, 5.0))
+	var starting: Array = config.get("starting_food", [2, 2, 2])
+	for i in FOOD_TYPES.size():
+		food_stock[FOOD_TYPES[i]] = starting[i] if i < starting.size() else 2
+	_update_texture()
+	if inactive:
 		return
+	_request_bar.show()
+	_health_bar.show()
+	_start_demand_cycle()
 
 	house_type = config["type"]
 	needs      = config.get("needs",   FOOD_TYPES.duplicate())
@@ -107,6 +140,18 @@ func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> voi
 	for i in FOOD_TYPES.size():
 		food_stock[FOOD_TYPES[i]] = starting[i] if i < starting.size() else 2
 
+func _update_texture() -> void:
+	var variants: Dictionary = HOUSE_TEXTURES.get(house_type, HOUSE_TEXTURES["normal"])
+	var key := "inactive" if inactive \
+		else "veg"  if needs.size() == 1 and needs[0] == "veg" \
+		else "meat" if needs.size() == 1 and needs[0] == "meat" \
+		else "default"
+	texture = variants.get(key, variants["default"])
+
+
+func activate() -> void:
+	inactive = false
+	_update_texture()
 	_request_bar.show()
 	_health_bar.show()
 	_start_demand_cycle()
@@ -180,7 +225,7 @@ func _take_damage() -> void:
 
 
 func _process(delta: float) -> void:
-	if house_type == "inactive":
+	if inactive:
 		return
 	if _time_until_dispatch > 0.0:
 		_time_until_dispatch = max(0.0, _time_until_dispatch - delta)
@@ -188,6 +233,8 @@ func _process(delta: float) -> void:
 
 
 func set_highlight(mode: String) -> void:
+	if inactive:
+		return
 	match mode:
 		"hovering": modulate = Color(0.5, 0.5, 0.5, 1.0)
 		"none":     modulate = Color(1.0, 1.0, 1.0, 1.0)
