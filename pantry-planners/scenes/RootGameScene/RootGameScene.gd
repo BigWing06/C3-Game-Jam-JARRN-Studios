@@ -41,6 +41,9 @@ func load_level():
 	else:
 		print("Free Play")
 		
+func _place_house_deferred(tile: Vector2i, config: Dictionary) -> void:
+	$PlacementTileMap.place_house_at(tile, config)
+
 
 func _on_success_next():
 	get_tree().paused = false
