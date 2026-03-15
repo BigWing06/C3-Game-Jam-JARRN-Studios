@@ -155,7 +155,7 @@ func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
 	reachable_houses = {}
 	for position_key in reachable_tiles.keys():
 		if position_key in grid_data.keys():
-			if grid_data[position_key]["type"] == "house":
+			if grid_data[position_key]["type"].begins_with("house"):
 				reachable_houses[position_key] = reachable_tiles[position_key]
 
 # Returns the travel cost of stepping onto `pos` by reading the custom

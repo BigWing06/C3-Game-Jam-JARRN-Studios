@@ -232,7 +232,7 @@ func _on_hovered_tile_changed() -> void:
 	var unhighlighted_houses := get_tree().get_nodes_in_group("house")
 	for pos: Vector2i in _hovering_preview.reachable_tiles.keys():
 		_highlighted_tiles[pos] = Color(1.0, 1.0, 1.0, 0.35)
-		if _grid_data.get(pos, {}).get("type") == "house":
+		if (_grid_data.get(pos, {}).get("type", "") as String).begins_with("house"):
 			unhighlighted_houses.erase(_grid_data[pos]["scene"])
 			_grid_data[pos]["scene"].set_highlight("hovering")
 	for house in unhighlighted_houses:

@@ -1,16 +1,14 @@
 extends Sprite2D
 
 @export var MAX_FOOD_DELIVERY: int
-@export var priority_food_amount: int
-@export var food_amount: int
 
-const FOOD_TYPES = [
-	"bread",
-	"veg",
-	"meat"
-]
+const FOOD_TYPES = ["bread", "veg", "meat"]
 
-var inventory = {FOOD_TYPES[0]: 20, FOOD_TYPES[1]: 20, FOOD_TYPES[2]: 20}
+const RESTOCK_PRIORITY := {"bread": 18, "veg": 15, "meat": 10}
+const RESTOCK_BASE     := {"bread":  4, "veg":  3, "meat":  2}
+
+var inventory = {"bread": 18, "veg": 15, "meat": 10}
+
 const WAREHOUSE_TEXTURE := preload("res://Sprites/Pantries/Warehouse.png")
 
 
@@ -62,10 +60,8 @@ func on_timeout():
 func _process(delta: float) -> void:
 	$restockbar.value = $restock_timer.time_left * 100 / $restock_timer.wait_time
 	
-func restock(type):
-	set_food_value(type, priority_food_amount)
+func restock(type: String) -> void:
 	for t in FOOD_TYPES:
-		if t != type:
-			set_food_value(t, food_amount)
+		set_food_value(t, RESTOCK_PRIORITY[t] if t == type else RESTOCK_BASE[t])
 	
 	
