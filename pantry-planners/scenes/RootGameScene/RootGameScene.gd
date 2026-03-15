@@ -12,19 +12,21 @@ func _ready() -> void:
 		levels = json.data
 	else:
 		print("JSON Parse Error: ", json.get_error_message(), " in ", content, " at line ", json.get_error_line())
+	load_level()
 	$level_timer.wait_time = levels[level_index]["time"]
-	#$level_timer.start()
+	$level_timer.start()
+
 	
 func next_level():
-	#if level_index > 0:
-		#level_success()
-		#return
-	#load_level()
+	if level_index > 0:
+		level_success()
+		return
+	load_level()
 		
-#func load_level():
+func load_level():
 	var level_data = levels[level_index]
 	if "level" in level_data.keys():
-		print("Starting level:" + level_data["level"]["name"])
+		print("Starting level:", level_index)
 	if "houses" in level_data.keys():
 		for house in level_data["houses"]:
 			print("Creating " + house["type"] + " @ " + str(house["location"]))
@@ -40,15 +42,15 @@ func next_level():
 		print("Free Play")
 		
 
-#func _on_success_next():
-	#get_tree().paused = false
-	#await ScreenTransition.fade_out()
-	#load_level()
-	#await ScreenTransition.fade_in()
-#
-#func level_success():
-	#get_tree().paused = true
-	#var success_scene = preload("res://scenes/Main Menu/Success.tscn")
-	#var success = success_scene.instantiate()
-	#success.next_pressed.connect(_on_success_next)
-	#$UI.add_child(success)
+func _on_success_next():
+	get_tree().paused = false
+	await ScreenTransition.fade_out()
+	load_level()
+	await ScreenTransition.fade_in()
+
+func level_success():
+	get_tree().paused = true
+	var success_scene = preload("res://scenes/Main Menu/Success.tscn")
+	var success = success_scene.instantiate()
+	success.next_pressed.connect(_on_success_next)
+	add_child(success)
