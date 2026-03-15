@@ -91,17 +91,11 @@ var _pantry_info_label:     Label          = null
 # ---------------------------------------------------------------------------
 func _ready() -> void:
 	_inventory = {
-<<<<<<< HEAD
 		"pantry":      starting_pantry_count,
 		"house":       starting_house_count,
 		"small_pantry":starting_small_pantry_count,
 		"donor": starting_donor_count,
-=======
-		"pantry": starting_pantry_count,
-		"house":  starting_house_count,
-		"small_pantry" : starting_small_pantry_count,
 		"warehouse" : 1
->>>>>>> 69305cb (Did Warehosue)
 	}
 	# Donor reuses the house scene; alias at runtime to avoid tscn edits
 	scene_dict["donor"] = scene_dict["house"]
