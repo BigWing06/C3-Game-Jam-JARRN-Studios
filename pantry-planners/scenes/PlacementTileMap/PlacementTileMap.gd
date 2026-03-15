@@ -324,7 +324,8 @@ func _try_place(tile: Vector2i) -> void:
 		return
 	if _inventory.get(_selected_item, 0) <= 0:
 		return
-
+	
+	Audio.play_sfx(preload("res://MusicSFX/Notification Ding.mp3"))
 	_place_entity(tile, _selected_item, true)
 	_inventory[_selected_item] -= 1
 	queue_redraw()
@@ -339,6 +340,7 @@ func _try_remove(tile: Vector2i) -> void:
 		return  # pre-placed level entities cannot be removed by the player
 	if is_instance_valid(data["scene"]):
 		data["scene"].queue_free()
+		Audio.play_sfx(preload("res://MusicSFX/Button Press- Option 2.mp3"))
 	_grid_data.erase(tile)
 	_inventory[data["type"]] = _inventory.get(data["type"], 0) + 1
 	queue_redraw()

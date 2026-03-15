@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://fohkal3hnlyw"
+path="res://.godot/imported/Notification Ding.mp3-397e7f3224c043bf4896d32b9337d33b.mp3str"
+
+[deps]
+
+source_file="res://MusicSFX/Notification Ding.mp3"
+dest_files=["res://.godot/imported/Notification Ding.mp3-397e7f3224c043bf4896d32b9337d33b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
