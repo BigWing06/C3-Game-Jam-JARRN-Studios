@@ -2,6 +2,15 @@ extends Node2D
 
 const PLACEMENT_MODES := ["hovering", "placed"]
 
+@export var spoliage_thereshhold: int = 5
+@export var spoliage_timer: int = 5
+
+const FOOD_TYPES = [
+	"bread",
+	"veg",
+	"meat"
+]
+
 @export var start_active: bool = false 
 @export var start_placement_mode: String = "hovering"
 @export var max_supply: int = 30
@@ -38,6 +47,7 @@ func set_active(new_state: bool) -> void:
 	active_changed.emit()
 	if active:
 		$add_food_timer.start()
+		$spoilage_timer.wait_time = spoliage_timer
 	else:
 		$add_food_timer.stop()
 
@@ -46,16 +56,13 @@ func check_food(type) -> bool:
 		var called_amount = 0
 		if type in food_calls.keys():
 			called_amount = food_calls[type]
-		print("AMOUNT")
 		print(food_amounts[type])
-		print("CALLED AMOUNT")
 		print(called_amount)
 		if food_amounts[type] - called_amount > 0:
 			if type in food_calls.keys():
 				food_calls[type] += 1
 			else:
 				food_calls[type] = 0
-			print("TRUE")
 			return true
 	return false
 	
@@ -168,9 +175,29 @@ func set_placement_mode(mode: String) -> void:
 		"placed":
 			set_active(true)
 			remove_from_group("hovering")
+			
+		
+func get_spoilage():
+	var total = 0
+	for type in FOOD_TYPES:
+		if spoliage_thereshhold < get_food_amount(type):
+			return true
+	return false
 
 func _on_food_changed() -> void:
 	var text := ""
 	for food_type in ["bread", "veg", "meat"]:
 		text += "%s:%d " % [food_type[0].to_upper(), get_food_amount(food_type)]
 	$food_amount_label.text = text.strip_edges()
+	if get_spoilage():
+		if $spoilage_timer.is_stopped():
+			$spoilage_timer.start()
+	else:
+		print("spoilage set to false")
+		$spoilage_timer.stop()
+
+
+func _on_spoilage_timer_timeout() -> void:
+	for type in FOOD_TYPES:
+		if spoliage_thereshhold < get_food_amount(type):
+			set_food(type, get_food_amount(type) - 1)

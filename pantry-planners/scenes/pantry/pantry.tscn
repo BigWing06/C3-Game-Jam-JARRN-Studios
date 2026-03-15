@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b0aaedod58msx"]
 
 [ext_resource type="Script" uid="uid://cvv15tj5n3h4o" path="res://scenes/pantry/pantry.gd" id="2_dijje"]
-[ext_resource type="Texture2D" uid="uid://b6hul53i36jb0" path="res://Sprites/Full_Veggie_Pantry.png" id="2_sdqsc"]
+[ext_resource type="Texture2D" uid="uid://b6hul53i36jb0" path="res://Sprites/Pantries/Full_Veggie_Pantry.png" id="2_sdqsc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dijje"]
 radius = 1316.7354
@@ -30,6 +30,9 @@ theme_override_font_sizes/font_size = 130
 wait_time = 5.0
 autostart = true
 
+[node name="spoilage_timer" type="Timer" parent="." unique_id=830425741]
+
 [connection signal="food_changed" from="." to="." method="_on_food_changed"]
 [connection signal="tree_exiting" from="sprite" to="sprite" method="_on_tree_exiting"]
 [connection signal="timeout" from="add_food_timer" to="." method="add_food"]
+[connection signal="timeout" from="spoilage_timer" to="." method="_on_spoilage_timer_timeout"]
