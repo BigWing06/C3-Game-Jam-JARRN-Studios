@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://6eds84gts5ki"]
 
 [ext_resource type="Script" uid="uid://dnl116fkf8dv4" path="res://scenes/Main Menu/success.gd" id="1_ijrcg"]
+[ext_resource type="Texture2D" uid="uid://6apvabmcvlrr" path="res://Sprites/GameOver/Success background.PNG" id="2_055wg"]
+[ext_resource type="Texture2D" uid="uid://cljr3ac63ly6y" path="res://Sprites/GameOver/Next button.PNG" id="3_rohfy"]
+[ext_resource type="Texture2D" uid="uid://d4hpim4sbkitb" path="res://Sprites/GameOver/Next button pressed.PNG" id="4_widlv"]
+[ext_resource type="Texture2D" uid="uid://btldsofyj0bit" path="res://Sprites/GameOver/Next button hover.PNG" id="5_uhypf"]
+[ext_resource type="BitMap" uid="uid://vd18rer2gmre" path="res://Sprites/GameOver/Next button Bitmap.PNG" id="6_wblt1"]
 
 [node name="Success" type="Node2D" unique_id=421265028]
 script = ExtResource("1_ijrcg")
@@ -20,32 +25,20 @@ offset_top = 49.0
 offset_right = 576.0
 offset_bottom = 89.0
 
-[node name="Success Label" type="Label" parent="Control" unique_id=241314116]
-layout_mode = 0
-offset_left = -490.0
-offset_top = 70.0
-offset_right = 1313.0
-offset_bottom = 891.0
-theme_override_font_sizes/font_size = 300
-text = "SUCCESS!"
-horizontal_alignment = 1
+[node name="SuccessBackground" type="Sprite2D" parent="Control" unique_id=959444844]
+position = Vector2(422.99988, 645)
+scale = Vector2(0.86930466, 0.86930454)
+texture = ExtResource("2_055wg")
 
-[node name="Label" type="Label" parent="Control" unique_id=46779592]
+[node name="Next Button" type="TextureButton" parent="Control" unique_id=1565522677]
 layout_mode = 0
-offset_left = -18.0
-offset_top = 444.0
-offset_right = 791.0
-offset_bottom = 513.0
-theme_override_font_sizes/font_size = 50
-text = "Thanks for all your help, move on?"
-
-[node name="Next Button" type="Button" parent="Control" unique_id=533860026]
-layout_mode = 0
-offset_left = 103.0
-offset_top = 570.0
-offset_right = 724.0
-offset_bottom = 783.0
-theme_override_font_sizes/font_size = 150
-text = "NEXT"
+offset_left = -84.0
+offset_top = 527.0
+offset_right = 863.0
+offset_bottom = 1079.0
+texture_normal = ExtResource("3_rohfy")
+texture_pressed = ExtResource("4_widlv")
+texture_hover = ExtResource("5_uhypf")
+texture_click_mask = ExtResource("6_wblt1")
 
 [connection signal="pressed" from="Control/Next Button" to="." method="_on_next_button_pressed"]

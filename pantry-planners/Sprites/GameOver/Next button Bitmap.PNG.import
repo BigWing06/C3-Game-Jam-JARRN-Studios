@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://vd18rer2gmre"
+path="res://.godot/imported/Next button Bitmap.PNG-0ebbe27270ba03ad1318f5f323df744b.res"
+
+[deps]
+
+source_file="res://Sprites/GameOver/Next button Bitmap.PNG"
+dest_files=["res://.godot/imported/Next button Bitmap.PNG-0ebbe27270ba03ad1318f5f323df744b.res"]
+
+[params]
+
+create_from=1
+threshold=0.1

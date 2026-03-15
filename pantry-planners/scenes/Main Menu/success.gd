@@ -1,5 +1,6 @@
 extends Node2D
 
+signal next_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,6 +14,5 @@ func _process(delta: float) -> void:
 
 func _on_next_button_pressed() -> void:
 	# TODO: Reset to start of next level
-	await ScreenTransition.fade_out()
 	Audio.play_button_sound()
-	await ScreenTransition.fade_in()
+	next_pressed.emit()

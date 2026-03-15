@@ -16,6 +16,12 @@ func _ready() -> void:
 	#$level_timer.start()
 	
 func next_level():
+	#if level_index > 0:
+		#level_success()
+		#return
+	#load_level()
+		
+#func load_level():
 	var level_data = levels[level_index]
 	if "level" in level_data.keys():
 		print("Starting level:" + level_data["level"]["name"])
@@ -32,3 +38,17 @@ func next_level():
 		$level_timer.start()
 	else:
 		print("Free Play")
+		
+
+#func _on_success_next():
+	#get_tree().paused = false
+	#await ScreenTransition.fade_out()
+	#load_level()
+	#await ScreenTransition.fade_in()
+#
+#func level_success():
+	#get_tree().paused = true
+	#var success_scene = preload("res://scenes/Main Menu/Success.tscn")
+	#var success = success_scene.instantiate()
+	#success.next_pressed.connect(_on_success_next)
+	#$UI.add_child(success)
