@@ -10,6 +10,13 @@ const DEFAULT_DELAYS := {
 const FOOD_TYPES  = ["bread", "veg", "meat"]
 const MAX_HEALTH := 10
 
+const HOUSE_TEXTURES := {
+	"low_need":  preload("res://Sprites/Houses/Low need blue.PNG"),
+	"normal":    preload("res://Sprites/Houses/Medium needs green.png"),
+	"high_need": preload("res://Sprites/Houses/High_ needs red.png"),
+	"donator":   preload("res://Sprites/Houses/Donor.png"),
+}
+
 signal died
 
 var house_type: String     = "inactive"
@@ -101,6 +108,9 @@ func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> voi
 	needs      = config.get("needs",   FOOD_TYPES.duplicate())
 	donates    = config.get("donates", [])
 	delay      = config.get("delay",   DEFAULT_DELAYS.get(house_type, 5.0))
+
+	if HOUSE_TEXTURES.has(house_type):
+		texture = HOUSE_TEXTURES[house_type]
 
 	var starting: Array = config.get("starting_food", [2, 2, 2])
 	for i in FOOD_TYPES.size():
