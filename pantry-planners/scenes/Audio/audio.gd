@@ -5,7 +5,11 @@ extends Node2D
 
 var main_music = preload("res://MusicSFX/Game Jam Audio.mp3")
 var button_sound = preload("res://MusicSFX/Button Press- Option 1.mp3")
-var talk_sound = preload("res://MusicSFX/Character Dialogue.mp3")
+var talk_sounds = [
+	preload("res://MusicSFX/Character Dialogue.mp3"),
+	preload("res://MusicSFX/Dialogue( Maybe).mp3"),
+	preload("res://MusicSFX/Dialogue( sound).mp3")
+]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,7 +22,7 @@ func _process(_delta: float) -> void:
 
 
 func play_music(track: AudioStream):
-	if (music_player.stream == track):
+	if (music_player.stream == track and music_player.playing):
 		return
 	music_player.stream = track
 	music_player.play()
@@ -47,4 +51,5 @@ func play_button_sound():
 	play_sfx(button_sound)
 
 func play_talk_sound():
-	play_sfx(talk_sound)
+	sfx_player.stream = talk_sounds.pick_random()
+	sfx_player.play()

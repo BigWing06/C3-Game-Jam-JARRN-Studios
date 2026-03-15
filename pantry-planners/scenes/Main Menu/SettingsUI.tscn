@@ -98,6 +98,14 @@ layout_mode = 2
 texture_normal = ExtResource("3_373do")
 stretch_mode = 3
 
+[node name="Quit Button" type="Button" parent="." unique_id=800800843]
+offset_left = 1721.0
+offset_top = 898.0
+offset_right = 1857.0
+offset_bottom = 1022.0
+theme_override_font_sizes/font_size = 40
+text = "QUIT"
+
 [connection signal="value_changed" from="Button Manager/Master Slider" to="." method="_on_master_slider_value_changed"]
 [connection signal="toggled" from="Button Manager/Master Mute" to="." method="_on_master_mute_toggled"]
 [connection signal="value_changed" from="Button Manager/Music Slider" to="." method="_on_music_slider_value_changed"]
@@ -105,3 +113,4 @@ stretch_mode = 3
 [connection signal="value_changed" from="Button Manager/SFX Slider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="toggled" from="Button Manager/SFX Mute" to="." method="_on_sfx_mute_toggled"]
 [connection signal="pressed" from="Button Manager/Navigate Back" to="." method="_on_navigate_back_pressed"]
+[connection signal="pressed" from="Quit Button" to="." method="_on_quit_button_pressed"]

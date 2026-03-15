@@ -44,3 +44,8 @@ func _on_music_mute_toggled(toggled_on: bool) -> void:
 
 func _on_sfx_mute_toggled(toggled_on: bool) -> void:
 	AudioServer.set_bus_mute(2, toggled_on)
+
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+	Audio.play_button_sound()
