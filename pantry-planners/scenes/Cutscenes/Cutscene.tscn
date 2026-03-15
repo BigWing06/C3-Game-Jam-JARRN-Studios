@@ -35,15 +35,6 @@ offset_right = 1361.1117
 offset_bottom = 218.09625
 texture = ExtResource("1_qgc4t")
 
-[node name="Nametag" type="Label" parent="Character Panel" unique_id=547545226]
-layout_mode = 0
-offset_left = 80.0
-offset_top = -54.0
-offset_right = 223.0
-offset_bottom = 1.0
-theme_override_font_sizes/font_size = 40
-text = "[NAME]"
-
 [node name="DialogueBox" type="Label" parent="Character Panel" unique_id=1575102592]
 layout_mode = 0
 offset_left = 84.0

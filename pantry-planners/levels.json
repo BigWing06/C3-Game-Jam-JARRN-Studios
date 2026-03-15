@@ -4,13 +4,22 @@
 		"level":{
 			"narrative":[
 				{
-					"text":"Example Text 1"
+					"text":"Hello, everyone! It’s great to finally meet! My name is Dr H. I'm the supervisor for the mutual aid network here in Tompkins County, New York!"
 				},
 				{
-					"text":"Example Text 2"
+					"text":"The Covid-19 pandemic led to increased levels of food insecurity across the world, and government and charitable organizations did not always respond quickly enough to the needs of the community."
 				},
 				{
-					"text":"Example Text 3"
+					"text":"That’s why we decided to help each other!"
+				},
+				{
+					"text":"Mutual Aid (MA) is when neighbors work together to meet survival needs-mobilised residents to share food, often through outdoor food cabinets and refrigerators."
+				},
+				{
+					"text":"Your job as a volunteer is to collect food donations, inspect for food quality, and help improve food insecurity in our neighborhood by planning where we station pantries!"
+				},
+				{
+					"text":"First, let us tackle the basics. There is one house on screen. Place the pantry near the house to supply food to the house."
 				}
 			]
 		},
@@ -45,10 +54,6 @@
 				},
 				{
 					"text":"Example Text 4",
-					"choices":[
-						"choice 1",
-						"choice 2"
-					]
 				}
 			]
 		},

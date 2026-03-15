@@ -10,6 +10,7 @@ var talk_sounds = [
 	preload("res://MusicSFX/Dialogue( Maybe).mp3"),
 	preload("res://MusicSFX/Dialogue( sound).mp3")
 ]
+var most_recent_voice = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -51,5 +52,10 @@ func play_button_sound():
 	play_sfx(button_sound)
 
 func play_talk_sound():
-	sfx_player.stream = talk_sounds.pick_random()
+	while true:
+		var picked_voice = talk_sounds.pick_random()
+		if (most_recent_voice != picked_voice):
+			sfx_player.stream = picked_voice
+			most_recent_voice = picked_voice
+			break
 	sfx_player.play()
