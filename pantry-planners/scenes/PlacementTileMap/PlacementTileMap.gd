@@ -22,6 +22,12 @@ const ENTITY_LABELS := {
 	"house":  "H",
 }
 
+const PLACEABLE_ENTITIES = [
+	{"key":"pantry", "name": "Pantry"},
+	{"key":"house", "name": "House"},
+	{"key":"small_pantry", "name": "Small Pantry"}
+]
+
 # ---------------------------------------------------------------------------
 # Exports — swap in real scenes once pantry and house are finished
 # ---------------------------------------------------------------------------
@@ -38,6 +44,7 @@ const ENTITY_LABELS := {
 @export var starting_pantry_count: int = 30
 ## How many houses the player starts with in their inventory (usually 0).
 @export var starting_house_count:  int = 30
+@export var starting_small_pantry_count: int = 30
 
 # ---------------------------------------------------------------------------
 # Signals
@@ -64,7 +71,7 @@ var _grid_layer: TileMapLayer
 # Node references
 # ---------------------------------------------------------------------------
 @onready var _mode_label:      Label = $UI/ModeLabel
-@onready var _inventory_label: Label = $UI/InventoryDisplay/InventoryLabel
+@onready var _inventory_label: Label = $UI/InventoryLabel
 
 # ---------------------------------------------------------------------------
 # Lifecycle
@@ -73,6 +80,7 @@ func _ready() -> void:
 	_inventory = {
 		"pantry": starting_pantry_count,
 		"house":  starting_house_count,
+		"small_pantry" : starting_small_pantry_count
 	}
 	_setup_grid_layer()
 	_place_initial_entities()
@@ -125,16 +133,6 @@ func _input(event: InputEvent) -> void:
 		match event.keycode:
 			KEY_P:
 				_toggle_placement_mode()
-			KEY_1:
-				if _selected_item != "pantry":
-					_selected_item = "pantry"
-					_refresh_hover_preview()
-					_update_ui()
-			KEY_2:
-				if _selected_item != "house":
-					_selected_item = "house"
-					_refresh_hover_preview()
-					_update_ui()
 			KEY_ESCAPE:
 				# Support for ESCAPE Settings Menu
 				print("ESCAPE!")
@@ -144,6 +142,12 @@ func _input(event: InputEvent) -> void:
 					var settings = settings_scene.instantiate()
 					add_child(settings)
 					Audio.play_button_sound()
+		if (event.keycode >= KEY_1 and event.keycode <= KEY_9):
+			var num = event.keycode - KEY_1
+			if num < len(PLACEABLE_ENTITIES):
+				_selected_item = PLACEABLE_ENTITIES[num]["key"]
+				_refresh_hover_preview()
+				_update_ui()
 
 	if event is InputEventMouseButton and event.pressed and _placement_mode:
 		var tile := local_to_map(to_local(get_global_mouse_position()))
@@ -389,8 +393,10 @@ func _update_ui() -> void:
 	if _placement_mode:
 		_mode_label.text = (
 			"[ PLACEMENT MODE ]   P = exit   Right-click = remove\n"
-			+ "Placing: %s      [1] Pantry   [2] House" % _selected_item.to_upper()
+			+ "Placing: " + _selected_item.to_upper() + "     "
 		)
+		for i in range(len(PLACEABLE_ENTITIES)):
+			_mode_label.text += "["+ str(i + 1) + "] " + PLACEABLE_ENTITIES[i]["name"] + "  "
 		_mode_label.add_theme_color_override("font_color", Color(1.0, 0.9, 0.2))
 	else:
 		_mode_label.text = "Press [P] to enter Placement Mode"

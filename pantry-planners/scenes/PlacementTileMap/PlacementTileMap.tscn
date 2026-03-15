@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cs11nci738oci" path="res://scenes/PlacementTileMap/PlacementTileMap.gd" id="1_pltmap"]
 [ext_resource type="PackedScene" uid="uid://b0aaedod58msx" path="res://scenes/pantry/pantry.tscn" id="2_tmauy"]
 [ext_resource type="PackedScene" uid="uid://bgjcikn6br0s1" path="res://scenes/house/house.tscn" id="3_16bbq"]
+[ext_resource type="PackedScene" uid="uid://ddshpy40dmwld" path="res://scenes/pantry/small_pantry.tscn" id="4_16bbq"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yy1r0"]
 scenes/1/scene = ExtResource("2_tmauy")
@@ -19,9 +20,9 @@ tile_set = SubResource("TileSet_10f1e")
 script = ExtResource("1_pltmap")
 scene_dict = Dictionary[String, PackedScene]({
 "house": ExtResource("3_16bbq"),
-"pantry": ExtResource("2_tmauy")
+"pantry": ExtResource("2_tmauy"),
+"small_pantry": ExtResource("4_16bbq")
 })
-starting_house_count = 30
 
 [node name="Entities" type="Node2D" parent="." unique_id=1902783642]
 
@@ -35,16 +36,23 @@ offset_bottom = 58.0
 text = "Press [P] to enter Placement Mode"
 autowrap_mode = 3
 
-[node name="InventoryDisplay" type="Panel" parent="UI" unique_id=1034166211]
-offset_left = 10.0
-offset_top = 68.0
-offset_right = 190.0
-offset_bottom = 160.0
-
-[node name="InventoryLabel" type="Label" parent="UI/InventoryDisplay" unique_id=1321796589]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 6.0
-offset_right = 176.0
-offset_bottom = 146.0
+[node name="InventoryLabel" type="Label" parent="UI" unique_id=1321796589]
+z_index = 3
+offset_left = 18.0
+offset_top = 74.0
+offset_right = 186.0
+offset_bottom = 214.0
 text = "-- Inventory --"
+
+[node name="InventoryDisplay" type="Panel" parent="UI/InventoryLabel" unique_id=1034166211]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2

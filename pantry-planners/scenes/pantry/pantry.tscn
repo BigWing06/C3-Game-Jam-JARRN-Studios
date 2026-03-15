@@ -9,9 +9,6 @@ radius = 1316.7354
 [node name="Node2D" type="Node2D" unique_id=1642997641 groups=["pantry"]]
 script = ExtResource("2_dijje")
 
-[node name="effect_timer" type="Timer" parent="." unique_id=749848196]
-wait_time = 0.5
-
 [node name="effect_radius" type="Area2D" parent="." unique_id=2091945170]
 scale = Vector2(0.25, 0.25)
 
@@ -29,6 +26,9 @@ offset_right = 94.55499
 offset_bottom = 157.0
 theme_override_font_sizes/font_size = 130
 
+[node name="effect_timer" type="Timer" parent="." unique_id=749848196]
+wait_time = 0.5
+
 [connection signal="food_changed" from="." to="." method="_on_food_changed"]
-[connection signal="timeout" from="effect_timer" to="." method="effect_houses"]
 [connection signal="tree_exiting" from="sprite" to="sprite" method="_on_tree_exiting"]
+[connection signal="timeout" from="effect_timer" to="." method="effect_houses"]

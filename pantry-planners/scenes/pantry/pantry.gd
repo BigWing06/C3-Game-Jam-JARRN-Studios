@@ -4,6 +4,8 @@ const PLACEMENT_MODES = ["hovering", "placed"]
 
 @export var start_active: bool = false 
 @export var start_placement_mode: String = "hovering"
+@export var max_supply: int = 30
+@export var max_health: int = 20
 # Signal that is emmited when the active state changes
 
 # This varible controls if the food pantry is active meaning
