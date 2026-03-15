@@ -20,14 +20,14 @@ func set_placement_mode(mode):
 		var display := get_tree().get_root().find_child("WarehouseDisplay", true, false)
 		display.setup(self)
 		for type in FOOD_TYPES:
-			display.get_node("display_container/" + type + "_display").update_text(inventory[type])
+			display.get_node(type + "_display").update_text(inventory[type])
 
 func set_food_value(type, amount):
 	if type not in FOOD_TYPES:
 		push_warning(str(type) + " is not a valid food type!")
 	inventory[type] = amount
 	get_tree().get_root().find_child("WarehouseDisplay", true, false) \
-		.get_node("display_container/" + type + "_display").update_text(amount)
+		.get_node(type + "_display").update_text(amount)
 
 	
 func add_food_amount(amount: Array):
