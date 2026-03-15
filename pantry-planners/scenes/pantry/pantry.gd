@@ -11,6 +11,20 @@ const FOOD_TYPES = [
 	"meat"
 ]
 
+const FOOD_PRESETS: Array = [
+	["bread", "veg", "meat"],
+	["bread"],
+	["veg"],
+	["meat"],
+]
+
+var requested_foods: Array = FOOD_PRESETS[0].duplicate()
+var _preset_index:   int   = 0
+
+func cycle_requested_foods() -> void:
+	_preset_index  = (_preset_index + 1) % FOOD_PRESETS.size()
+	requested_foods = FOOD_PRESETS[_preset_index].duplicate()
+
 @export var start_active: bool = false 
 @export var start_placement_mode: String = "hovering"
 @export var max_supply: int = 30

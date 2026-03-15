@@ -158,13 +158,19 @@ func _input(event: InputEvent) -> void:
 				_refresh_hover_preview()
 				_update_ui()
 
-	if event is InputEventMouseButton and event.pressed and _placement_mode:
+	if event is InputEventMouseButton and event.pressed:
 		var tile := local_to_map(to_local(get_global_mouse_position()))
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				_try_place(tile)
-			MOUSE_BUTTON_RIGHT:
-				_try_remove(tile)
+		if _placement_mode:
+			match event.button_index:
+				MOUSE_BUTTON_LEFT:
+					_try_place(tile)
+				MOUSE_BUTTON_RIGHT:
+					_try_remove(tile)
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			if _grid_data.has(tile) and _grid_data[tile]["type"] in ["pantry", "small_pantry"]:
+				var pantry = _grid_data[tile]["scene"]
+				pantry.cycle_requested_foods()
+				_update_pantry_info_label(pantry)
 
 
 func _process(_delta: float) -> void:
@@ -414,9 +420,11 @@ func _hide_pantry_info() -> void:
 
 
 func _update_pantry_info_label(pantry: Node) -> void:
+	var requested := " + ".join(pantry.requested_foods.map(func(f): return f.capitalize()))
 	var lines := "Pantry Stock\n─────────────\n"
 	for food in ["bread", "veg", "meat"]:
 		lines += "  %s: %d\n" % [food.capitalize(), pantry.get_food_amount(food)]
+	lines += "─────────────\nAccepts: %s\n[Click to cycle]" % requested
 	_pantry_info_label.text = lines
 
 

@@ -45,14 +45,16 @@ func add_food_amount(amount: Array):
 
 func push_shipment():
 	var pantries = get_tree().get_nodes_in_group("pantry")
-	for i in range(len(FOOD_TYPES)):
-		var given_food_amount = (inventory[FOOD_TYPES[i]] - inventory[FOOD_TYPES[i]] % len(pantries)) / len(pantries)
-		if (given_food_amount > MAX_FOOD_DELIVERY):
-			given_food_amount = MAX_FOOD_DELIVERY
-		if given_food_amount != 0:
-			for pantry in pantries:
-				set_food_value(FOOD_TYPES[i], inventory[FOOD_TYPES[i]] - given_food_amount)
-				pantry.add_food(FOOD_TYPES[i], given_food_amount)
+	for food_type in FOOD_TYPES:
+		var recipients = pantries.filter(func(p): return food_type in p.requested_foods)
+		if recipients.is_empty():
+			continue
+		var amount = min(MAX_FOOD_DELIVERY, inventory[food_type] / recipients.size())
+		if amount == 0:
+			continue
+		for pantry in recipients:
+			set_food_value(food_type, inventory[food_type] - amount)
+			pantry.add_food(food_type, amount)
 
 func on_timeout():
 	push_shipment()
