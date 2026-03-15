@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 
 func _on_navigate_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/Main Menu/MainMenu.tscn")
-
+	Audio.play_button_sound()
 
 func _on_test_cutscene_pressed() -> void:
 	var cutscene_scene = preload("res://scenes/Cutscenes/Cutscene.tscn")

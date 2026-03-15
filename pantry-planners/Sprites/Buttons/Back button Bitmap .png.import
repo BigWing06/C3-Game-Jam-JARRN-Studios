@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://cvtm0uq408mvl"
+path="res://.godot/imported/Back button Bitmap .png-3fc79b3ab89431308a9f1c8bf8828756.res"
+
+[deps]
+
+source_file="res://Sprites/Buttons/Back button Bitmap .png"
+dest_files=["res://.godot/imported/Back button Bitmap .png-3fc79b3ab89431308a9f1c8bf8828756.res"]
+
+[params]
+
+create_from=1
+threshold=0.1

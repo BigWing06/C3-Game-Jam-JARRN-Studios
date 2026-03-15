@@ -20,6 +20,7 @@ func _process(delta: float) -> void:
 func _on_navigate_back_pressed() -> void:
 	get_parent()._setting_displayed = false
 	queue_free()
+	Audio.play_button_sound()
 	
 
 func _on_master_slider_value_changed(value: float) -> void:

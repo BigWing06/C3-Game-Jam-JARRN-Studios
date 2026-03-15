@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://b24pdff8hcac0"]
+
+[ext_resource type="Script" uid="uid://cgus1k16fcoxx" path="res://scenes/Main Menu/game_over.gd" id="1_pngwi"]
+
+[node name="GameOver" type="Node2D" unique_id=1936649288]
+script = ExtResource("1_pngwi")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=619112885]
+offset_left = -91.0
+offset_top = -49.0
+offset_right = 2144.0
+offset_bottom = 1834.0
+color = Color(0, 0, 0, 0.3647059)
+
+[node name="Control" type="Control" parent="." unique_id=805574040]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 536.0
+offset_top = 49.0
+offset_right = 576.0
+offset_bottom = 89.0
+
+[node name="GameOver Label" type="Label" parent="Control" unique_id=1166440842]
+layout_mode = 0
+offset_left = -490.0
+offset_top = 70.0
+offset_right = 1313.0
+offset_bottom = 891.0
+theme_override_font_sizes/font_size = 300
+text = "GAME OVER!"
+
+[node name="Label" type="Label" parent="Control" unique_id=217679863]
+layout_mode = 0
+offset_left = -536.0
+offset_top = -49.0
+offset_right = -276.0
+offset_bottom = -26.0
+text = "You failed to stop food insecurity!"
+
+[node name="TryAgain Button" type="Button" parent="Control" unique_id=1620382090]
+layout_mode = 0
+offset_left = -281.0
+offset_top = 555.0
+offset_right = 505.0
+offset_bottom = 768.0
+theme_override_font_sizes/font_size = 150
+text = "TRY AGAIN"
+
+[node name="Quit Button" type="Button" parent="Control" unique_id=1123866482]
+layout_mode = 0
+offset_left = 585.0
+offset_top = 556.0
+offset_right = 1044.0
+offset_bottom = 769.0
+theme_override_font_sizes/font_size = 150
+text = "MENU"
+
+[connection signal="pressed" from="Control/TryAgain Button" to="." method="_on_try_again_button_pressed"]
+[connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]

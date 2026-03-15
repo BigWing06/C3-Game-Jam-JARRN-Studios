@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cngghuimnv7lo" path="res://scenes/Main Menu/credits_ui.gd" id="1_vbmkw"]
 [ext_resource type="Texture2D" uid="uid://dd4a2as0eqtad" path="res://Sprites/Pantry Planner Title Card.png" id="2_vbmkw"]
+[ext_resource type="Texture2D" uid="uid://bpsvr06hb0yto" path="res://Sprites/Buttons/Back button.png" id="3_5s1my"]
+[ext_resource type="Texture2D" uid="uid://dlpo75k5kjumy" path="res://Sprites/Buttons/Back button pressed.png" id="4_vs2q0"]
+[ext_resource type="Texture2D" uid="uid://cdvw5khfn06am" path="res://Sprites/Buttons/Back button hover .png" id="5_tqoh3"]
+[ext_resource type="BitMap" uid="uid://cvtm0uq408mvl" path="res://Sprites/Buttons/Back button Bitmap .png" id="6_kmj31"]
 
 [node name="CreditsUi" type="Control" unique_id=519910330]
 layout_mode = 3
@@ -18,7 +22,7 @@ offset_left = -105.0
 offset_top = -99.0
 offset_right = 1931.0
 offset_bottom = 1137.0
-color = Color(0, 0, 0, 1)
+color = Color(0.1882353, 0.40784314, 0.45490196, 1)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=695446914]
 layout_mode = 1
@@ -68,14 +72,17 @@ offset_top = 837.0
 offset_right = 1094.0
 offset_bottom = 1121.0
 
-[node name="Navigate Back" type="Button" parent="Button Manager" unique_id=1769689050]
+[node name="Navigate Back" type="TextureButton" parent="Button Manager" unique_id=888628939]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 62.0
-offset_right = 588.0
-offset_bottom = 218.0
-theme_override_font_sizes/font_size = 100
-text = "Back"
+offset_left = -19.0
+offset_top = -5.0
+offset_right = 567.0
+offset_bottom = 161.0
+scale = Vector2(1.222568, 1.222568)
+texture_normal = ExtResource("3_5s1my")
+texture_pressed = ExtResource("4_vs2q0")
+texture_hover = ExtResource("5_tqoh3")
+texture_click_mask = ExtResource("6_kmj31")
 
 [node name="TEST CUTSCENE" type="Button" parent="Button Manager" unique_id=315492125]
 layout_mode = 0
