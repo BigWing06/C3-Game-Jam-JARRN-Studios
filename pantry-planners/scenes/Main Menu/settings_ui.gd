@@ -3,6 +3,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Must keep processing while the game tree is paused
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	var masterVal = db_to_linear(AudioServer.get_bus_volume_db(0))
 	$"Button Manager/Master Slider".value = masterVal
 	var musicVal = db_to_linear(AudioServer.get_bus_volume_db(1))
@@ -18,6 +20,7 @@ func _process(delta: float) -> void:
 # Buttons and Sliders ---------------
 
 func _on_navigate_back_pressed() -> void:
+	get_tree().paused = false
 	get_parent()._setting_displayed = false
 	queue_free()
 	Audio.play_button_sound()

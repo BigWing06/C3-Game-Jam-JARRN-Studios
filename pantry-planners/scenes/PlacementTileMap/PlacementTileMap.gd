@@ -145,6 +145,7 @@ func _input(event: InputEvent) -> void:
 				print("ESCAPE!")
 				if _setting_displayed == false:
 					_setting_displayed = true
+					get_tree().paused = true
 					var settings_scene = preload("res://scenes/Main Menu/SettingsUI.tscn")
 					var settings = settings_scene.instantiate()
 					add_child(settings)
