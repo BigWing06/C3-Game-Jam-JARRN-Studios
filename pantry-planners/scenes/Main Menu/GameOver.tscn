@@ -1,8 +1,18 @@
 [gd_scene format=3 uid="uid://b24pdff8hcac0"]
 
 [ext_resource type="Script" uid="uid://cgus1k16fcoxx" path="res://scenes/Main Menu/game_over.gd" id="1_pngwi"]
+[ext_resource type="Texture2D" uid="uid://ctt2qhjqw61n5" path="res://Sprites/GameOver/Game Over Background.PNG" id="2_y2ufh"]
+[ext_resource type="Texture2D" uid="uid://c4afrjyx2ngke" path="res://Sprites/GameOver/Try again button.PNG" id="3_frnvm"]
+[ext_resource type="Texture2D" uid="uid://ci3oxt076t3bp" path="res://Sprites/GameOver/Try again button pressed.PNG" id="4_q7rb2"]
+[ext_resource type="Texture2D" uid="uid://c4bfbqhwwpf8g" path="res://Sprites/GameOver/Try again button hover.PNG" id="5_14150"]
+[ext_resource type="BitMap" uid="uid://bu6ecrsyt4hat" path="res://Sprites/GameOver/Try again button Bitmap.PNG" id="6_t4gw1"]
+[ext_resource type="Texture2D" uid="uid://c5bk4h1umdl5o" path="res://Sprites/GameOver/Menu button .PNG" id="7_s3y1a"]
+[ext_resource type="Texture2D" uid="uid://dvxx1y77px4s1" path="res://Sprites/GameOver/Menu button pressed.PNG" id="8_cfec8"]
+[ext_resource type="Texture2D" uid="uid://k3knt54dtm62" path="res://Sprites/GameOver/Menu button hover.PNG" id="9_3ssd8"]
+[ext_resource type="BitMap" uid="uid://du6jq44qjq2fi" path="res://Sprites/GameOver/Menu button BitMap.PNG" id="10_co3da"]
 
 [node name="GameOver" type="Node2D" unique_id=1936649288]
+process_mode = 2
 script = ExtResource("1_pngwi")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=619112885]
@@ -20,41 +30,32 @@ offset_top = 49.0
 offset_right = 576.0
 offset_bottom = 89.0
 
-[node name="GameOver Label" type="Label" parent="Control" unique_id=1166440842]
+[node name="GameOverBackground" type="Sprite2D" parent="Control" unique_id=502490627]
+position = Vector2(427.33325, 659.5)
+scale = Vector2(0.86630696, 0.866307)
+texture = ExtResource("2_y2ufh")
+
+[node name="TryAgain Button" type="TextureButton" parent="Control" unique_id=346045258]
 layout_mode = 0
 offset_left = -490.0
-offset_top = 70.0
-offset_right = 1313.0
-offset_bottom = 891.0
-theme_override_font_sizes/font_size = 300
-text = "GAME OVER!"
+offset_top = 656.0
+offset_right = 454.0
+offset_bottom = 995.0
+texture_normal = ExtResource("3_frnvm")
+texture_pressed = ExtResource("4_q7rb2")
+texture_hover = ExtResource("5_14150")
+texture_click_mask = ExtResource("6_t4gw1")
 
-[node name="Label" type="Label" parent="Control" unique_id=217679863]
+[node name="Quit Button" type="TextureButton" parent="Control" unique_id=193340279]
 layout_mode = 0
-offset_left = -18.0
-offset_top = 444.0
-offset_right = 791.0
-offset_bottom = 513.0
-theme_override_font_sizes/font_size = 50
-text = "You failed to stop food insecurity!"
-
-[node name="TryAgain Button" type="Button" parent="Control" unique_id=1620382090]
-layout_mode = 0
-offset_left = -281.0
-offset_top = 555.0
-offset_right = 505.0
-offset_bottom = 768.0
-theme_override_font_sizes/font_size = 150
-text = "TRY AGAIN"
-
-[node name="Quit Button" type="Button" parent="Control" unique_id=1123866482]
-layout_mode = 0
-offset_left = 585.0
-offset_top = 556.0
-offset_right = 1044.0
-offset_bottom = 769.0
-theme_override_font_sizes/font_size = 150
-text = "MENU"
+offset_left = 390.0
+offset_top = 670.0
+offset_right = 1334.0
+offset_bottom = 1009.0
+texture_normal = ExtResource("7_s3y1a")
+texture_pressed = ExtResource("8_cfec8")
+texture_hover = ExtResource("9_3ssd8")
+texture_click_mask = ExtResource("10_co3da")
 
 [connection signal="pressed" from="Control/TryAgain Button" to="." method="_on_try_again_button_pressed"]
 [connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]

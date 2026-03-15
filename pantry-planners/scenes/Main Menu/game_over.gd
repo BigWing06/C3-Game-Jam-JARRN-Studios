@@ -19,8 +19,9 @@ func _on_try_again_button_pressed() -> void:
 
 
 func _on_quit_button_pressed() -> void:
+	var tree := get_tree()
+	get_tree().paused = false
 	await ScreenTransition.fade_out()
-	queue_free()
-	get_tree().change_scene_to_file("res://scenes/Main Menu/MainMenu.tscn")
+	tree.change_scene_to_file("res://scenes/Main Menu/MainMenu.tscn")
 	await ScreenTransition.fade_in()
 	Audio.play_button_sound()

@@ -41,21 +41,11 @@ text = "Thanks for all your help, move on?"
 
 [node name="Next Button" type="Button" parent="Control" unique_id=533860026]
 layout_mode = 0
-offset_left = -281.0
-offset_top = 555.0
-offset_right = 340.0
-offset_bottom = 768.0
+offset_left = 103.0
+offset_top = 570.0
+offset_right = 724.0
+offset_bottom = 783.0
 theme_override_font_sizes/font_size = 150
 text = "NEXT"
 
-[node name="Quit Button" type="Button" parent="Control" unique_id=85749749]
-layout_mode = 0
-offset_left = 475.0
-offset_top = 556.0
-offset_right = 1044.0
-offset_bottom = 769.0
-theme_override_font_sizes/font_size = 150
-text = "MENU"
-
 [connection signal="pressed" from="Control/Next Button" to="." method="_on_next_button_pressed"]
-[connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]

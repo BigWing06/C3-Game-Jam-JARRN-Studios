@@ -11,14 +11,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_quit_button_pressed() -> void:
-	await ScreenTransition.fade_out()
-	queue_free()
-	get_tree().change_scene_to_file("res://scenes/Main Menu/MainMenu.tscn")
-	await ScreenTransition.fade_in()
-	Audio.play_button_sound()
-
-
 func _on_next_button_pressed() -> void:
 	# TODO: Reset to start of next level
 	await ScreenTransition.fade_out()

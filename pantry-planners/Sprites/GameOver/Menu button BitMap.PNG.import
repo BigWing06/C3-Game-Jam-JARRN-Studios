@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://du6jq44qjq2fi"
+path="res://.godot/imported/Menu button BitMap.PNG-3fa6cf821155b03542bf0c9e8151aa98.res"
+
+[deps]
+
+source_file="res://Sprites/GameOver/Menu button BitMap.PNG"
+dest_files=["res://.godot/imported/Menu button BitMap.PNG-3fa6cf821155b03542bf0c9e8151aa98.res"]
+
+[params]
+
+create_from=1
+threshold=0.05
