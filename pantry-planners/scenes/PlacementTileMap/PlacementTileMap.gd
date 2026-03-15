@@ -196,13 +196,6 @@ func _draw() -> void:
 		_draw_highlights()
 
 
-func _draw_highlights() -> void:
-	var cs := _cell_size
-	for tile: Vector2i in _highlighted_tiles:
-		var rect := Rect2(map_to_local(tile) - cs * 0.5, cs)
-		draw_rect(rect, _highlighted_tiles[tile], true)
-
-
 # Destroys any existing hover preview and creates a fresh one for the selected item.
 # Called when placement mode toggles or the selected item changes.
 func _refresh_hover_preview() -> void:
@@ -240,21 +233,6 @@ func _on_hovered_tile_changed() -> void:
 		house.set_highlight("none")
 	queue_redraw()
 
-
-# MOSTLY UNUSED. only used when the selected item has no entry in scene_dict.
-func _draw_hover() -> void:
-	if not _is_valid_tile(_hovered_tile):
-		return
-	if scene_dict.has(_selected_item):
-		return  # real preview is handled by _refresh_hover_preview, nothing to draw here
-
-	var cs       := _cell_size
-	var occupied := _grid_data.has(_hovered_tile)
-	var fill     := Color(0.85, 0.2, 0.2, 0.35) if occupied \
-		else Color(0.2, 0.85, 0.2, 0.35)
-	var rect     := Rect2(map_to_local(_hovered_tile) - cs * 0.5, cs)
-	draw_rect(rect, fill, true)
-	draw_rect(rect, Color.WHITE, false, 2.0)
 
 func _draw_highlights() -> void:
 	var cs := _cell_size
