@@ -1,4 +1,4 @@
-extends Node2D
+extends Sprite2D
 
 @export var MAX_FOOD_DELIVERY: int
 @export var priority_food_amount: int
@@ -15,6 +15,7 @@ const WAREHOUSE_TEXTURE := preload("res://Sprites/Pantries/Warehouse.png")
 
 
 func _ready():
+	texture = WAREHOUSE_TEXTURE
 	get_parent().get_parent().get_node("WarehouseDisplay").setup(self)
 	for type in FOOD_TYPES:
 		get_parent().get_parent().get_node("WarehouseDisplay/display_container/" + type + "_display").update_text(inventory[type])

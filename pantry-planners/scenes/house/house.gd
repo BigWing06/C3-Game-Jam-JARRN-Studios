@@ -147,7 +147,7 @@ func _take_food() -> void:
 	if house_type == "donator":
 		if donates.size() > 0:
 			for food_type in donates:
-				pantry.add_food(food_type)
+				pantry.add_food(food_type, 1)
 			got_food = true
 	else:
 		for food_type in needs:
