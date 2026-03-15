@@ -46,10 +46,7 @@ func set_active(new_state: bool) -> void:
 	active = new_state
 	active_changed.emit()
 	if active:
-		$add_food_timer.start()
 		$spoilage_timer.wait_time = spoliage_timer
-	else:
-		$add_food_timer.stop()
 
 func check_food(type) -> bool:
 	if type in food_amounts.keys():
