@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 # BUTTONS FOR MENU
 func _on_start_game_pressed() -> void:
 	# TODO: Change to official game later
-	get_tree().change_scene_to_file("res://scenes/PlacementTileMap/PlacementTileMap.tscn")
+	get_tree().change_scene_to_file("res://scenes/RootGameScene/RootGameScene.tscn")
 	Audio.play_button_sound()
 
 func _on_settings_pressed() -> void:

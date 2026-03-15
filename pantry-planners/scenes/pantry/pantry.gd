@@ -63,10 +63,6 @@ func check_food(type) -> bool:
 func set_food(type: String, amount: int):
 	food_amounts[type] = amount
 	food_changed.emit()
-
-# This function adds one food of a specific type to the pantry
-func add_food():
-	set_food("Bread", get_food_amount("Bread") + 1)
 	
 # This function is called by houses in radius when
 # they want to take food from the pantry
@@ -135,8 +131,6 @@ func find_reachable(tilemap: TileMapLayer, self_pos: Vector2i) -> void:
 		if position_key in grid_data.keys():
 			if grid_data[position_key]["type"] == "house":
 				reachable_houses[position_key] = reachable_tiles[position_key]
-	for house in reachable_houses:
-		grid_data[house]["scene"].add_pantry(self)
 
 # Returns the travel cost of stepping onto `pos` by reading the custom
 # data layer named "travel_cost". Currently not used yet but might be in the future.

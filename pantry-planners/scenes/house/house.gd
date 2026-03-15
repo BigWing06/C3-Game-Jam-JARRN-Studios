@@ -28,34 +28,6 @@ var food_needed: Dictionary = {}
 
 @export var house_effect_timer_len: int = 3
 
-func reset_house():
-	pantries = []
-	print("clear")
-
-func add_pantry(pantry):
-	print("pantry added")
-	print(pantry)
-	pantries.append(pantry)
-
-func take_food():
-	var greatest_need = -1
-	var greatest_need_type = ""
-	for type in food_needed.keys():
-		if food_needed[type] > greatest_need:
-			greatest_need = food_needed[type]
-			greatest_need_type = type
-	if greatest_need == -1:
-		print("No Food of greatest need")
-		return
-	calculate_closest_pantry(greatest_need_type)
-	
-	if (closest_pantry != null):
-		closest_pantry.take_food(greatest_need_type)
-		set_food_need(greatest_need_type, get_need(greatest_need_type) - 1)
-		print("tesafiuwroiwajiewaipt")
-	else:
-		print("No FOod avaliable")
-
 # This function is called by the food pantries on all houses
 # in its radius to see if they need to take food
 func get_need(type: String):
@@ -64,8 +36,8 @@ func get_need(type: String):
 	return 0
 
 var house_type:  String        = "inactive"
-var needs:       Array[String] = []  # food types this house requests
-var donates:     Array[String] = []  # donor only: food types deposited at pantry
+var needs:       Array         = []  # food types this house requests
+var donates:     Array         = []  # donor only: food types deposited at pantry
 var food_stock:  Dictionary    = {}  # food_type -> amount currently on hand
 var health:      int           = MAX_HEALTH
 var delay:       float         = 5.0
@@ -106,23 +78,46 @@ func setup(config: Dictionary, tilemap: TileMapLayer, grid_pos: Vector2i) -> voi
 func update_target_pantry() -> void:
 	if house_type == "inactive" or _tilemap == null:
 		return
-	var result: Array = _tilemap.get_nearest_pantry(_grid_pos)
-	_target_pantry    = result[0] if result.size() > 0 else null
+	var _target_pantry = _tilemap.get_nearest_pantry(_grid_pos)
 
 
 func _start_demand_cycle() -> void:
 	# Stagger houses so they don't all fire at the same instant.
 	var offset_timer := get_tree().create_timer(randf_range(0.0, delay))
+	print("creatd timer")
 	offset_timer.timeout.connect(func():
-		_dispatch_person()  # first request after the random offset
 		var recurring := Timer.new()
 		recurring.wait_time = delay
 		recurring.one_shot  = false
-		recurring.timeout.connect(_dispatch_person)
+		recurring.timeout.connect(_take_food)
+		#recurring.timeout.connect(_dispatch_person)
 		add_child(recurring)
 		recurring.start()
+		print("test")
 	)
 
+func _take_food() -> void:
+	var got_food := false
+	var result = _tilemap.get_nearest_pantry(_grid_pos)
+	if result == null:
+		print("taking damage")
+		_take_damage()  # no pantry reachable; house goes without food
+		return
+	var pantry:   Node  = result
+	print("pantry taking food" + str(self) + str(result))
+	if house_type == "donator":
+		# Donor deposits food; always returns satisfied.
+		for food_type in donates:
+			pantry.add_food(food_type)
+		got_food = true
+	else:
+		# Take the first available food type that matches this house's needs.
+		for food_type in needs:
+			if pantry.get_food_amount(food_type) > 0:
+				pantry.take_food(food_type)
+				food_stock[food_type] = food_stock.get(food_type, 0) + 1
+				got_food = true
+				break
 
 func _dispatch_person() -> void:
 	if _person_en_route:
@@ -188,18 +183,6 @@ func set_highlight(mode: String) -> void:
 # Required by PlacementTileMap when converting a hover preview into a placed entity.
 func set_placement_mode(_mode: String) -> void:
 	pass
+	
 func _on_food_needed_changed() -> void:
 	$food_amount_label.text = str(get_need("Bread"))
-	
-func set_placement_mode(mode):
-	return
-	
-func calculate_closest_pantry(type):
-	closest_pantry = null
-	closest_pantry_dist = 100000000000
-	print(pantries)
-	for pantry in pantries:
-		#print("fsajofisjd    " + str(closest_pantry_dist > position.distance_to(pantry.position)))
-		if (closest_pantry_dist > position.distance_to(pantry.position) and pantry.check_food(type)):
-			closest_pantry = pantry
-			closest_pantry_dist = position.distance_to(pantry.position)

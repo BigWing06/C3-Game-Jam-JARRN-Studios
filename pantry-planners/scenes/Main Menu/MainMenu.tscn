@@ -63,7 +63,7 @@ scale = Vector2(0.8, 0.8)
 [node name="Start Game" type="TextureButton" parent="VBoxContainer" unique_id=135941429]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.0016563602
+anchor_left = -0.0016563605
 anchor_top = 0.02279411
 anchor_right = -0.0016563605
 anchor_bottom = 0.022794118

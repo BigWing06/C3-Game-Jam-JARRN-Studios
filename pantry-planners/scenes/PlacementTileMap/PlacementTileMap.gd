@@ -335,10 +335,10 @@ func _place_entity(tile: Vector2i, entity_type: String, player_can_edit: bool) -
 		if scene_node.has_method("find_reachable"):
 			scene_node.find_reachable(self, tile)
 	scene_node.set_placement_mode("placed")
+	if entity_type == "house":
+		scene_node.setup({"type":"normal"}, self, tile)
 	_grid_data[tile] = { "type": entity_type, "player_can_edit": player_can_edit, "scene": scene_node }
 	for position_key in _grid_data.keys():
-		if _grid_data[position_key]["scene"] in get_tree().get_nodes_in_group("house"):
-			_grid_data[position_key]["scene"].reset_house()
 		if _grid_data[position_key]["scene"] in get_tree().get_nodes_in_group("pantry"):
 			_grid_data[position_key]["scene"].find_reachable(self, position_key)
 	
@@ -388,6 +388,18 @@ func get_hovered_tile() -> Vector2i:
 func _is_valid_tile(tile: Vector2i) -> bool:
 	return tile.x >= 0 and tile.x < GRID_WIDTH \
 		and tile.y >= 0 and tile.y < GRID_HEIGHT
+
+func get_nearest_pantry(pos):
+	var pantries = get_tree().get_nodes_in_group("pantry")
+	var nearest
+	var nearest_dist = 100000000000000
+	for pantry in pantries:
+		if (nearest_dist > pos.distance_to(pantry.position)):
+			nearest = pantry
+			nearest_dist = pos.distance_to(pantry.position)
+	return nearest
+		
+	
 
 # ---------------------------------------------------------------------------
 # UI

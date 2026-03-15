@@ -13,7 +13,7 @@ func _ready() -> void:
 	else:
 		print("JSON Parse Error: ", json.get_error_message(), " in ", content, " at line ", json.get_error_line())
 	$level_timer.wait_time = levels[level_index]["time"]
-	$level_timer.start()
+	#$level_timer.start()
 	
 func next_level():
 	var level_data = levels[level_index]
