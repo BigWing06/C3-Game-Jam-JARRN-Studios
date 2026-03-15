@@ -36,7 +36,7 @@ var reachable_tiles: Dictionary = {}
 var reachable_houses: Dictionary = {}
 
 func _ready():
-	$food_amount_label.hide()
+	$Control/food_amount_label.hide()
 	set_active(start_active)
 	set_placement_mode(start_placement_mode)
 	for food_type in ["bread", "veg", "meat"]:
@@ -188,7 +188,7 @@ func _on_food_changed() -> void:
 	var text := ""
 	for food_type in ["bread", "veg", "meat"]:
 		text += "%s:%d " % [food_type[0].to_upper(), get_food_amount(food_type)]
-	$food_amount_label.text = text.strip_edges()
+	$Control/food_amount_label.text = text.strip_edges()
 	if get_spoilage():
 		if $spoilage_timer.is_stopped():
 			$spoilage_timer.start()
