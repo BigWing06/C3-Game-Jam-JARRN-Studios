@@ -127,7 +127,10 @@
 		"level":{
 			"narrative":[
 				{
-					"text":""
+					"text":"You’re doing an amazing job out there! So great in fact, we got some donations to help our efforts and can afford to build some smaller pantries. We think these will be a great way to help those families who don't have as urgent of needs, but are still struggling after the pandemic."
+				},
+				{
+					"text":"These Low Need households are colored in Blue, while Expected Need are in Green! Though we have more of these smaller pantries than our standard size, they do serve a smaller area, so be careful with placement."
 				}
 			]
 		}
@@ -151,7 +154,19 @@
 		"level":{
 			"narrative":[
 				{
-					"text":""
+					"text":"Excellent! Great job implementing the 3 A’s!"
+				},
+				{
+					"text":"You’ve been doing so well, in fact, that some of our community has been inspired to help that Donators have appeared! These are local households that have noticed your efforts and have decided to help supply food to their local pantries."
+				},
+				{
+					"text":"Here’s a piece of advice: if you place the donor homes near pantries, the food reserves will be replenished a bit faster."
+				},
+				{
+					"text":"This is especially helpful because of our final type of residents, those in Critical Need, denoted by their Red color. These families have really struggled after Covid-19 and need urgent attention."
+				},
+				{
+					"text":"But I know you can do it, so hop to it, I wish you luck!"
 				}
 			]
 		}
@@ -175,33 +190,12 @@
 		"level":{
 			"narrative":[
 				{
-					"text":""
-				}
-			]
-		}
-	},
-
-	{
-		"time":50,
-		"houses":[
-			{
-				"type":"",
-				"location":[0,0]
-			}
-		],
-		"pantries":{
-			"pantry":0
-		}
-	},
-
-	{
-		"time":55,
-		"level":{
-			"narrative":[
+					"text":"Thank you so much for all of your amazing help! I hope you know how valuable your contributions are to your local community!"
+				},
 				{
-					"text":""
+					"text":"Without volunteers, none of this would be possible! We’ve gotten countless reports of how amazing the pantries have been, and though there have been challenges, we’ve shown how beneficial these systems can be! So get out there and keep doing what you're doing!"
 				}
 			]
 		}
-	}
+	},
 ]
