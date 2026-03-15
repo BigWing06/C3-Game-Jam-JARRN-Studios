@@ -71,7 +71,7 @@ func finish_load(level_data):
 		$level_timer.wait_time = levels[level_index]["time"]
 		$level_timer.start()
 	else:
-		print("Free Play")
+		get_tree().change_scene_to_file("res://scenes/Main Menu/CreditsUI.tscn")
 		
 func _place_house_deferred(tile: Vector2i, config: Dictionary) -> void:
 	$PlacementTileMap.place_house_at(tile, config)

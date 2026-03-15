@@ -44,7 +44,7 @@ texture_hover = ExtResource("9_3ssd8")
 texture_click_mask = ExtResource("10_co3da")
 
 [node name="HipsSeriousClosed" type="Sprite2D" parent="." unique_id=594400906]
-position = Vector2(1391.0001, 955)
+position = Vector2(1341.0001, 949.00006)
 scale = Vector2(0.5286292, 0.5286292)
 texture = ExtResource("7_ho235")
 

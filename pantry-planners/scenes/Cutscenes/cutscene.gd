@@ -30,6 +30,7 @@ func start_cutscene(level) -> void:
 	narrative = level["narrative"]
 	dialogue_idx = 0
 	Audio.stop_music()
+	Audio.play_narrator_music()
 	display_dialogue()
 
 func display_dialogue() -> void:
@@ -48,6 +49,7 @@ func progress_dialogue() -> void:
 	dialogue_idx += 1
 	print("Dialogue ", dialogue_idx)
 	if dialogue_idx >= narrative.size():
+		Audio.stop_music()
 		Audio.play_main_music()
 		queue_free()
 		finish_level_load.emit()

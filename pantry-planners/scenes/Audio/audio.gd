@@ -4,6 +4,7 @@ extends Node2D
 @onready var sfx_player = $SFXPlayer
 
 var main_music = preload("res://MusicSFX/Game Jam Audio.mp3")
+var narrator_music = preload("res://MusicSFX/Narrator Theme Song.mp3")
 var button_sound = preload("res://MusicSFX/Button Press- Option 1.mp3")
 var talk_sounds = [
 	preload("res://MusicSFX/Character Dialogue.mp3"),
@@ -46,6 +47,9 @@ func _on_music_player_finished() -> void:
 # For Music
 func play_main_music() -> void:
 	play_music(main_music)
+	
+func play_narrator_music() -> void:
+	play_music(narrator_music)
 
 # For SFX
 func play_button_sound():
