@@ -68,6 +68,11 @@ var _highlighted_tiles: Dictionary[Vector2i, Color] = {}
 var _setting_displayed: bool     = false
 var _grid_layer: TileMapLayer
 
+# Pantry inspection (click when not in placement mode)
+var _inspected_pantry_tile: Vector2i = Vector2i(-1, -1)
+var _pantry_info_panel:     PanelContainer = null
+var _pantry_info_label:     Label          = null
+
 # ---------------------------------------------------------------------------
 # Node references
 # ---------------------------------------------------------------------------
@@ -85,6 +90,7 @@ func _ready() -> void:
 	}
 	_setup_grid_layer()
 	_place_initial_entities()
+	_create_pantry_info_panel()
 	_update_ui()
 	queue_redraw()
 
@@ -160,9 +166,20 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if not _placement_mode:
-		return
 	if _setting_displayed:
+		return
+
+	# Show pantry info on hover, update live while hovering, hide on mouse leave
+	var cur := local_to_map(to_local(get_global_mouse_position()))
+	if not _placement_mode:
+		if _grid_data.has(cur) and _grid_data[cur]["type"] in ["pantry", "small_pantry"] \
+				and is_instance_valid(_grid_data[cur]["scene"]):
+			_show_pantry_info(cur)
+			_update_pantry_info_label(_grid_data[cur]["scene"])
+		else:
+			_hide_pantry_info()
+
+	if not _placement_mode:
 		return
 	var new_tile := local_to_map(to_local(get_global_mouse_position()))
 	if new_tile != _hovered_tile:
@@ -274,6 +291,7 @@ func _draw_highlights() -> void:
 # ---------------------------------------------------------------------------
 func _toggle_placement_mode() -> void:
 	_placement_mode = not _placement_mode
+	_hide_pantry_info()
 	if not _placement_mode:
 		_hovered_tile = Vector2i(-1, -1)
 		hovered_tile_changed.disconnect(_on_hovered_tile_changed)
@@ -403,6 +421,37 @@ func get_nearest_pantry(grid_pos: Vector2i) -> Node:
 	return nearest
 		
 	
+
+# ---------------------------------------------------------------------------
+# Pantry info panel — shown when clicking a pantry outside placement mode
+# ---------------------------------------------------------------------------
+func _create_pantry_info_panel() -> void:
+	_pantry_info_panel = PanelContainer.new()
+	_pantry_info_label = Label.new()
+	_pantry_info_label.add_theme_font_size_override("font_size", 16)
+	_pantry_info_panel.add_child(_pantry_info_label)
+	_pantry_info_panel.position = Vector2(1050.0, 10.0)  # top-right corner
+	_pantry_info_panel.hide()
+	$UI.add_child(_pantry_info_panel)
+
+
+func _show_pantry_info(tile: Vector2i) -> void:
+	_inspected_pantry_tile = tile
+	_update_pantry_info_label(_grid_data[tile]["scene"])
+	_pantry_info_panel.show()
+
+
+func _hide_pantry_info() -> void:
+	_inspected_pantry_tile = Vector2i(-1, -1)
+	_pantry_info_panel.hide()
+
+
+func _update_pantry_info_label(pantry: Node) -> void:
+	var lines := "Pantry Stock\n─────────────\n"
+	for food in ["bread", "veg", "meat"]:
+		lines += "  %s: %d\n" % [food.capitalize(), pantry.get_food_amount(food)]
+	_pantry_info_label.text = lines
+
 
 # ---------------------------------------------------------------------------
 # UI

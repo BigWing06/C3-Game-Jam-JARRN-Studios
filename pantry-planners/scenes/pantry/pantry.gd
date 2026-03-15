@@ -27,7 +27,7 @@ var reachable_tiles: Dictionary = {}
 var reachable_houses: Dictionary = {}
 
 func _ready():
-	
+	$food_amount_label.hide()
 	set_active(start_active)
 	set_placement_mode(start_placement_mode)
 	for food_type in ["bread", "veg", "meat"]:
