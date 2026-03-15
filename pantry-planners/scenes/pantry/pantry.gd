@@ -67,6 +67,7 @@ func check_food(type) -> bool:
 
 func set_food(type: String, amount: int):
 	food_amounts[type] = amount
+	food_amounts[type] = min(amount, max_supply)
 	food_changed.emit()
 	
 # This function is called by houses in radius when
