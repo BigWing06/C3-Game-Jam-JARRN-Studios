@@ -56,7 +56,7 @@
 		}
 	},
 	{
-		"time":5,
+		"time":1,
 		"level":{
 			"narrative":[
 				{
@@ -182,7 +182,7 @@
 		}
 	},
 {
-		"time":30,
+		"time":1,
 		"level":{
 			"narrative":[
 				{
@@ -243,7 +243,7 @@
 		}
 	},
 	{
-		"time":30,
+		"time":1,
 		"level":{
 			"narrative":[
 				{
@@ -351,7 +351,7 @@
 	},
 
 	{
-		"time":30,
+		"time":1,
 		"level":{
 			"narrative":[
 				{
@@ -378,11 +378,15 @@
 			},
 			{
 				"type":"high_need",
-				"location":[7, 5]
+				"location":[7, 6]
 			},
 			{
 				"type":"high_need",
-				"location":[6, 6]
+				"location":[8, 7]
+			},
+			{
+				"type":"low_need",
+				"location":[9, 6]
 			},
 			{
 				"type":"high_need",
@@ -390,11 +394,7 @@
 			},
 			{
 				"type":"high_need",
-				"location":[7, 10]
-			},
-			{
-				"type":"high_need",
-				"location":[6, 11]
+				"location":[7, 8]
 			},
 			{
 				"type":"high_need",
@@ -402,15 +402,11 @@
 			},
 			{
 				"type":"high_need",
-				"location":[24, 5]
+				"location":[22, 6]
 			},
 			{
 				"type":"high_need",
-				"location":[23, 6]
-			},
-			{
-				"type":"high_need",
-				"location":[22, 10]
+				"location":[21, 7]
 			},
 			{
 				"type":"high_need",
@@ -418,62 +414,38 @@
 			},
 			{
 				"type":"high_need",
-				"location":[22, 11]
-			},
-			{
-				"type":"donator",
-				"location":[13, 9]
-			},
-			{
-				"type":"donator",
-				"location":[15, 9]
-			}
-		],
-		"pantries":{
-			"pantry":2,
-			"donor":1
-		}
-	},
-
-	{
-		"time":30,
-		"houses":[
-			{
-				"type":"normal",
-				"location":[8, 6]
-			},
-			{
-				"type":"normal",
-				"needs":["veg"],
-				"location":[20, 6]
-			},
-			{
-				"type":"high_need",
-				"needs":["meat"],
-				"location":[8, 10]
+				"location":[22, 8]
 			},
 			{
 				"type":"low_need",
-				"location":[20, 10]
+				"location":[20, 11]
 			},
 			{
-				"type":"normal",
-				"inactive":true,
-				"location":[6, 5]
+				"type":"donator",
+				"location":[11, 7]
 			},
 			{
-				"type":"normal",
-				"inactive":true,
-				"location":[22, 9]
+				"type":"donator",
+				"location":[20, 7]
+			},
+			{
+				"type":"donator",
+				"location":[22, 10]
+			},
+			{
+				"type":"donator",
+				"location":[6, 15]
+			},
+			{
+				"type":"donator",
+				"location":[17, 7]
 			}
 		],
 		"pantries":{
 			"pantry":2,
-			"small_pantry":1,
-			"donor":1
+			"small_pantry":3
 		}
 	},
-
 	{
 		"time":22,
 		"level":{

@@ -3,12 +3,12 @@ extends Node2D
 const DEFAULT_DELAYS := {
 	"low_need":  10.0,
 	"normal":     7.0,
-	"high_need":  2.5,
+	"high_need":  5,
 	"donator":    4.0,
 }
 
 const FOOD_TYPES  = ["bread", "veg", "meat"]
-const MAX_HEALTH := 5
+const MAX_HEALTH := 6
 const ANGER_MESSAGES = ["Could Obtain Food"]
 
 const HOUSE_TEXTURES := {
@@ -197,6 +197,8 @@ func _take_food() -> void:
 
 
 func _take_damage() -> void:
+	if house_type == "donator":
+		return
 	health -= 1
 	_health_bar.value      = health
 	_health_bar.modulate.a = 1.0
