@@ -21,8 +21,8 @@ buses/default_bus_layout="uid://sftvmqprvs86"
 
 [autoload]
 
-Audio="*uid://cnuusadau7t40"
-ScreenTransition="*uid://ce5bg2ppplynk"
+Audio="*res://scenes/Audio/Audio.tscn"
+ScreenTransition="*res://scenes/Cutscenes/ScreenTransition.tscn"
 
 [display]
 
