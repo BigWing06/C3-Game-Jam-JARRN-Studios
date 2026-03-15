@@ -157,6 +157,8 @@ func _take_damage() -> void:
 	health -= 1
 	_health_bar.value      = health
 	_health_bar.modulate.a = 1.0
+	_time_until_dispatch   = delay
+	_request_bar.value     = 1.0
 
 	if health <= 0:
 		died.emit()
