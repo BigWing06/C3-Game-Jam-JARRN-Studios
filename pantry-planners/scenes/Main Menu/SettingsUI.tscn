@@ -2,14 +2,71 @@
 
 [ext_resource type="Script" uid="uid://c0npknkt7juo3" path="res://scenes/Main Menu/settings_ui.gd" id="1_78mrw"]
 [ext_resource type="Texture2D" uid="uid://c16hl8on8p1bq" path="res://Sprites/Setting background.png" id="2_uesyh"]
+[ext_resource type="Texture2D" uid="uid://b6jjxosykvmrq" path="res://Sprites/Settings Slider/Master Volume.png" id="3_07r4j"]
 [ext_resource type="Texture2D" uid="uid://bpsvr06hb0yto" path="res://Sprites/Buttons/Back button.png" id="3_373do"]
 [ext_resource type="Texture2D" uid="uid://covak2psnvpuy" path="res://Sprites/Buttons/Quit game button.png" id="4_5hs4o"]
 [ext_resource type="Texture2D" uid="uid://dlpo75k5kjumy" path="res://Sprites/Buttons/Back button pressed.png" id="4_5yc7k"]
+[ext_resource type="Texture2D" uid="uid://bk6mk0bwmgxut" path="res://Sprites/Settings Slider/Box check.PNG" id="4_wik5g"]
 [ext_resource type="Texture2D" uid="uid://cdvw5khfn06am" path="res://Sprites/Buttons/Back button hover .png" id="5_07r4j"]
+[ext_resource type="Texture2D" uid="uid://di50ulye1n4x7" path="res://Sprites/Settings Slider/Box empty.PNG" id="5_ackuc"]
 [ext_resource type="Texture2D" uid="uid://bfpphkiqxitmd" path="res://Sprites/Buttons/Quit game button pressed.png" id="5_wckm2"]
 [ext_resource type="Texture2D" uid="uid://msx5yvk3fi0l" path="res://Sprites/Buttons/Quit game button hover.png" id="6_j7kxf"]
 [ext_resource type="BitMap" uid="uid://cvtm0uq408mvl" path="res://Sprites/Buttons/Back button Bitmap .png" id="6_qcchl"]
 [ext_resource type="BitMap" uid="uid://qaq340fb171t" path="res://Sprites/Buttons/Quit game button Bitmpa.png" id="7_5yc7k"]
+[ext_resource type="Texture2D" uid="uid://dxlbqgra8w41" path="res://Sprites/Settings Slider/Music Volume.png" id="8_dpgod"]
+[ext_resource type="Texture2D" uid="uid://d3wnmmbwyfbv2" path="res://Sprites/Settings Slider/SFX Volume.png" id="9_j8e42"]
+[ext_resource type="Texture2D" uid="uid://dc8xenliug5g5" path="res://Sprites/Settings Slider/Mute.png" id="10_j8e42"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j8e42"]
+bg_color = Color(0.17254902, 0.07450981, 0.07450981, 0.7176471)
+expand_margin_left = 3.0
+expand_margin_top = 10.0
+expand_margin_right = 3.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ackuc"]
+bg_color = Color(0.4745098, 0.6627451, 0.36078432, 1)
+expand_margin_top = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rlyui"]
+bg_color = Color(0.21176471, 0.36862746, 0.14117648, 1)
+expand_margin_top = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_potwx"]
+bg_color = Color(0.17254902, 0.07450981, 0.07450981, 0.7176471)
+expand_margin_left = 3.0
+expand_margin_top = 10.0
+expand_margin_right = 3.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pu6h"]
+bg_color = Color(0.4745098, 0.6627451, 0.36078432, 1)
+expand_margin_top = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umkcp"]
+bg_color = Color(0.21176471, 0.36862746, 0.14117648, 1)
+expand_margin_top = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pb3u1"]
+bg_color = Color(0.17254902, 0.07450981, 0.07450981, 0.7176471)
+expand_margin_left = 3.0
+expand_margin_top = 10.0
+expand_margin_right = 3.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wik5g"]
+bg_color = Color(0.476112, 0.6638183, 0.35994864, 1)
+expand_margin_top = 7.0
+expand_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dpgod"]
+bg_color = Color(0.21031821, 0.37009978, 0.14097416, 1)
+expand_margin_top = 7.0
+expand_margin_bottom = 7.0
 
 [node name="SettingsUi" type="Node2D" unique_id=4768065]
 script = ExtResource("1_78mrw")
@@ -34,20 +91,27 @@ grow_vertical = 2
 texture = ExtResource("2_uesyh")
 
 [node name="Button Manager" type="VBoxContainer" parent="." unique_id=593322189]
-offset_left = 464.0
-offset_top = 235.0
-offset_right = 1473.0
-offset_bottom = 1011.0
+offset_left = 494.0
+offset_top = 274.0
+offset_right = 1432.0206
+offset_bottom = 1010.0
 alignment = 1
+
+[node name="MasterVolume" type="Sprite2D" parent="Button Manager" unique_id=935117593]
+position = Vector2(496, 54)
+scale = Vector2(0.8594949, 0.8594949)
+texture = ExtResource("3_07r4j")
 
 [node name="Master Label" type="Label" parent="Button Manager" unique_id=64458371]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "MASTER VOLUME"
 horizontal_alignment = 1
 
 [node name="Master Slider" type="HSlider" parent="Button Manager" unique_id=1893733302]
 layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_j8e42")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_ackuc")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_rlyui")
 max_value = 1.0
 step = 0.05
 value = 0.5
@@ -58,16 +122,16 @@ ticks_position = 3
 [node name="Master Mute" type="CheckBox" parent="Button Manager" unique_id=63076743]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Mute"
-
-[node name="Music Label" type="Label" parent="Button Manager" unique_id=121188917]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "MUSIC VOLUME"
-horizontal_alignment = 1
+theme_override_icons/checked = ExtResource("4_wik5g")
+theme_override_icons/unchecked = ExtResource("5_ackuc")
+text = "
+"
 
 [node name="Music Slider" type="HSlider" parent="Button Manager" unique_id=1413951940]
 layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_potwx")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_8pu6h")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_umkcp")
 max_value = 1.0
 step = 0.05
 value = 0.5
@@ -78,16 +142,16 @@ ticks_position = 3
 [node name="Music Mute" type="CheckBox" parent="Button Manager" unique_id=1615608315]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Mute"
-
-[node name="SFX Label" type="Label" parent="Button Manager" unique_id=1142678902]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "SFX VOLUME"
-horizontal_alignment = 1
+theme_override_icons/checked = ExtResource("4_wik5g")
+theme_override_icons/unchecked = ExtResource("5_ackuc")
+text = "
+"
 
 [node name="SFX Slider" type="HSlider" parent="Button Manager" unique_id=1829269083]
 layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_pb3u1")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_wik5g")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_dpgod")
 max_value = 1.0
 step = 0.05
 value = 0.5
@@ -98,7 +162,10 @@ ticks_position = 3
 [node name="SFX Mute" type="CheckBox" parent="Button Manager" unique_id=1194205616]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Mute"
+theme_override_icons/checked = ExtResource("4_wik5g")
+theme_override_icons/unchecked = ExtResource("5_ackuc")
+text = "
+"
 
 [node name="Navigate Back" type="TextureButton" parent="Button Manager" unique_id=611461912]
 layout_mode = 2
@@ -107,6 +174,31 @@ texture_pressed = ExtResource("4_5yc7k")
 texture_hover = ExtResource("5_07r4j")
 texture_click_mask = ExtResource("6_qcchl")
 stretch_mode = 3
+
+[node name="MusicVolume" type="Sprite2D" parent="Button Manager" unique_id=1261383770]
+position = Vector2(487.00006, 206)
+scale = Vector2(0.8675214, 0.86752135)
+texture = ExtResource("8_dpgod")
+
+[node name="SfxVolume" type="Sprite2D" parent="Button Manager" unique_id=1864982541]
+position = Vector2(493.47223, 358.75)
+scale = Vector2(0.9444445, 0.9444444)
+texture = ExtResource("9_j8e42")
+
+[node name="Mute2" type="Sprite2D" parent="Button Manager" unique_id=1474353404]
+position = Vector2(186.00003, 337)
+scale = Vector2(0.64529914, 0.64529914)
+texture = ExtResource("10_j8e42")
+
+[node name="Mute3" type="Sprite2D" parent="Button Manager" unique_id=65844348]
+position = Vector2(186.00003, 185)
+scale = Vector2(0.64529914, 0.64529914)
+texture = ExtResource("10_j8e42")
+
+[node name="Mute4" type="Sprite2D" parent="Button Manager" unique_id=21035085]
+position = Vector2(186.00003, 481)
+scale = Vector2(0.64529914, 0.64529914)
+texture = ExtResource("10_j8e42")
 
 [node name="Quit Button" type="TextureButton" parent="." unique_id=1251574555]
 offset_left = 1667.0
