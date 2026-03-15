@@ -3,9 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://c5htshh3msys6" path="res://scenes/house/house_icon.png" id="1_amugp"]
 [ext_resource type="Script" uid="uid://d4lh01bqxux5d" path="res://scenes/house/house.gd" id="2_mm0xd"]
 
-[node name="house" type="Sprite2D" unique_id=493522670 groups=["house"]]
-texture = ExtResource("1_amugp")
+[node name="Node2D" type="Node2D" unique_id=393653795 groups=["house"]]
 script = ExtResource("2_mm0xd")
+
+[node name="house" type="Sprite2D" parent="." unique_id=493522670]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_amugp")
 
 [node name="food_amount_label" type="Label" parent="." unique_id=1783329795]
 offset_left = -44.0

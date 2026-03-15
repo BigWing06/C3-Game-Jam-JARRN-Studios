@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 const DEFAULT_DELAYS := {
 	"low_need":  10.0,
@@ -39,25 +39,25 @@ func _ready() -> void:
 # coordinate space — the same math used in _draw() applies here.
 # bar.theme = Theme.new() strips Godot's default minimum-size enforcement.
 func _setup_bars() -> void:
-	var tex_w   := texture.get_size().x if texture else 256.0
-	var tex_h   := texture.get_size().y if texture else 256.0
-	var bar_h   := tex_w * 0.06
-	var bar_gap := bar_h * 0.4
-	var req_y   := -(tex_h * 0.5)
-	var hp_y    := req_y + bar_h + bar_gap
+	var tex_w   = $house.texture.get_size().x if $house.texture else 256.0
+	var tex_h   = $house.texture.get_size().y if $house.texture else 256.0
+	var bar_h   = tex_w * 0.06
+	var bar_gap = bar_h * 0.4
+	var req_y   = -(tex_h * 0.5)
+	var hp_y    = req_y + bar_h + bar_gap
 
 	_request_bar = _make_bar(tex_w, bar_h, Color(0.95, 0.75, 0.10), Color(0.08, 0.08, 0.08, 0.75))
 	_request_bar.max_value = 1.0
 	_request_bar.value     = 0.0
 	_request_bar.position  = Vector2(-tex_w / 2.0, req_y)
-	add_child(_request_bar)
+	$house.add_child(_request_bar)
 
 	_health_bar = _make_bar(tex_w, bar_h, Color(0.25, 0.90, 0.35), Color(0.08, 0.08, 0.08, 0.75))
 	_health_bar.max_value  = MAX_HEALTH
 	_health_bar.value      = MAX_HEALTH
 	_health_bar.position   = Vector2(-tex_w / 2.0, hp_y)
 	_health_bar.modulate.a = 0.0
-	add_child(_health_bar)
+	$house.add_child(_health_bar)
 
 	_request_bar.hide()
 	_health_bar.hide()
@@ -153,12 +153,12 @@ func _take_food() -> void:
 		_request_bar.value   = 1.0
 		var spoilage_ui = preload("res://scenes/TextDisplay/TextDisplayy.tscn").instantiate()
 		add_child(spoilage_ui)
-		spoilage_ui.setup("Recieved Food", Color("#0000FF"), Vector2(30, -40))
+		spoilage_ui.setup("Recieved Food", Color("#0000FF"), Vector2(50, -60))
 	else:
 		_take_damage()
 		var spoilage_ui = preload("res://scenes/TextDisplay/TextDisplayy.tscn").instantiate()
 		add_child(spoilage_ui)
-		spoilage_ui.setup(ANGER_MESSAGES[randi_range(0, (len(ANGER_MESSAGES) - 1))], Color("#FF0000"), Vector2(30, -40))
+		spoilage_ui.setup(ANGER_MESSAGES[randi_range(0, (len(ANGER_MESSAGES) - 1))], Color("#FF0000"), Vector2(50, -60))
 
 
 func _take_damage() -> void:
